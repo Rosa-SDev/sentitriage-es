@@ -18,3 +18,8 @@ models/*/
 .idea/
 .vscode/
 .DS_Store
+
+# Predicciones con texto de tuits (no se redistribuyen)
+results/*/test_predictions.csv
+# Archivo original de Mendeley (se descarga; ver scripts/prepare_colombia.py)
+data/external/

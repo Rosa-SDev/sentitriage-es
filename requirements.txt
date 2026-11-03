@@ -13,3 +13,7 @@ pydantic>=2.6
 # Pruebas
 pytest>=8.0
 httpx>=0.27
+
+# Conjunto colombiano (lectura del .RData y hojas de etiquetado)
+pyreadr>=0.5
+openpyxl>=3.1
