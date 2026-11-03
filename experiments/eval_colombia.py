@@ -9,7 +9,7 @@ Conjuntos
 - gold: muestra de 90 comentarios etiquetados por los dos autores. Se usa solo si
   existen data/colombia/anotacion_Rosa.xlsx y anotacion_Daniel.xlsx completos; se
   reporta el kappa de Cohen y la etiqueta final es la acordada (los desacuerdos se
-  resuelven en data/colombia/gold_adjudicated.csv si existe, o se excluyen).
+  resuelven por discusión en data/colombia/desacuerdos.xlsx; mientras falten, se excluyen).
 
 Uso:  python experiments/eval_colombia.py [weak|gold|all]
 """
@@ -72,9 +72,12 @@ def load_gold():
     kappa = cohen_kappa_score(a, b)
     agree = (a == b)
     gold = key.assign(rosa=a, daniel=b, agree=agree)
-    adj = DATA / "gold_adjudicated.csv"
+    adj = DATA / "desacuerdos.xlsx"
+    res = None
     if adj.exists():
-        res = pd.read_csv(adj).set_index("id")["label_final"]
+        x = pd.read_excel(adj).set_index("id")["etiqueta_final (acordada)"].astype(str).str.strip().str.lower()
+        res = x[x.isin(LABELS)] if x.isin(LABELS).all() else None
+    if res is not None:
         gold["final"] = gold["rosa"].where(agree, res.reindex(gold.index))
     else:
         gold["final"] = gold["rosa"].where(agree)
@@ -82,7 +85,7 @@ def load_gold():
     stats = {"n": int(len(gold)), "cohen_kappa": float(kappa), "raw_agreement": float(agree.mean()),
              "n_disagreements": int((~agree).sum()),
              "weak_vs_human_agreement": float((gold["weak"] == gold["final"]).mean()),
-             "adjudicated": adj.exists()}
+             "adjudicated": res is not None}
     RES.mkdir(parents=True, exist_ok=True)
     gold.reset_index().to_csv(RES / "gold_annotations.csv", index=False, encoding="utf-8")
     (RES / "annotation_agreement.json").write_text(json.dumps(stats, indent=2), encoding="utf-8")

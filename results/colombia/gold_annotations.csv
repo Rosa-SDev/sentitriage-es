@@ -1,0 +1,92 @@
+id,text,rating,label,rosa,daniel,agree,final,weak
+540,el arroz estaba quemado,60.0,1,negative,negative,True,negative,neutral
+5923,No llegó nada,20.0,0,negative,negative,True,negative,negative
+5594,"TERRIBLE LA PREPARACIÓN DE LA PIZZA, POR MÁS ECONÓMICA QUE SEA NO ES POSIBLE TAN MALA CALIDAD",70.0,1,negative,negative,True,negative,neutral
+4467,"Excelente servicio, comida,  Felicitaciones! 
+Sigan así.",100.0,2,positive,positive,True,positive,positive
+2508,"El pedido llegó dos horas tarde, e incompleto. Century ni siquiera hizo un gesto para enmendar el error. El pedido ha debido salir gratis.",20.0,0,negative,negative,True,negative,negative
+3380,"El pedido llego incompleto, cuando llame son unos groseros y nunca llegó el resto de pedido",40.0,0,negative,negative,True,negative,negative
+575,Me parece que loa tiempo de entrega son demasiado demorados,60.0,1,negative,negative,True,negative,neutral
+6053,super!! y muy rapido!,80.0,2,positive,positive,True,positive,positive
+4992,"El producto esta muy lejos de ser un patacon con todo tipico, además el aspecto de la comida no es agradable.",30.0,0,negative,negative,True,negative,negative
+1406,"Han bajado muchísimo la calidad, teniendo en cuenta que hay muchos sitios buenos de hamburguesas, deberían replantear lo que están haciendo",60.0,1,negative,neutral,False,,neutral
+1118,como sugerencia los rolls podrian hacerlos con menos arroz para que no queden tan grandes y apretarlos un poco mas para que no se desarmen,90.0,2,neutral,neutral,True,neutral,positive
+2439,Muy demorado el tiempo de respuesta más de una hora tratando de recibir una respuesta del restaurante.,60.0,1,negative,negative,True,negative,neutral
+1651,comida excelente a buen precio,70.0,1,positive,positive,True,positive,neutral
+806,"Tomaron en cuenta mis comentarios, la comida fresca, deliciosa, y dentro del tiempo que dieron para entrega. Sigan así! =)",100.0,2,positive,positive,True,positive,positive
+5040,nunca me ayudaron con la información del pedido.,40.0,0,negative,negative,True,negative,negative
+6388,"El pedido se demoró más de 1 hora y media en llegar, adicionalmente llegó frio",20.0,0,negative,negative,True,negative,negative
+3371,"Fatal. de lo peor.  demorado,  helado y tostadisimo. Me siento estafada",20.0,0,negative,negative,True,negative,negative
+906,Nunca llego el pedido,20.0,0,negative,negative,True,negative,negative
+1037,la comida muy buena. El tiempo de espera muy largo,70.0,1,neutral,neutral,True,neutral,neutral
+794,Rico y rápido,80.0,2,positive,positive,True,positive,positive
+4862,"excelente la comida, deliciosa.",100.0,2,positive,positive,True,positive,positive
+4157,Los amo!!! Llegó perfecto y a tiempo. Las cervezas heladas,100.0,2,positive,positive,True,positive,positive
+625,La comida me pareció deliciosa y la porción generosa para el precio. Tomé una buena promoción. Lo único no tan bueno es que el tiempo de espera superó por un poco la hora.,100.0,2,neutral,positive,False,,positive
+2435,demorado y me iban a cobrar 2.000 pesos demas por el domicilio cuando la pagina dice que no tiene cobro,60.0,1,negative,negative,True,negative,neutral
+4894,"Tenía buen sabor, sin embargo, las carnes estaban llenas de gordos y la salchicha es de la peor calidad, deben usar un buen producto.",60.0,1,neutral,neutral,True,neutral,neutral
+900,Mi pedido nunca llegó y solo 1 hora y 40 minutos después de haber hecho el pedido me dijeron que iban a volver a programar el pedido.,20.0,0,negative,negative,True,negative,negative
+3368,Muy rápido y delicioso todo,80.0,2,positive,positive,True,positive,positive
+5288,Súper recomendada ????????,100.0,2,positive,negative,False,,positive
+1044,"El personal de soporte es tan demorado para responder como el domicilio mismo, el arroz con langostinos para 3 personas solo trae en total 5 langostinos, y aunque el arroz es de buen sabor, no trae nada de proteína.",50.0,1,negative,negative,True,negative,neutral
+260,muy rico y muy rápido,100.0,2,positive,positive,True,positive,positive
+4878,Nunca contestaron qué pasaba con mi pedido.,30.0,0,negative,negative,True,negative,negative
+1352,"pido mucho a este sitio y siempre quedo satisfecho, en una sola ocasión mandaron el pedido fallo y lo resolvieron super rapido",100.0,2,positive,positive,True,positive,positive
+2077,Irresponsables. No saben ni de que ciudad piden el domicilio. Su plataforma es muy poco amigable con el usiario. Rappi y Uber Eats no son tan malos.,20.0,0,negative,negative,True,negative,negative
+2403,"Llego muy poco contenido y era tamaño mediano, pero parecia mas que poco, solo adicionaron una salsa, dejando  un comentario de que por favor agregaran varios",70.0,1,negative,negative,True,negative,neutral
+5478,"el pedido se demoro más de 2 horas y el mensajero reclamo por la propina, no quería darme las vueltas indicando que el domicilio tenia costo adicional",60.0,1,negative,negative,True,negative,neutral
+4651,"El peor restaurante al que he pedido, es pésimo la carne llego totalmente llena de gordo, la ensalada vieja, la arepa vieja, salada y fea. Nunca volveré a pedir en este restaurante",20.0,0,negative,negative,True,negative,negative
+346,"El servicio demorado, la comida deliciosa",70.0,1,neutral,neutral,True,neutral,neutral
+1777,"Además de frío, una porción de papas estaba salada",50.0,1,negative,negative,True,negative,neutral
+2413,"trate de informar la demora de mi pedido, por este medio y la.persona encargada se demoro mucho tiempo en contestar",20.0,0,negative,negative,True,negative,negative
+4968,"La picada estaba deliciosa y el tiempo de entrega fue el establecido, pero pedí Coca-Cola y me trajeron Pepsi.",90.0,2,neutral,positive,False,,positive
+3766,No nos trajeron nada,20.0,0,negative,negative,True,negative,negative
+1887,parece que la persona de soporte no fue capaz de mandar el dato al restaurante que sin salsas,30.0,0,negative,negative,True,negative,negative
+6188,"super, a tiempo y rico.",80.0,2,positive,positive,True,positive,positive
+1016,Pedi ojo de tigre crocante y llego sin salmon . Que decepcion ! No pedire mas ????,40.0,0,negative,negative,True,negative,negative
+2238,"Solicité un chuzo desgranado de carne y enviaron fue un pincho frito como si se tratara de una empanada, además la carne estaba tiesa y dura. Francamente mal, pese a que el tiempo de entrega fue razonable.",50.0,1,negative,negative,True,negative,neutral
+3164,"Nunca llegaron, llamaron del restaurante para decir que la dirección era muy difícil.",20.0,0,negative,negative,True,negative,negative
+3640,terrible servicio se demoro más de 2 horas,40.0,0,negative,negative,True,negative,negative
+2090,No se comprometan con un tiempo de entrega si no lo van a cumplir,20.0,0,negative,negative,True,negative,negative
+5848,No a llegado el pedido,20.0,0,negative,negative,True,negative,negative
+4833,Pedí dos cremas de pollo con champiñones y desgraciadamente estaban repletas de grumos desagradables que me quitaron completamente el apetito. No les recomiendo esa crema.,60.0,1,negative,negative,True,negative,neutral
+5952,"Las gaseosas no fueron las que pedimos, olvido traer las vueltas del pago, no trajeron servilletas, muy regular....",40.0,0,negative,negative,True,negative,negative
+1865,Todo en orden,100.0,2,positive,positive,True,positive,positive
+1727,terrible dos horas para traer un domicilio que obviamente llegó frío y antes piden propina ja ja ja ????,20.0,0,negative,negative,True,negative,negative
+6002,Una vez más el señor no tenia vueltas. entonces para que le preguntan al cliente con que paga????????,80.0,2,negative,negative,True,negative,positive
+2043,Menos de 30 minutos debería ser lo ideal,60.0,1,neutral,neutral,True,neutral,neutral
+2451,Bien por lo general no traen cambio,90.0,2,negative,positive,False,,positive
+5728,"One siempre llega antes del tiempo, maravilloso, lo amo",100.0,2,positive,positive,True,positive,positive
+5899,2s Pizzas Familias y solo un molho de Garlic,60.0,1,negative,neutral,False,,neutral
+1528,"El chuzo desgranado me parecio carisimo para la cantidad de proteina que lleva: muy poca carne y poco pollo, es mas bien un vhuzo de papas chip y bollo con queso. No recomendado**",70.0,1,negative,negative,True,negative,neutral
+694,Paila! Allá no volveré a pedir,60.0,1,negative,negative,True,negative,neutral
+224,"muy regular la comida, no juatifica el precio",50.0,1,negative,negative,True,negative,neutral
+4426,Mejorar las porciones,100.0,2,negative,neutral,False,,positive
+1304,"El pedido venía incompleto. Venia la hamburguesa las papas, pero falto la Coca Cola. Quedo atento",100.0,2,negative,negative,True,negative,positive
+6430,me trajeron una pizza que no era.. La verdad no realizó más pedido en ese establecimiento,40.0,0,negative,negative,True,negative,negative
+2216,Excelente comida ????,90.0,2,positive,negative,False,,positive
+1687,El mixto es muy rico,70.0,1,positive,positive,True,positive,neutral
+4652,El envío no correspondía con lo que se pidió,70.0,1,negative,negative,True,negative,neutral
+1973,"Dos días antes pedí la misma comida y en esta vez llego mas poco , en un plato más pequeño.",70.0,1,negative,negative,True,negative,neutral
+2550,Rapidísima la atención y l llegada del domicilio,90.0,2,positive,positive,True,positive,positive
+5659,Que pizza tan fea!,50.0,1,negative,negative,True,negative,neutral
+4274,se tardo pero todo bien,60.0,1,neutral,neutral,True,neutral,neutral
+3293,Delicioso y económico ????????????,100.0,2,positive,negative,False,,positive
+504,Tiempo de entrega muy largo y con error de facturación.,70.0,1,negative,negative,True,negative,neutral
+4933,Muy bueno geaciss,80.0,2,positive,positive,True,positive,positive
+683,Excelente como siempre. Muy puntuales! Encantada con  este restaurante.,80.0,2,positive,positive,True,positive,positive
+1338,el datafono no servía y en la foto de la hamburguesa salia con carne y roast beaf pero solo llego con roast beaf,70.0,1,negative,negative,True,negative,neutral
+3572,el pedido tardó media hora más de lo anunciado,40.0,0,negative,negative,True,negative,negative
+1364,No llego la gaseosa,40.0,0,negative,negative,True,negative,negative
+2432,"Buenas noches. Los dos últimos domicilios que he pedido a través de la aplicación se han demorado más de 1 hora que es el tiempo límite establecido, adicionalmente cuando me contacto con soporte no he recibido una respuesta oportuna por parte del asesor.",60.0,1,negative,negative,True,negative,neutral
+5697,Nuevamente me enviaron un sabor de gaseosa que no había solicitado. la comida estaba bien.,40.0,0,neutral,negative,False,,negative
+3656,Muy muy muy MAL!! El pedido llegó 2 horas despues de haberlo pedido. No deberían comprometerse con tiempos si no son capacez de cumplir.,40.0,0,negative,negative,True,negative,negative
+4471,todo llegó frío y siendo que está cerca la ubicación el pedido llegó casi dos horas atrasado,20.0,0,negative,negative,True,negative,negative
+5588,Buena preparación. Tiempo de entrega razonable. Buen trabajo.,100.0,2,positive,positive,True,positive,positive
+6271,no me parecio malo pero muy simple de sabor,80.0,2,neutral,negative,False,,positive
+3458,Rico y a tiempo!!!,100.0,2,positive,positive,True,positive,positive
+2746,Que mal servicio el chat de resolver solo dice problema resuelto y nunca llego,20.0,0,negative,negative,True,negative,negative
+2282,Estuvo bien. Cumplieron con el pedido.,100.0,2,positive,positive,True,positive,positive
+3014,"Muy bien, llego antes de lo esperado, super rápido el servicio.",100.0,2,positive,positive,True,positive,positive
+2532,El pollo sabía feo y tenía plumas. quedé muy decepcionado.,40.0,0,negative,negative,True,negative,negative
+4638,"Ordené dos mojarras que venían sin carne, totalmente tostadas, imposible darle eso a los niños.",50.0,1,negative,negative,True,negative,neutral

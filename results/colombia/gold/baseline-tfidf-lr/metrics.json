@@ -1,0 +1,92 @@
+{
+  "model": "baseline-tfidf-lr",
+  "n": 79,
+  "class_counts": {
+    "negative": 52,
+    "neutral": 6,
+    "positive": 21
+  },
+  "accuracy": 0.7341772151898734,
+  "macro_f1": 0.6302325581395349,
+  "macro_f1_ci95": [
+    0.5125650156869244,
+    0.7342782265397227
+  ],
+  "recall_negative": 0.7307692307692307,
+  "temperature_from_tweets": 0.4877440376178619,
+  "tau_from_tweets": 0.5752883643773637,
+  "ece_before": 0.29265220990814333,
+  "ece_after": 0.19356422043627283,
+  "aurc": 0.15302559983593042,
+  "error_rate_full_coverage": 0.26582278481012656,
+  "selective": {
+    "tau": 0.5752883643773637,
+    "coverage": 0.3670886075949367,
+    "selective_risk": 0.10344827586206895,
+    "n_accepted": 29,
+    "n_abstained": 50
+  },
+  "true_negatives_by_action": {
+    "ABSTAIN": 36,
+    "QUEUE": 15,
+    "PASS": 1
+  },
+  "missed_negatives_without_abstention": 14,
+  "missed_negatives_with_policy": 1,
+  "per_class": {
+    "negative": {
+      "precision": 0.8837209302325582,
+      "recall": 0.7307692307692307,
+      "f1-score": 0.8,
+      "support": 52.0
+    },
+    "neutral": {
+      "precision": 0.21428571428571427,
+      "recall": 0.5,
+      "f1-score": 0.3,
+      "support": 6.0
+    },
+    "positive": {
+      "precision": 0.7727272727272727,
+      "recall": 0.8095238095238095,
+      "f1-score": 0.7906976744186046,
+      "support": 21.0
+    },
+    "accuracy": 0.7341772151898734,
+    "macro avg": {
+      "precision": 0.6235779724151816,
+      "recall": 0.68009768009768,
+      "f1-score": 0.6302325581395349,
+      "support": 79.0
+    },
+    "weighted avg": {
+      "precision": 0.8033731061402537,
+      "recall": 0.7341772151898734,
+      "f1-score": 0.7595525463644391,
+      "support": 79.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      38,
+      10,
+      4
+    ],
+    [
+      2,
+      3,
+      1
+    ],
+    [
+      3,
+      1,
+      17
+    ]
+  ],
+  "reference_tweets": {
+    "macro_f1": 0.5392434752087149,
+    "recall_negative": 0.6241379310344828,
+    "ece_test_after": 0.042168677002587945,
+    "aurc_test": 0.3180590959168283
+  }
+}

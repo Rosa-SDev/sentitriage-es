@@ -1,0 +1,81 @@
+text,gold,pred,confidence,action,correct,p_negative,p_neutral,p_positive
+el arroz estaba quemado,negative,negative,0.7952,QUEUE,True,0.7952,0.1519,0.0528
+No llegó nada,negative,negative,0.5108,ABSTAIN,True,0.5108,0.4186,0.0707
+"TERRIBLE LA PREPARACIÓN DE LA PIZZA, POR MÁS ECONÓMICA QUE SEA NO ES POSIBLE TAN MALA CALIDAD",negative,negative,0.6893,QUEUE,True,0.6893,0.2164,0.0943
+"Excelente servicio, comida,  Felicitaciones! 
+Sigan así.",positive,positive,0.8588,PASS,True,0.0588,0.0824,0.8588
+"El pedido llegó dos horas tarde, e incompleto. Century ni siquiera hizo un gesto para enmendar el error. El pedido ha debido salir gratis.",negative,negative,0.7305,QUEUE,True,0.7305,0.2134,0.0561
+"El pedido llego incompleto, cuando llame son unos groseros y nunca llegó el resto de pedido",negative,negative,0.8509,QUEUE,True,0.8509,0.1001,0.049
+Me parece que loa tiempo de entrega son demasiado demorados,negative,negative,0.8418,QUEUE,True,0.8418,0.1057,0.0525
+super!! y muy rapido!,positive,positive,0.8331,PASS,True,0.0432,0.1237,0.8331
+"El producto esta muy lejos de ser un patacon con todo tipico, además el aspecto de la comida no es agradable.",negative,negative,0.8072,QUEUE,True,0.8072,0.1222,0.0705
+como sugerencia los rolls podrian hacerlos con menos arroz para que no queden tan grandes y apretarlos un poco mas para que no se desarmen,neutral,neutral,0.6443,PASS,True,0.253,0.6443,0.1027
+Muy demorado el tiempo de respuesta más de una hora tratando de recibir una respuesta del restaurante.,negative,negative,0.8082,QUEUE,True,0.8082,0.1364,0.0554
+comida excelente a buen precio,positive,positive,0.8347,PASS,True,0.0538,0.1115,0.8347
+"Tomaron en cuenta mis comentarios, la comida fresca, deliciosa, y dentro del tiempo que dieron para entrega. Sigan así! =)",positive,positive,0.7053,PASS,True,0.0476,0.2471,0.7053
+nunca me ayudaron con la información del pedido.,negative,negative,0.7587,QUEUE,True,0.7587,0.1874,0.0538
+"El pedido se demoró más de 1 hora y media en llegar, adicionalmente llegó frio",negative,negative,0.7857,QUEUE,True,0.7857,0.1557,0.0586
+"Fatal. de lo peor.  demorado,  helado y tostadisimo. Me siento estafada",negative,negative,0.8759,QUEUE,True,0.8759,0.0691,0.0551
+Nunca llego el pedido,negative,negative,0.7359,QUEUE,True,0.7359,0.2103,0.0538
+la comida muy buena. El tiempo de espera muy largo,neutral,positive,0.5631,ABSTAIN,False,0.0774,0.3594,0.5631
+Rico y rápido,positive,positive,0.8059,PASS,True,0.0584,0.1357,0.8059
+"excelente la comida, deliciosa.",positive,positive,0.8652,PASS,True,0.0569,0.0779,0.8652
+Los amo!!! Llegó perfecto y a tiempo. Las cervezas heladas,positive,positive,0.7993,PASS,True,0.0425,0.1582,0.7993
+demorado y me iban a cobrar 2.000 pesos demas por el domicilio cuando la pagina dice que no tiene cobro,negative,negative,0.7613,QUEUE,True,0.7613,0.1955,0.0432
+"Tenía buen sabor, sin embargo, las carnes estaban llenas de gordos y la salchicha es de la peor calidad, deben usar un buen producto.",neutral,negative,0.7785,QUEUE,False,0.7785,0.1386,0.0829
+Mi pedido nunca llegó y solo 1 hora y 40 minutos después de haber hecho el pedido me dijeron que iban a volver a programar el pedido.,negative,negative,0.5995,QUEUE,True,0.5995,0.3451,0.0553
+Muy rápido y delicioso todo,positive,positive,0.8774,PASS,True,0.0563,0.0663,0.8774
+"El personal de soporte es tan demorado para responder como el domicilio mismo, el arroz con langostinos para 3 personas solo trae en total 5 langostinos, y aunque el arroz es de buen sabor, no trae nada de proteína.",negative,negative,0.8226,QUEUE,True,0.8226,0.1341,0.0433
+muy rico y muy rápido,positive,positive,0.8583,PASS,True,0.0533,0.0885,0.8583
+Nunca contestaron qué pasaba con mi pedido.,negative,negative,0.7707,QUEUE,True,0.7707,0.1825,0.0468
+"pido mucho a este sitio y siempre quedo satisfecho, en una sola ocasión mandaron el pedido fallo y lo resolvieron super rapido",positive,positive,0.5499,ABSTAIN,True,0.0799,0.3701,0.5499
+Irresponsables. No saben ni de que ciudad piden el domicilio. Su plataforma es muy poco amigable con el usiario. Rappi y Uber Eats no son tan malos.,negative,negative,0.8782,QUEUE,True,0.8782,0.0643,0.0576
+"Llego muy poco contenido y era tamaño mediano, pero parecia mas que poco, solo adicionaron una salsa, dejando  un comentario de que por favor agregaran varios",negative,neutral,0.7244,PASS,False,0.1592,0.7244,0.1165
+"el pedido se demoro más de 2 horas y el mensajero reclamo por la propina, no quería darme las vueltas indicando que el domicilio tenia costo adicional",negative,negative,0.7732,QUEUE,True,0.7732,0.1807,0.0461
+"El peor restaurante al que he pedido, es pésimo la carne llego totalmente llena de gordo, la ensalada vieja, la arepa vieja, salada y fea. Nunca volveré a pedir en este restaurante",negative,negative,0.8872,QUEUE,True,0.8872,0.0575,0.0553
+"El servicio demorado, la comida deliciosa",neutral,positive,0.6052,PASS,False,0.126,0.2687,0.6052
+"Además de frío, una porción de papas estaba salada",negative,negative,0.6821,QUEUE,True,0.6821,0.2614,0.0566
+"trate de informar la demora de mi pedido, por este medio y la.persona encargada se demoro mucho tiempo en contestar",negative,negative,0.5488,ABSTAIN,True,0.5488,0.3913,0.0599
+No nos trajeron nada,negative,negative,0.6078,QUEUE,True,0.6078,0.3316,0.0607
+parece que la persona de soporte no fue capaz de mandar el dato al restaurante que sin salsas,negative,negative,0.7402,QUEUE,True,0.7402,0.2074,0.0524
+"super, a tiempo y rico.",positive,positive,0.8806,PASS,True,0.0494,0.07,0.8806
+Pedi ojo de tigre crocante y llego sin salmon . Que decepcion ! No pedire mas ????,negative,negative,0.6614,QUEUE,True,0.6614,0.2502,0.0883
+"Solicité un chuzo desgranado de carne y enviaron fue un pincho frito como si se tratara de una empanada, además la carne estaba tiesa y dura. Francamente mal, pese a que el tiempo de entrega fue razonable.",negative,negative,0.8625,QUEUE,True,0.8625,0.0817,0.0558
+"Nunca llegaron, llamaron del restaurante para decir que la dirección era muy difícil.",negative,negative,0.817,QUEUE,True,0.817,0.1355,0.0474
+terrible servicio se demoro más de 2 horas,negative,negative,0.7388,QUEUE,True,0.7388,0.1944,0.0669
+No se comprometan con un tiempo de entrega si no lo van a cumplir,negative,neutral,0.6395,PASS,False,0.29,0.6395,0.0705
+No a llegado el pedido,negative,negative,0.7356,QUEUE,True,0.7356,0.2004,0.064
+Pedí dos cremas de pollo con champiñones y desgraciadamente estaban repletas de grumos desagradables que me quitaron completamente el apetito. No les recomiendo esa crema.,negative,negative,0.8514,QUEUE,True,0.8514,0.0877,0.0608
+"Las gaseosas no fueron las que pedimos, olvido traer las vueltas del pago, no trajeron servilletas, muy regular....",negative,negative,0.8368,QUEUE,True,0.8368,0.1166,0.0466
+Todo en orden,positive,neutral,0.5616,ABSTAIN,False,0.1585,0.5616,0.28
+terrible dos horas para traer un domicilio que obviamente llegó frío y antes piden propina ja ja ja ????,negative,negative,0.8065,QUEUE,True,0.8065,0.1483,0.0451
+Una vez más el señor no tenia vueltas. entonces para que le preguntan al cliente con que paga????????,negative,neutral,0.7454,PASS,False,0.1864,0.7454,0.0681
+Menos de 30 minutos debería ser lo ideal,neutral,positive,0.7515,PASS,False,0.089,0.1594,0.7515
+"One siempre llega antes del tiempo, maravilloso, lo amo",positive,positive,0.8699,PASS,True,0.0492,0.0808,0.8699
+"El chuzo desgranado me parecio carisimo para la cantidad de proteina que lleva: muy poca carne y poco pollo, es mas bien un vhuzo de papas chip y bollo con queso. No recomendado**",negative,positive,0.6967,PASS,False,0.0802,0.2231,0.6967
+Paila! Allá no volveré a pedir,negative,neutral,0.7322,PASS,False,0.1465,0.7322,0.1213
+"muy regular la comida, no juatifica el precio",negative,negative,0.7022,QUEUE,True,0.7022,0.2365,0.0612
+"El pedido venía incompleto. Venia la hamburguesa las papas, pero falto la Coca Cola. Quedo atento",negative,neutral,0.7552,PASS,False,0.1346,0.7552,0.1102
+me trajeron una pizza que no era.. La verdad no realizó más pedido en ese establecimiento,negative,negative,0.4792,ABSTAIN,True,0.4792,0.467,0.0539
+El mixto es muy rico,positive,positive,0.8755,PASS,True,0.0617,0.0629,0.8755
+El envío no correspondía con lo que se pidió,negative,negative,0.6495,QUEUE,True,0.6495,0.2818,0.0686
+"Dos días antes pedí la misma comida y en esta vez llego mas poco , en un plato más pequeño.",negative,neutral,0.476,ABSTAIN,False,0.4678,0.476,0.0561
+Rapidísima la atención y l llegada del domicilio,positive,positive,0.4917,ABSTAIN,True,0.0977,0.4107,0.4917
+Que pizza tan fea!,negative,negative,0.8535,QUEUE,True,0.8535,0.0665,0.0799
+se tardo pero todo bien,neutral,neutral,0.6719,PASS,True,0.147,0.6719,0.1811
+Tiempo de entrega muy largo y con error de facturación.,negative,negative,0.8358,QUEUE,True,0.8358,0.0941,0.0701
+Muy bueno geaciss,positive,positive,0.8707,PASS,True,0.0647,0.0646,0.8707
+Excelente como siempre. Muy puntuales! Encantada con  este restaurante.,positive,positive,0.8858,PASS,True,0.0532,0.0609,0.8858
+el datafono no servía y en la foto de la hamburguesa salia con carne y roast beaf pero solo llego con roast beaf,negative,negative,0.6489,QUEUE,True,0.6489,0.3061,0.045
+el pedido tardó media hora más de lo anunciado,negative,neutral,0.4738,ABSTAIN,False,0.4227,0.4738,0.1034
+No llego la gaseosa,negative,negative,0.6248,QUEUE,True,0.6248,0.3238,0.0514
+"Buenas noches. Los dos últimos domicilios que he pedido a través de la aplicación se han demorado más de 1 hora que es el tiempo límite establecido, adicionalmente cuando me contacto con soporte no he recibido una respuesta oportuna por parte del asesor.",negative,negative,0.7943,QUEUE,True,0.7943,0.1551,0.0506
+Muy muy muy MAL!! El pedido llegó 2 horas despues de haberlo pedido. No deberían comprometerse con tiempos si no son capacez de cumplir.,negative,negative,0.7625,QUEUE,True,0.7625,0.163,0.0745
+todo llegó frío y siendo que está cerca la ubicación el pedido llegó casi dos horas atrasado,negative,negative,0.7162,QUEUE,True,0.7162,0.2282,0.0557
+Buena preparación. Tiempo de entrega razonable. Buen trabajo.,positive,positive,0.8389,PASS,True,0.0595,0.1015,0.8389
+Rico y a tiempo!!!,positive,positive,0.7636,PASS,True,0.0655,0.1709,0.7636
+Que mal servicio el chat de resolver solo dice problema resuelto y nunca llego,negative,negative,0.8743,QUEUE,True,0.8743,0.0734,0.0523
+Estuvo bien. Cumplieron con el pedido.,positive,positive,0.7575,PASS,True,0.0672,0.1753,0.7575
+"Muy bien, llego antes de lo esperado, super rápido el servicio.",positive,positive,0.8259,PASS,True,0.0884,0.0857,0.8259
+El pollo sabía feo y tenía plumas. quedé muy decepcionado.,negative,negative,0.8392,QUEUE,True,0.8392,0.1052,0.0556
+"Ordené dos mojarras que venían sin carne, totalmente tostadas, imposible darle eso a los niños.",negative,negative,0.7548,QUEUE,True,0.7548,0.1958,0.0494

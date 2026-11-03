@@ -1,0 +1,92 @@
+{
+  "model": "beto-sentitriage",
+  "n": 79,
+  "class_counts": {
+    "negative": 52,
+    "neutral": 6,
+    "positive": 21
+  },
+  "accuracy": 0.8354430379746836,
+  "macro_f1": 0.6820351279114165,
+  "macro_f1_ci95": [
+    0.5777678171223667,
+    0.7959171996248842
+  ],
+  "recall_negative": 0.8461538461538461,
+  "temperature_from_tweets": 1.9204180511364557,
+  "tau_from_tweets": 0.5932558985179417,
+  "ece_before": 0.07546449623764005,
+  "ece_after": 0.09021845955234627,
+  "aurc": 0.05398308270251326,
+  "error_rate_full_coverage": 0.16455696202531644,
+  "selective": {
+    "tau": 0.5932558985179417,
+    "coverage": 0.8860759493670886,
+    "selective_risk": 0.12857142857142856,
+    "n_accepted": 70,
+    "n_abstained": 9
+  },
+  "true_negatives_by_action": {
+    "QUEUE": 41,
+    "PASS": 6,
+    "ABSTAIN": 5
+  },
+  "missed_negatives_without_abstention": 8,
+  "missed_negatives_with_policy": 6,
+  "per_class": {
+    "negative": {
+      "precision": 0.9777777777777777,
+      "recall": 0.8461538461538461,
+      "f1-score": 0.9072164948453608,
+      "support": 52.0
+    },
+    "neutral": {
+      "precision": 0.2,
+      "recall": 0.3333333333333333,
+      "f1-score": 0.25,
+      "support": 6.0
+    },
+    "positive": {
+      "precision": 0.8333333333333334,
+      "recall": 0.9523809523809523,
+      "f1-score": 0.8888888888888888,
+      "support": 21.0
+    },
+    "accuracy": 0.8354430379746836,
+    "macro avg": {
+      "precision": 0.6703703703703704,
+      "recall": 0.7106227106227107,
+      "f1-score": 0.6820351279114165,
+      "support": 79.0
+    },
+    "weighted avg": {
+      "precision": 0.8803094233473981,
+      "recall": 0.8354430379746836,
+      "f1-score": 0.8524294227674104,
+      "support": 79.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      44,
+      7,
+      1
+    ],
+    [
+      1,
+      2,
+      3
+    ],
+    [
+      0,
+      1,
+      20
+    ]
+  ],
+  "reference_tweets": {
+    "macro_f1": 0.6875124756257301,
+    "recall_negative": 0.7068965517241379,
+    "ece_test_after": 0.04196364972811988,
+    "aurc_test": 0.18001839975355788
+  }
+}
