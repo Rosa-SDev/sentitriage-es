@@ -159,3 +159,58 @@ def _plots(name, m, cov, risk, p_raw, p_cal, y, outdir: Path):
     ax.set_xlim(0, 1); ax.set_ylim(0, max(0.6, float(risk.max()) + 0.05)); ax.legend(fontsize=7)
     ax.set_title("Risk–coverage (test)", fontsize=9)
     fig.tight_layout(); fig.savefig(outdir / "risk_coverage.png"); plt.close(fig)
+
+
+def evaluate_fixed(name: str, logits, y, texts, temperature: float, tau: float, outdir: Path,
+                   reference: dict | None = None) -> dict:
+    """Evalúa un modelo ya calibrado en un conjunto nuevo SIN reajustar T ni τ.
+
+    Es la prueba de cambio de dominio: T y τ se ajustaron con tuits (validación) y aquí
+    se aplican tal cual a otro tipo de texto, como pasaría en producción.
+    """
+    outdir = Path(outdir)
+    outdir.mkdir(parents=True, exist_ok=True)
+    y = np.asarray(y)
+    p_raw = softmax(logits, 1.0)
+    p = softmax(logits, temperature)
+    pred, conf = p.argmax(1), p.max(1)
+    correct = pred == y
+    sel = selective_stats(conf, correct, tau)
+    neg = y == NEGATIVE
+    actions = [decide(pi, tau).action for pi in p]
+    neg_actions = pd.Series(np.array(actions)[neg]).value_counts().to_dict()
+    lo, hi = bootstrap_macro_f1(y, pred)
+    m = {
+        "model": name, "n": int(len(y)),
+        "class_counts": {LABELS[k]: int((y == k).sum()) for k in range(3)},
+        "accuracy": float(accuracy_score(y, pred)),
+        "macro_f1": float(f1_score(y, pred, average="macro")),
+        "macro_f1_ci95": [lo, hi],
+        "recall_negative": float(recall_score(y, pred, labels=[NEGATIVE], average="macro")),
+        "temperature_from_tweets": float(temperature), "tau_from_tweets": float(tau),
+        "ece_before": expected_calibration_error(p_raw, y),
+        "ece_after": expected_calibration_error(p, y),
+        "aurc": aurc(conf, correct),
+        "error_rate_full_coverage": float(1 - correct.mean()),
+        "selective": sel,
+        "true_negatives_by_action": {k: int(v) for k, v in neg_actions.items()},
+        "missed_negatives_without_abstention": int((neg & (pred != NEGATIVE)).sum()),
+        "missed_negatives_with_policy": int(neg_actions.get("PASS", 0)),
+        "per_class": classification_report(y, pred, target_names=list(LABELS),
+                                           output_dict=True, zero_division=0),
+        "confusion_matrix": confusion_matrix(y, pred, labels=[0, 1, 2]).tolist(),
+    }
+    if reference:
+        m["reference_tweets"] = {k: reference[k] for k in ("macro_f1", "recall_negative", "ece_test_after", "aurc_test")}
+    (outdir / "metrics.json").write_text(json.dumps(m, indent=2, ensure_ascii=False), encoding="utf-8")
+    pd.DataFrame({"text": list(texts), "gold": [LABELS[i] for i in y], "pred": [LABELS[i] for i in pred],
+                  "confidence": conf.round(4), "action": actions, "correct": correct,
+                  **{f"p_{l}": p[:, i].round(4) for i, l in enumerate(LABELS)}}
+                 ).to_csv(outdir / "predictions.csv", index=False, encoding="utf-8")
+    cov, risk, _ = risk_coverage_curve(conf, correct)
+    np.savez(outdir / "curves.npz", coverage=cov, risk=risk)
+    mm = dict(m, confusion_matrix=m["confusion_matrix"], ece_test_before=m["ece_before"],
+              ece_test_after=m["ece_after"], temperature=temperature, aurc_test=m["aurc"],
+              error_rate_full_coverage=m["error_rate_full_coverage"], selective_test=sel)
+    _plots(name, mm, cov, risk, p_raw, p, y, outdir)
+    return m

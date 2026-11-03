@@ -76,8 +76,13 @@ $env:SENTITRIAGE_MODEL_DIR="models/beto-sentitriage"; uvicorn service.app:app --
   derivada de InterTASS 2017. Particiones oficiales: 1.839 / 324 / 870 tuits,
   balanceadas por clase. Fuente: `github.com/cardiffnlp/xlm-t`. Los textos provienen de
   Twitter, por eso no se redistribuyen en este repositorio; se descargan con el script.
-- **Cambio de dominio (pendiente):** muestra de reseñas colombianas de restaurante de
-  Rest-Mex 2023 (requiere registro), reetiquetadas por los dos autores (kappa de Cohen).
+- **Cambio de dominio:** comentarios de clientes de una plataforma colombiana de
+  domicilios de restaurantes. Correa, J. C. (2019). *Raw data of Users' comments on Online
+  Food Delivery Services* [Data set]. Mendeley Data, V1. https://doi.org/10.17632/k2v9sbmr8r.1
+  (CC BY 4.0). Descargar `Comments.RData` en `data/external/` y ejecutar
+  `python scripts/prepare_colombia.py`: deja 4.744 comentarios con etiqueta derivada de la
+  calificación (20–40 negativo, 50–70 neutral, 80–100 positivo) y una muestra de 90 para
+  etiquetado humano por los dos autores (kappa de Cohen).
 
 ## Estado (Fase II, 4 de noviembre de 2026)
 
@@ -85,13 +90,16 @@ $env:SENTITRIAGE_MODEL_DIR="models/beto-sentitriage"; uvicorn service.app:app --
 |---|---|
 | Datos, EDA, percepción | Hecho |
 | Baseline TF-IDF + LR, calibración, abstención, risk–coverage | Hecho — `results/baseline-tfidf-lr/` |
-| BETO y XLM-R | Código y notebook listos; ejecución en Colab pendiente |
+| BETO y XLM-R | Hecho en Colab (T4) — `results/beto-sentitriage/`, `results/xlmr-sentitriage/` |
+| Cambio de dominio, etiqueta por calificación (4.744) | Hecho — `results/colombia/weak/` |
+| Cambio de dominio, etiqueta humana (90) | Hojas listas en `data/colombia/`; etiquetado en curso |
 | Microservicio + demo web | Hecho |
-| Conjunto colombiano de reseñas | Pendiente (registro Rest-Mex) |
 | Integración con Kandela | Diseñada (ADR 0001), no implementada |
 | Acción ALERT (ventana de negativos) | Fuera de alcance de esta fase |
 
-Resultados actuales: `results/comparison.md`.
+Resultados actuales: `results/comparison.md` (tuits) y `results/colombia/weak/summary.md`
+(comentarios colombianos). Para repetir la evaluación colombiana:
+`python experiments/eval_colombia.py weak` (o `gold` cuando el etiquetado esté completo).
 
 ## Licencia de los datos
 

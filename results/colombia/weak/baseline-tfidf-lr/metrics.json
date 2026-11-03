@@ -1,0 +1,92 @@
+{
+  "model": "baseline-tfidf-lr",
+  "n": 4744,
+  "class_counts": {
+    "negative": 1918,
+    "neutral": 694,
+    "positive": 2132
+  },
+  "accuracy": 0.5984401349072512,
+  "macro_f1": 0.5235448517437821,
+  "macro_f1_ci95": [
+    0.5092347226789291,
+    0.53669223514948
+  ],
+  "recall_negative": 0.7309697601668405,
+  "temperature_from_tweets": 0.4877440376178619,
+  "tau_from_tweets": 0.5752883643773637,
+  "ece_before": 0.14470195954763607,
+  "ece_after": 0.04068466981084515,
+  "aurc": 0.2524883083820017,
+  "error_rate_full_coverage": 0.40155986509274877,
+  "selective": {
+    "tau": 0.5752883643773637,
+    "coverage": 0.3836424957841484,
+    "selective_risk": 0.23296703296703292,
+    "n_accepted": 1820,
+    "n_abstained": 2924
+  },
+  "true_negatives_by_action": {
+    "ABSTAIN": 1198,
+    "QUEUE": 643,
+    "PASS": 77
+  },
+  "missed_negatives_without_abstention": 516,
+  "missed_negatives_with_policy": 77,
+  "per_class": {
+    "negative": {
+      "precision": 0.6035299182092122,
+      "recall": 0.7309697601668405,
+      "f1-score": 0.6611648196180147,
+      "support": 1918.0
+    },
+    "neutral": {
+      "precision": 0.18715995647442873,
+      "recall": 0.2478386167146974,
+      "f1-score": 0.21326720396776194,
+      "support": 694.0
+    },
+    "positive": {
+      "precision": 0.8422103861517976,
+      "recall": 0.5933395872420263,
+      "f1-score": 0.6962025316455697,
+      "support": 2132.0
+    },
+    "accuracy": 0.5984401349072512,
+    "macro avg": {
+      "precision": 0.5443000869451461,
+      "recall": 0.5240493213745214,
+      "f1-score": 0.5235448517437821,
+      "support": 4744.0
+    },
+    "weighted avg": {
+      "precision": 0.6498844722163059,
+      "recall": 0.5984401349072512,
+      "f1-score": 0.6113881452464868,
+      "support": 4744.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      1402,
+      377,
+      139
+    ],
+    [
+      424,
+      172,
+      98
+    ],
+    [
+      497,
+      370,
+      1265
+    ]
+  ],
+  "reference_tweets": {
+    "macro_f1": 0.5392434752087149,
+    "recall_negative": 0.6241379310344828,
+    "ece_test_after": 0.042168677002587945,
+    "aurc_test": 0.3180590959168283
+  }
+}
