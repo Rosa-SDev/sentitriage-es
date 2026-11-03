@@ -7,7 +7,7 @@ Endpoints
 - POST /classify/batch    {"texts": [...]} -> lista de decisiones
 - GET  /                  demo web (service/static/index.html)
 
-Configuración: SENTITRIAGE_MODEL_DIR (por defecto models/baseline-tfidf-lr).
+Configuración: SENTITRIAGE_MODEL_DIR (por defecto BETO si está en models/, si no el baseline).
 Kandela lo consumirá como un servicio más detrás de su API gateway; este proceso no
 depende de Kandela y puede evaluarse y demostrarse solo.
 """
@@ -33,7 +33,9 @@ from sentitriage.agent import ABSTAIN, decide  # noqa: E402
 from sentitriage.models import Predictor  # noqa: E402
 
 log = logging.getLogger("sentitriage")
-MODEL_DIR = Path(os.environ.get("SENTITRIAGE_MODEL_DIR", ROOT / "models" / "baseline-tfidf-lr"))
+_DEFAULT = ROOT / "models" / ("beto-sentitriage" if (ROOT / "models" / "beto-sentitriage" / "sentitriage.json").exists()
+                               else "baseline-tfidf-lr")
+MODEL_DIR = Path(os.environ.get("SENTITRIAGE_MODEL_DIR", _DEFAULT))
 STATIC = Path(__file__).parent / "static"
 
 app = FastAPI(title="SentiTriage-ES", version=__version__,

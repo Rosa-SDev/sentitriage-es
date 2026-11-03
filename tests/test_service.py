@@ -14,6 +14,8 @@ pytestmark = pytest.mark.skipif(
 @pytest.fixture(scope="module")
 def client():
     from fastapi.testclient import TestClient
+    import os
+    os.environ["SENTITRIAGE_MODEL_DIR"] = str(ROOT / "models" / "baseline-tfidf-lr")
     from service.app import app
     return TestClient(app)
 

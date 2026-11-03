@@ -87,7 +87,7 @@
       <span class="hint">Ctrl + Enter to classify</span>
     </div>
     <div class="chips" id="chips"></div>
-    <p class="hint">Example reviews are illustrative inputs written for the demo; they are not evaluation data.</p>
+    <p class="hint">Examples are real comments from customers of a Colombian food delivery platform (Correa, 2019, Mendeley Data, CC BY 4.0).</p>
 
     <div id="result">
       <div class="verdict" id="verdict">
@@ -123,12 +123,12 @@
 
 <script>
 const EXAMPLES = [
-  "La bandeja paisa estaba deliciosa y la atención fue excelente, volveremos.",
-  "Pedimos a domicilio y llegó todo frío, una hora tarde. Pésimo servicio.",
-  "El lugar es bonito, pero la comida estaba muy salada y es muy caro.",
-  "Fuimos el sábado al mediodía, pedimos el menú del día.",
-  "Pues… no estuvo mal, aunque esperaba más por lo que cuesta.",
-  "¡Qué maravilla! Esperamos 50 minutos para que nos trajeran la sopa fría."
+  "Pésimo servicio domicilios.com. Más de una hora esperando, nadie de soporte ayuda y la comida llega fría... :(",
+  "Súper bien, muy amables, a tiempo, todo muy rico y completo, gracias",
+  "la comida muy buena. El tiempo de espera muy largo",
+  "Llegó fría la pizza. No había pasado en ocasiones anteriores.",
+  "muy caro y la verdad una hamburguesa muy común",
+  "Las papas viejas duras del dia anterior"
 ];
 const $ = id => document.getElementById(id);
 const fmt = x => (x == null ? "—" : Number(x).toFixed(3));
