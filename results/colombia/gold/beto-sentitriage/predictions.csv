@@ -9,6 +9,7 @@ Sigan así.",positive,positive,0.8588,PASS,True,0.0588,0.0824,0.8588
 Me parece que loa tiempo de entrega son demasiado demorados,negative,negative,0.8418,QUEUE,True,0.8418,0.1057,0.0525
 super!! y muy rapido!,positive,positive,0.8331,PASS,True,0.0432,0.1237,0.8331
 "El producto esta muy lejos de ser un patacon con todo tipico, además el aspecto de la comida no es agradable.",negative,negative,0.8072,QUEUE,True,0.8072,0.1222,0.0705
+"Han bajado muchísimo la calidad, teniendo en cuenta que hay muchos sitios buenos de hamburguesas, deberían replantear lo que están haciendo",negative,negative,0.839,QUEUE,True,0.839,0.0895,0.0715
 como sugerencia los rolls podrian hacerlos con menos arroz para que no queden tan grandes y apretarlos un poco mas para que no se desarmen,neutral,neutral,0.6443,PASS,True,0.253,0.6443,0.1027
 Muy demorado el tiempo de respuesta más de una hora tratando de recibir una respuesta del restaurante.,negative,negative,0.8082,QUEUE,True,0.8082,0.1364,0.0554
 comida excelente a buen precio,positive,positive,0.8347,PASS,True,0.0538,0.1115,0.8347
@@ -21,10 +22,12 @@ la comida muy buena. El tiempo de espera muy largo,neutral,positive,0.5631,ABSTA
 Rico y rápido,positive,positive,0.8059,PASS,True,0.0584,0.1357,0.8059
 "excelente la comida, deliciosa.",positive,positive,0.8652,PASS,True,0.0569,0.0779,0.8652
 Los amo!!! Llegó perfecto y a tiempo. Las cervezas heladas,positive,positive,0.7993,PASS,True,0.0425,0.1582,0.7993
+La comida me pareció deliciosa y la porción generosa para el precio. Tomé una buena promoción. Lo único no tan bueno es que el tiempo de espera superó por un poco la hora.,neutral,positive,0.6996,PASS,False,0.0682,0.2322,0.6996
 demorado y me iban a cobrar 2.000 pesos demas por el domicilio cuando la pagina dice que no tiene cobro,negative,negative,0.7613,QUEUE,True,0.7613,0.1955,0.0432
 "Tenía buen sabor, sin embargo, las carnes estaban llenas de gordos y la salchicha es de la peor calidad, deben usar un buen producto.",neutral,negative,0.7785,QUEUE,False,0.7785,0.1386,0.0829
 Mi pedido nunca llegó y solo 1 hora y 40 minutos después de haber hecho el pedido me dijeron que iban a volver a programar el pedido.,negative,negative,0.5995,QUEUE,True,0.5995,0.3451,0.0553
 Muy rápido y delicioso todo,positive,positive,0.8774,PASS,True,0.0563,0.0663,0.8774
+Súper recomendada ????????,neutral,neutral,0.6609,PASS,True,0.0631,0.6609,0.276
 "El personal de soporte es tan demorado para responder como el domicilio mismo, el arroz con langostinos para 3 personas solo trae en total 5 langostinos, y aunque el arroz es de buen sabor, no trae nada de proteína.",negative,negative,0.8226,QUEUE,True,0.8226,0.1341,0.0433
 muy rico y muy rápido,positive,positive,0.8583,PASS,True,0.0533,0.0885,0.8583
 Nunca contestaron qué pasaba con mi pedido.,negative,negative,0.7707,QUEUE,True,0.7707,0.1825,0.0468
@@ -36,6 +39,7 @@ Irresponsables. No saben ni de que ciudad piden el domicilio. Su plataforma es m
 "El servicio demorado, la comida deliciosa",neutral,positive,0.6052,PASS,False,0.126,0.2687,0.6052
 "Además de frío, una porción de papas estaba salada",negative,negative,0.6821,QUEUE,True,0.6821,0.2614,0.0566
 "trate de informar la demora de mi pedido, por este medio y la.persona encargada se demoro mucho tiempo en contestar",negative,negative,0.5488,ABSTAIN,True,0.5488,0.3913,0.0599
+"La picada estaba deliciosa y el tiempo de entrega fue el establecido, pero pedí Coca-Cola y me trajeron Pepsi.",neutral,neutral,0.6411,PASS,True,0.105,0.6411,0.2539
 No nos trajeron nada,negative,negative,0.6078,QUEUE,True,0.6078,0.3316,0.0607
 parece que la persona de soporte no fue capaz de mandar el dato al restaurante que sin salsas,negative,negative,0.7402,QUEUE,True,0.7402,0.2074,0.0524
 "super, a tiempo y rico.",positive,positive,0.8806,PASS,True,0.0494,0.07,0.8806
@@ -51,18 +55,23 @@ Todo en orden,positive,neutral,0.5616,ABSTAIN,False,0.1585,0.5616,0.28
 terrible dos horas para traer un domicilio que obviamente llegó frío y antes piden propina ja ja ja ????,negative,negative,0.8065,QUEUE,True,0.8065,0.1483,0.0451
 Una vez más el señor no tenia vueltas. entonces para que le preguntan al cliente con que paga????????,negative,neutral,0.7454,PASS,False,0.1864,0.7454,0.0681
 Menos de 30 minutos debería ser lo ideal,neutral,positive,0.7515,PASS,False,0.089,0.1594,0.7515
+Bien por lo general no traen cambio,positive,negative,0.4962,ABSTAIN,False,0.4962,0.4489,0.0549
 "One siempre llega antes del tiempo, maravilloso, lo amo",positive,positive,0.8699,PASS,True,0.0492,0.0808,0.8699
+2s Pizzas Familias y solo un molho de Garlic,negative,negative,0.4636,ABSTAIN,True,0.4636,0.4573,0.0791
 "El chuzo desgranado me parecio carisimo para la cantidad de proteina que lleva: muy poca carne y poco pollo, es mas bien un vhuzo de papas chip y bollo con queso. No recomendado**",negative,positive,0.6967,PASS,False,0.0802,0.2231,0.6967
 Paila! Allá no volveré a pedir,negative,neutral,0.7322,PASS,False,0.1465,0.7322,0.1213
 "muy regular la comida, no juatifica el precio",negative,negative,0.7022,QUEUE,True,0.7022,0.2365,0.0612
+Mejorar las porciones,negative,neutral,0.4792,ABSTAIN,False,0.1296,0.4792,0.3911
 "El pedido venía incompleto. Venia la hamburguesa las papas, pero falto la Coca Cola. Quedo atento",negative,neutral,0.7552,PASS,False,0.1346,0.7552,0.1102
 me trajeron una pizza que no era.. La verdad no realizó más pedido en ese establecimiento,negative,negative,0.4792,ABSTAIN,True,0.4792,0.467,0.0539
+Excelente comida ????,neutral,positive,0.514,ABSTAIN,False,0.0882,0.3978,0.514
 El mixto es muy rico,positive,positive,0.8755,PASS,True,0.0617,0.0629,0.8755
 El envío no correspondía con lo que se pidió,negative,negative,0.6495,QUEUE,True,0.6495,0.2818,0.0686
 "Dos días antes pedí la misma comida y en esta vez llego mas poco , en un plato más pequeño.",negative,neutral,0.476,ABSTAIN,False,0.4678,0.476,0.0561
 Rapidísima la atención y l llegada del domicilio,positive,positive,0.4917,ABSTAIN,True,0.0977,0.4107,0.4917
 Que pizza tan fea!,negative,negative,0.8535,QUEUE,True,0.8535,0.0665,0.0799
 se tardo pero todo bien,neutral,neutral,0.6719,PASS,True,0.147,0.6719,0.1811
+Delicioso y económico ????????????,neutral,positive,0.6836,PASS,False,0.0723,0.2441,0.6836
 Tiempo de entrega muy largo y con error de facturación.,negative,negative,0.8358,QUEUE,True,0.8358,0.0941,0.0701
 Muy bueno geaciss,positive,positive,0.8707,PASS,True,0.0647,0.0646,0.8707
 Excelente como siempre. Muy puntuales! Encantada con  este restaurante.,positive,positive,0.8858,PASS,True,0.0532,0.0609,0.8858
@@ -70,9 +79,11 @@ el datafono no servía y en la foto de la hamburguesa salia con carne y roast be
 el pedido tardó media hora más de lo anunciado,negative,neutral,0.4738,ABSTAIN,False,0.4227,0.4738,0.1034
 No llego la gaseosa,negative,negative,0.6248,QUEUE,True,0.6248,0.3238,0.0514
 "Buenas noches. Los dos últimos domicilios que he pedido a través de la aplicación se han demorado más de 1 hora que es el tiempo límite establecido, adicionalmente cuando me contacto con soporte no he recibido una respuesta oportuna por parte del asesor.",negative,negative,0.7943,QUEUE,True,0.7943,0.1551,0.0506
+Nuevamente me enviaron un sabor de gaseosa que no había solicitado. la comida estaba bien.,neutral,neutral,0.6361,PASS,True,0.0847,0.6361,0.2792
 Muy muy muy MAL!! El pedido llegó 2 horas despues de haberlo pedido. No deberían comprometerse con tiempos si no son capacez de cumplir.,negative,negative,0.7625,QUEUE,True,0.7625,0.163,0.0745
 todo llegó frío y siendo que está cerca la ubicación el pedido llegó casi dos horas atrasado,negative,negative,0.7162,QUEUE,True,0.7162,0.2282,0.0557
 Buena preparación. Tiempo de entrega razonable. Buen trabajo.,positive,positive,0.8389,PASS,True,0.0595,0.1015,0.8389
+no me parecio malo pero muy simple de sabor,negative,positive,0.6321,PASS,False,0.073,0.295,0.6321
 Rico y a tiempo!!!,positive,positive,0.7636,PASS,True,0.0655,0.1709,0.7636
 Que mal servicio el chat de resolver solo dice problema resuelto y nunca llego,negative,negative,0.8743,QUEUE,True,0.8743,0.0734,0.0523
 Estuvo bien. Cumplieron con el pedido.,positive,positive,0.7575,PASS,True,0.0672,0.1753,0.7575

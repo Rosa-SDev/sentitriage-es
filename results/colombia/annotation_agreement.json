@@ -3,6 +3,6 @@
   "cohen_kappa": 0.7666195190947666,
   "raw_agreement": 0.8777777777777778,
   "n_disagreements": 11,
-  "weak_vs_human_agreement": 0.5888888888888889,
-  "adjudicated": false
+  "weak_vs_human_agreement": 0.6,
+  "adjudicated": true
 }
