@@ -164,5 +164,5 @@ reviews. See [ADR 0001](docs/decisions/0001-arquitectura.md).
 ## Authors
 
 **Rosa Isabel Peña Yagüe** ([@Rosa-SDev](https://github.com/Rosa-SDev)) and
-**Daniel Esteban Guzmán Rodríguez**. Developed for Intelligent Systems 2026B,
+**Daniel Esteban Guzmán Rodríguez** ([@KraL-03](https://github.com/KraL-03)). Developed for Intelligent Systems 2026B,
 Universidad de Ibagué, Colombia, under Prof. Alexandra La Cruz Puente.
