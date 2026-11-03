@@ -3,123 +3,290 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SentiTriage-ES · Demo</title>
+<title>SentiTriage-ES · Selective sentiment triage</title>
 <style>
-  :root{
-    --ink:#1d2330; --muted:#667085; --line:#e4e7ec; --bg:#f7f7f4; --card:#ffffff;
-    --accent:#2f4b7c;
-    --pass:#2e7d5b; --pass-bg:#e8f3ee;
-    --queue:#b3402f; --queue-bg:#f8e9e6;
-    --abstain:#a86b00; --abstain-bg:#fbf1dc;
-    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);
-       font:15px/1.5 "Segoe UI", system-ui, -apple-system, Roboto, sans-serif}
-  header{border-bottom:1px solid var(--line);background:var(--card)}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
-  header .wrap{display:flex;align-items:baseline;gap:16px;padding-top:18px;padding-bottom:14px}
-  h1{font-size:20px;margin:0;letter-spacing:.2px}
-  h1 span{color:var(--accent)}
-  header p{margin:0;color:var(--muted);font-size:13px}
-  main{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;padding-top:22px;padding-bottom:40px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
-  .card h2{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin:0 0 12px}
-  textarea{width:100%;min-height:110px;resize:vertical;border:1px solid var(--line);border-radius:8px;
-           padding:12px;font:inherit;color:var(--ink);background:#fcfcfb}
-  textarea:focus{outline:2px solid #c9d3e6;border-color:var(--accent)}
-  .row{display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap}
-  button{font:inherit;border-radius:8px;border:1px solid var(--accent);background:var(--accent);
-         color:#fff;padding:8px 16px;cursor:pointer}
-  button.ghost{background:transparent;color:var(--accent)}
-  button:disabled{opacity:.5;cursor:wait}
-  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
-  .chip{font-size:12.5px;border:1px solid var(--line);background:#fafafa;border-radius:999px;
-        padding:4px 10px;cursor:pointer;color:#344054}
-  .chip:hover{border-color:var(--accent)}
-  .hint{font-size:12px;color:var(--muted)}
-  #result{margin-top:18px;display:none}
-  .verdict{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:8px}
-  .verdict .action{font-weight:700;font-size:20px;letter-spacing:.5px;font-family:var(--mono)}
-  .verdict .why{font-size:13.5px}
-  .PASS{background:var(--pass-bg);color:var(--pass)}
-  .QUEUE{background:var(--queue-bg);color:var(--queue)}
-  .ABSTAIN{background:var(--abstain-bg);color:var(--abstain)}
-  .bars{margin-top:14px}
-  .bar{display:grid;grid-template-columns:72px 1fr 52px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
-  .track{height:10px;background:#eef0f3;border-radius:6px;overflow:hidden}
-  .fill{height:100%;border-radius:6px;background:#98a2b3}
-  .fill.negative{background:var(--queue)} .fill.neutral{background:#7a8699} .fill.positive{background:var(--pass)}
-  .conf{margin-top:16px}
-  .conf .scale{position:relative;height:14px;background:linear-gradient(90deg,#f1f2f4,#f1f2f4);
-               border-radius:7px;border:1px solid var(--line)}
-  .conf .val{position:absolute;top:0;left:0;height:100%;border-radius:7px;background:var(--accent);opacity:.85}
-  .conf .tau{position:absolute;top:-5px;width:2px;height:22px;background:var(--abstain)}
-  .conf .labels{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:4px}
-  .kv{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:13.5px}
-  .kv div:nth-child(odd){color:var(--muted)}
-  .kv div:nth-child(even){font-family:var(--mono);text-align:right}
-  table{width:100%;border-collapse:collapse;font-size:13px}
-  th,td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:top}
-  th{font-size:11.5px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);font-weight:600}
-  td.t{max-width:340px}
-  .tag{font-family:var(--mono);font-size:11.5px;padding:2px 7px;border-radius:5px;font-weight:700}
-  .flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12.5px;color:#344054}
-  .flow b{font-weight:600;background:#f2f4f7;border:1px solid var(--line);border-radius:6px;padding:3px 8px}
-  .flow i{color:var(--muted);font-style:normal}
-  .full{grid-column:1 / -1}
-  @media (max-width:860px){main{grid-template-columns:1fr}}
+@font-face{font-family:"Plex Sans";src:url(/static/fonts/IBMPlexSans-Regular.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Plex Sans";src:url(/static/fonts/IBMPlexSans-Medium.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Plex Sans";src:url(/static/fonts/IBMPlexSans-SemiBold.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Plex Mono";src:url(/static/fonts/IBMPlexMono-Regular.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Plex Mono";src:url(/static/fonts/IBMPlexMono-Medium.woff2) format("woff2");font-weight:500;font-display:swap}
+
+:root{
+  --paper:#F6F5F1; --surface:#FFFFFF; --sunken:#EFEDE7;
+  --ink:#16181D; --ink-2:#5B6170; --rule:#E2E0D8; --rule-strong:#C9C6BB;
+  --focus:#1F5FBF;
+  --pass:#17633F; --pass-bg:#E8F4EC; --pass-line:#9CCBAF;
+  --queue:#9F1D12; --queue-bg:#FDECEA; --queue-line:#E8A79F;
+  --abstain:#8A4B00; --abstain-bg:#FFF4E0; --abstain-line:#E3B66A;
+  --neg:#B42318; --neu:#6B7280; --pos:#17633F;
+  --sans:"Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono:"Plex Mono", "Plex Sans", ui-monospace, Consolas, monospace;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px;
+  --r-ctl:6px; --r-card:10px;
+  --t-fast:160ms; --t-move:240ms; --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box}
+html{background:var(--paper)}
+body{margin:0;color:var(--ink);font:400 15px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+.topbar{border-bottom:1px solid var(--rule);background:var(--surface)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 var(--s5)}
+.topbar .wrap{display:flex;align-items:center;gap:var(--s4);min-height:60px}
+.brand{font-size:18px;font-weight:600;margin:0;letter-spacing:-.01em}
+.tagline{color:var(--ink-2);font-size:14px;margin:0}
+.status{margin-left:auto;display:inline-flex;align-items:center;gap:var(--s2);font-size:13px;color:var(--ink-2);
+  border:1px solid var(--rule);border-radius:999px;padding:var(--s1) var(--s3);background:var(--paper)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--rule-strong)}
+.status[data-state="ok"] .dot{background:var(--pass)}
+.status[data-state="loading"] .dot{background:var(--abstain-line)}
+.status[data-state="offline"] .dot{background:var(--queue)}
+
+.banner{display:none;margin-top:var(--s4);border:1px solid var(--queue-line);background:var(--queue-bg);color:var(--queue);
+  border-radius:var(--r-card);padding:var(--s3) var(--s4);align-items:center;gap:var(--s4)}
+.banner.show{display:flex}
+.banner p{margin:0;flex:1}
+
+main.wrap{padding-top:var(--s5);padding-bottom:var(--s7)}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:var(--s5);align-items:start}
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-card);padding:var(--s5)}
+.eyebrow{margin:0 0 var(--s3);font-size:13px;font-weight:500;color:var(--ink-2)}
+h2.eyebrow{font-size:13px}
+
+.seg{display:inline-flex;border:1px solid var(--rule-strong);border-radius:var(--r-ctl);overflow:hidden;margin-bottom:var(--s4)}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{padding:6px var(--s4);font-size:14px;cursor:pointer;color:var(--ink-2);min-height:36px;display:flex;align-items:center}
+.seg label+input+label{border-left:1px solid var(--rule-strong)}
+.seg input:checked+label{background:var(--ink);color:#fff}
+.seg input:focus-visible+label{outline:2px solid var(--focus);outline-offset:-2px}
+
+.field-label{display:block;font-weight:500;margin-bottom:2px}
+.help{margin:0 0 var(--s2);font-size:13px;color:var(--ink-2)}
+textarea{width:100%;min-height:150px;resize:vertical;font:400 16px/1.5 var(--sans);color:var(--ink);
+  background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--r-ctl);padding:var(--s3)}
+textarea:focus{outline:2px solid var(--focus);outline-offset:0;border-color:transparent}
+textarea[aria-invalid="true"]{border-color:var(--queue)}
+.row{display:flex;align-items:center;gap:var(--s3);margin-top:var(--s3);flex-wrap:wrap}
+.counter{font-size:13px;color:var(--ink-2)}
+.counter.over{color:var(--queue);font-weight:500}
+.field-error{margin:var(--s2) 0 0;font-size:14px;color:var(--queue);min-height:0}
+.field-error:empty{display:none}
+
+button{font:500 15px/1 var(--sans);border-radius:var(--r-ctl);cursor:pointer;min-height:40px;padding:0 var(--s4)}
+.btn-primary{background:var(--ink);color:#fff;border:1px solid var(--ink);margin-left:auto;display:inline-flex;align-items:center;gap:var(--s2)}
+.btn-primary:hover{background:#2B2F38}
+.btn-primary[aria-busy="true"]{background:#2B2F38;cursor:progress}
+.btn-quiet{background:transparent;color:var(--ink);border:1px solid var(--rule-strong)}
+.btn-quiet:hover{background:var(--sunken)}
+kbd{font:400 12px var(--mono);color:var(--ink-2);border:1px solid var(--rule);border-bottom-width:2px;border-radius:4px;padding:1px 5px;background:var(--paper)}
+.spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;display:none}
+[aria-busy="true"] .spinner{display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.examples{margin-top:var(--s5);padding-top:var(--s4);border-top:1px solid var(--rule)}
+select{width:100%;font:400 15px var(--sans);color:var(--ink);background:var(--surface);border:1px solid var(--rule-strong);
+  border-radius:var(--r-ctl);padding:var(--s2) var(--s3);min-height:40px}
+.source{margin:var(--s2) 0 0;font-size:13px;color:var(--ink-2)}
+
+.mark{display:inline-block;width:12px;height:12px;flex:none}
+.mark.PASS{background:var(--pass);border-radius:50%}
+.mark.QUEUE{background:var(--queue)}
+.mark.ABSTAIN{background:var(--abstain);transform:rotate(45deg) scale(.86)}
+
+.decision{transition:opacity var(--t-fast) var(--ease)}
+.decision.swap{opacity:.25}
+.empty p{margin:0 0 var(--s3);color:var(--ink-2)}
+.legend{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s3)}
+.legend li{display:grid;grid-template-columns:16px 92px 1fr;gap:var(--s3);align-items:baseline;font-size:14px}
+.legend .code{font-family:var(--mono);font-weight:500}
+.legend .mark{transform-origin:center;align-self:center}
+.legend .mark.ABSTAIN{transform:rotate(45deg) scale(.8)}
+
+.verdict{border-radius:var(--r-ctl);padding:var(--s4);border:1px solid;display:grid;grid-template-columns:auto 1fr;gap:var(--s1) var(--s3);align-items:center}
+.verdict.PASS{background:var(--pass-bg);border-color:var(--pass-line);color:var(--pass)}
+.verdict.QUEUE{background:var(--queue-bg);border-color:var(--queue-line);color:var(--queue)}
+.verdict.ABSTAIN{background:var(--abstain-bg);border-color:var(--abstain-line);color:var(--abstain)}
+.verdict .mark{width:14px;height:14px}
+.verdict .head{display:flex;align-items:baseline;gap:var(--s3);flex-wrap:wrap}
+.verdict .code{font:500 24px/1.1 var(--mono);letter-spacing:.02em}
+.verdict .title{font-size:17px;font-weight:600}
+.verdict .why{grid-column:2;margin:0;font-size:15px;color:var(--ink)}
+.quote{margin:var(--s4) 0 0;padding:var(--s3) var(--s4);background:var(--paper);border-radius:var(--r-ctl);font-size:15px;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+
+.block{margin-top:var(--s5)}
+.scale{position:relative;height:36px;border:1px solid var(--rule-strong);border-radius:var(--r-ctl);background:var(--surface);overflow:hidden}
+.zone{position:absolute;inset:0 auto 0 0;background:repeating-linear-gradient(135deg,#F6DDB0 0 7px,var(--abstain-bg) 7px 14px);
+  border-right:3px solid var(--abstain);transition:width var(--t-move) var(--ease)}
+.zone-label{position:absolute;left:var(--s3);top:50%;transform:translateY(-50%);font-size:12px;font-weight:500;color:var(--abstain);white-space:nowrap}
+.needle{position:absolute;top:-1px;bottom:-1px;width:3px;margin-left:-1px;background:var(--ink);transition:left var(--t-move) var(--ease)}
+.ticks{position:relative;height:22px;margin-top:var(--s1);font-size:12px;color:var(--ink-2)}
+.ticks span{position:absolute;top:0;transform:translateX(-50%);white-space:nowrap}
+.ticks .t0{transform:none}.ticks .t1{transform:translateX(-100%)}
+.ticks .tc{color:var(--ink);font-weight:500}
+.taurow{position:relative;height:20px;font-size:12px}
+.taurow span{position:absolute;bottom:2px;transform:translateX(-50%);color:var(--abstain);font-weight:500;white-space:nowrap}
+
+.probs{margin:0;display:grid;grid-template-columns:168px minmax(0,1fr) 56px;gap:var(--s2) var(--s3);align-items:center}
+.probs dt{font-size:14px}
+.probs dt.best{font-weight:600}
+.probs dd{margin:0}
+.bar{height:10px;background:var(--sunken);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:3px;transition:width var(--t-move) var(--ease)}
+.bar i.negative{background:var(--neg)} .bar i.neutral{background:var(--neu)} .bar i.positive{background:var(--pos)}
+.probs .val{text-align:right;font-size:14px}
+.tag{font:500 11px var(--sans);text-transform:lowercase;color:var(--ink-2);border:1px solid var(--rule-strong);border-radius:4px;padding:0 4px;margin-left:6px;vertical-align:1px}
+.meta{margin:var(--s4) 0 0;font-size:13px;color:var(--ink-2)}
+
+.summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3);margin-top:var(--s4)}
+.stat{border:1px solid var(--rule);border-radius:var(--r-ctl);padding:var(--s3) var(--s4)}
+.stat .n{font:500 32px/1.1 var(--mono)}
+.stat .l{display:flex;gap:var(--s2);align-items:center;font-size:13px;color:var(--ink-2);margin-top:var(--s1)}
+.stat.ABSTAIN .n{color:var(--abstain)} .stat.QUEUE .n{color:var(--queue)} .stat.PASS .n{color:var(--pass)}
+
+.triage{margin-top:var(--s5)}
+.triage-head{display:flex;align-items:baseline;gap:var(--s2) var(--s4);margin-bottom:var(--s3);flex-wrap:wrap}
+.triage-head h2{margin:0;font-size:17px;font-weight:600}
+.triage-head p{margin:0;color:var(--ink-2);font-size:14px}
+.triage-head button{margin-left:auto}
+.lanes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4)}
+.lane{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-card);display:flex;flex-direction:column;min-height:180px}
+.lane header{display:flex;align-items:center;gap:var(--s2);padding:var(--s3) var(--s4);border-bottom:1px solid var(--rule)}
+.lane h3{margin:0;font-size:15px;font-weight:600}
+.lane .count{margin-left:auto;font:500 15px var(--mono)}
+.lane.ABSTAIN header{background:var(--abstain-bg)} .lane.ABSTAIN h3,.lane.ABSTAIN .count{color:var(--abstain)}
+.lane.QUEUE header{background:var(--queue-bg)} .lane.QUEUE h3,.lane.QUEUE .count{color:var(--queue)}
+.lane.PASS header{background:var(--pass-bg)} .lane.PASS h3,.lane.PASS .count{color:var(--pass)}
+.lane .sub{margin:0;padding:var(--s2) var(--s4) 0;font-size:13px;color:var(--ink-2)}
+.lane ol{list-style:none;margin:0;padding:var(--s2);display:flex;flex-direction:column;gap:var(--s1);max-height:360px;overflow:auto}
+.lane li button{width:100%;text-align:left;background:transparent;border:1px solid transparent;border-radius:var(--r-ctl);
+  padding:var(--s2) var(--s3);min-height:44px;font:400 14px/1.4 var(--sans);color:var(--ink);display:grid;grid-template-columns:1fr auto;gap:var(--s3)}
+.lane li button:hover{background:var(--paper);border-color:var(--rule)}
+.lane li button[aria-current="true"]{border-color:var(--rule-strong);background:var(--paper)}
+.lane .txt{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.lane .conf{font-size:13px;color:var(--ink-2);white-space:nowrap}
+.lane .none{margin:0;padding:var(--s4);font-size:14px;color:var(--ink-2)}
+
+details.model{margin-top:var(--s5);background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-card)}
+details.model summary{cursor:pointer;padding:var(--s4) var(--s5);font-weight:600;list-style:none;display:flex;gap:var(--s3);align-items:baseline}
+details.model summary::-webkit-details-marker{display:none}
+details.model summary::before{content:"+";font:500 16px var(--mono);color:var(--ink-2);width:12px}
+details.model[open] summary::before{content:"−"}
+details.model summary span{font-weight:400;color:var(--ink-2);font-size:14px}
+.model-body{padding:0 var(--s5) var(--s5);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);gap:var(--s5)}
+.model-body h3{margin:0 0 var(--s2);font-size:13px;font-weight:500;color:var(--ink-2)}
+.formula{font:400 15px var(--mono);margin:0 0 var(--s2)}
+.model-body p{margin:0 0 var(--s2);font-size:14px}
+.kv{margin:0;display:grid;grid-template-columns:auto 1fr;gap:var(--s1) var(--s4);font-size:14px}
+.kv dt{color:var(--ink-2)} .kv dd{margin:0;text-align:right}
+
+footer.wrap{padding-bottom:var(--s6);font-size:13px;color:var(--ink-2)}
+
+@media (max-width:1100px){
+  .grid{grid-template-columns:1fr}
+  .lanes{grid-template-columns:1fr}
+  .model-body{grid-template-columns:1fr}
+  .tagline{display:none}
+  .probs{grid-template-columns:118px minmax(0,1fr) 52px}
+  .triage-head p{flex-basis:100%;order:3}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
 </style>
 </head>
 <body>
-<header><div class="wrap">
-  <h1>Senti<span>Triage</span>-ES</h1>
-  <p>Spanish review triage with calibrated abstention · Intelligent Systems 2026B · Universidad de Ibagué</p>
-</div></header>
+<header class="topbar">
+  <div class="wrap">
+    <h1 class="brand">SentiTriage-ES</h1>
+    <p class="tagline">Selective sentiment triage for Spanish restaurant reviews</p>
+    <p class="status" id="status" data-state="loading" role="status"><span class="dot" aria-hidden="true"></span><span id="status-text">Connecting to the service…</span></p>
+  </div>
+</header>
 
-<main class="wrap">
-  <section class="card">
-    <h2>Review</h2>
-    <textarea id="text" placeholder="Escribe o pega una reseña de restaurante en español…"></textarea>
-    <div class="row">
-      <button id="go">Classify</button>
-      <button class="ghost" id="clear">Clear</button>
-      <span class="hint">Ctrl + Enter to classify</span>
+<main class="wrap" id="main">
+  <div class="banner" id="banner" role="alert">
+    <p id="banner-text"></p>
+    <button class="btn-quiet" type="button" id="banner-retry">Retry</button>
+  </div>
+
+  <div class="grid">
+    <section class="card" aria-labelledby="input-title">
+      <h2 class="eyebrow" id="input-title">Review</h2>
+
+      <div class="seg" role="radiogroup" aria-label="Input mode">
+        <input type="radio" name="mode" id="mode-one" value="one" checked><label for="mode-one">One review</label>
+        <input type="radio" name="mode" id="mode-batch" value="batch"><label for="mode-batch">Batch</label>
+      </div>
+
+      <form id="form" novalidate>
+        <div id="one-wrap">
+          <label class="field-label" for="text">Review in Spanish</label>
+          <p class="help" id="text-help">One restaurant review, up to 2,000 characters.</p>
+          <textarea id="text" aria-describedby="text-help text-error" placeholder="Pedimos a domicilio y llegó todo frío, una hora tarde."></textarea>
+        </div>
+        <div id="batch-wrap" hidden>
+          <label class="field-label" for="batch">Reviews in Spanish, one per line</label>
+          <p class="help" id="batch-help">Up to 256 reviews. Each line is classified on its own.</p>
+          <textarea id="batch" aria-describedby="batch-help text-error" placeholder="La comida estaba deliciosa.&#10;El pedido llegó incompleto."></textarea>
+        </div>
+        <p class="field-error" id="text-error" role="alert"></p>
+        <div class="row">
+          <span class="counter num" id="counter" aria-live="polite">0 / 2,000</span>
+          <span class="counter"><kbd>Ctrl</kbd> + <kbd>Enter</kbd></span>
+          <button class="btn-primary" type="submit" id="go"><span class="spinner" aria-hidden="true"></span><span id="go-label">Classify review</span></button>
+        </div>
+      </form>
+
+      <div class="examples">
+        <label class="field-label" for="example">Try a real comment</label>
+        <select id="example">
+          <option value="">Choose a comment…</option>
+        </select>
+        <p class="source">Real comments from customers of a Colombian food delivery platform (Correa, 2019, Mendeley Data, CC BY 4.0).</p>
+      </div>
+    </section>
+
+    <section class="card decision" id="decision" aria-labelledby="decision-title" aria-live="polite">
+      <h2 class="eyebrow" id="decision-title">Decision</h2>
+      <div id="decision-body"></div>
+    </section>
+  </div>
+
+  <section class="triage" aria-labelledby="triage-title">
+    <div class="triage-head">
+      <h2 id="triage-title">Triage of this session</h2>
+      <p id="triage-total">Classified reviews will be sorted here by decision.</p>
+      <button class="btn-quiet" type="button" id="clear">Clear session</button>
     </div>
-    <div class="chips" id="chips"></div>
-    <p class="hint">Examples are real comments from customers of a Colombian food delivery platform (Correa, 2019, Mendeley Data, CC BY 4.0).</p>
-
-    <div id="result">
-      <div class="verdict" id="verdict">
-        <div class="action" id="action"></div>
-        <div class="why" id="why"></div>
-      </div>
-      <div class="conf">
-        <div class="hint" style="margin-bottom:6px">Calibrated confidence c(x) = max softmax(z / T) vs. threshold τ</div>
-        <div class="scale"><div class="val" id="cval"></div><div class="tau" id="ctau"></div></div>
-        <div class="labels"><span>0</span><span id="clabel"></span><span>1</span></div>
-      </div>
-      <div class="bars" id="bars"></div>
+    <div class="lanes">
+      <section class="lane ABSTAIN" aria-labelledby="lane-a">
+        <header><span class="mark ABSTAIN" aria-hidden="true"></span><h3 id="lane-a">Needs a person</h3><span class="count" id="count-ABSTAIN">0</span></header>
+        <p class="sub">ABSTAIN · confidence below τ</p>
+        <ol id="list-ABSTAIN"></ol>
+      </section>
+      <section class="lane QUEUE" aria-labelledby="lane-q">
+        <header><span class="mark QUEUE" aria-hidden="true"></span><h3 id="lane-q">Admin queue</h3><span class="count" id="count-QUEUE">0</span></header>
+        <p class="sub">QUEUE · confident complaints</p>
+        <ol id="list-QUEUE"></ol>
+      </section>
+      <section class="lane PASS" aria-labelledby="lane-p">
+        <header><span class="mark PASS" aria-hidden="true"></span><h3 id="lane-p">Accepted</h3><span class="count" id="count-PASS">0</span></header>
+        <p class="sub">PASS · confident, not negative</p>
+        <ol id="list-PASS"></ol>
+      </section>
     </div>
   </section>
 
-  <aside class="card">
-    <h2>Agent</h2>
-    <div class="flow"><b>Review</b><i>→</i><b>Normalize</b><i>→</i><b>Classifier</b><i>→</i><b>÷ T</b><i>→</i><b>softmax</b><i>→</i><b>c(x) ≥ τ ?</b></div>
-    <p class="hint" style="margin:10px 0 14px">
-      <span class="tag QUEUE">QUEUE</span> confident negative → admin list ·
-      <span class="tag PASS">PASS</span> confident non-negative → stored ·
-      <span class="tag ABSTAIN">ABSTAIN</span> low confidence → a person decides
-    </p>
-    <div class="kv" id="model"></div>
-  </aside>
-
-  <section class="card full">
-    <h2>Session log</h2>
-    <table><thead><tr><th>Review</th><th>Label</th><th>Conf.</th><th>Action</th><th>ms</th></tr></thead>
-      <tbody id="log"><tr><td colspan="5" class="hint">No reviews classified yet.</td></tr></tbody></table>
-  </section>
+  <details class="model" id="model">
+    <summary>How the agent decides <span id="model-summary">Loading model details…</span></summary>
+    <div class="model-body" id="model-body"></div>
+  </details>
 </main>
+
+<footer class="wrap">SentiTriage-ES · Intelligent Systems 2026B · Universidad de Ibagué</footer>
 
 <script>
 const EXAMPLES = [
@@ -130,68 +297,312 @@ const EXAMPLES = [
   "muy caro y la verdad una hamburguesa muy común",
   "Las papas viejas duras del dia anterior"
 ];
-const $ = id => document.getElementById(id);
-const fmt = x => (x == null ? "—" : Number(x).toFixed(3));
-let first = true;
-
-EXAMPLES.forEach(t => {
-  const c = document.createElement("span"); c.className = "chip"; c.textContent = t;
-  c.onclick = () => { $("text").value = t; classify(); };
-  $("chips").appendChild(c);
-});
-
-async function loadModel(){
-  try{
-    const m = await (await fetch("/model")).json();
-    const mt = m.metrics_test || {};
-    const rows = [["Model", m.name], ["Backend", m.type], ["Temperature T", fmt(m.temperature)],
-      ["Threshold τ", fmt(m.tau)], ["Target risk (val)", fmt(m.target_risk_val)],
-      ["Test macro-F1", fmt(mt.macro_f1)], ["Test recall (neg.)", fmt(mt.recall_negative)],
-      ["Test ECE (calibrated)", fmt(mt.ece_test_after)], ["Test AURC", fmt(mt.aurc_test)]];
-    $("model").innerHTML = rows.map(([k,v]) => `<div>${k}</div><div>${v}</div>`).join("");
-  }catch(e){ $("model").innerHTML = `<div>Service</div><div>unavailable</div>`; }
-}
-
-const WHY = {
-  QUEUE: d => `Confident <b>negative</b> (${fmt(d.confidence)} ≥ τ ${fmt(d.threshold)}). Added to the administrator's review queue.`,
-  PASS: d => `Confident <b>${d.label}</b> (${fmt(d.confidence)} ≥ τ ${fmt(d.threshold)}). Stored without human review.`,
-  ABSTAIN: d => d.label ? `Best guess <b>${d.label}</b>, but confidence ${fmt(d.confidence)} < τ ${fmt(d.threshold)}. Sent to a person.`
-                       : `The model did not respond. Sent to a person (never accepted as non-negative).`
+const MAX_CHARS = 2000, MAX_BATCH = 256;
+const ACTIONS = ["ABSTAIN", "QUEUE", "PASS"];
+const COPY = {
+  PASS:    {title: "Accepted automatically", lane: "Accepted"},
+  QUEUE:   {title: "Complaint for the admin", lane: "Admin queue"},
+  ABSTAIN: {title: "A person decides", lane: "Needs a person"}
 };
+const $ = id => document.getElementById(id);
+const f2 = x => (x == null ? "–" : Number(x).toFixed(2));
+const f3 = x => (x == null ? "–" : Number(x).toFixed(3));
+const fmtInt = n => n.toLocaleString("en-US");
+let session = [];          // decisiones de esta sesión (solo en memoria)
+let currentIndex = null;
+let busy = false;
+let modelInfo = null;
 
-async function classify(){
-  const text = $("text").value.trim(); if(!text) return;
-  $("go").disabled = true;
-  try{
-    const r = await fetch("/classify", {method:"POST", headers:{"Content-Type":"application/json"},
-                                         body: JSON.stringify({text})});
-    const d = await r.json(); render(d);
-  }finally{ $("go").disabled = false; }
+/* ---------- utilidades DOM (todo el texto del usuario va por textContent) ---------- */
+function el(tag, attrs = {}, ...children) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "class") n.className = v;
+    else if (k === "text") n.textContent = v;
+    else if (k.startsWith("on")) n.addEventListener(k.slice(2), v);
+    else if (v !== null && v !== undefined) n.setAttribute(k, v);
+  }
+  for (const c of children) if (c != null) n.append(c);
+  return n;
+}
+function mark(action) { return el("span", {class: "mark " + action, "aria-hidden": "true"}); }
+
+/* ---------- estado del servicio ---------- */
+function setStatus(state, text) {
+  $("status").dataset.state = state;
+  $("status-text").textContent = text;
+}
+function showBanner(text) { $("banner-text").textContent = text; $("banner").classList.add("show"); }
+function hideBanner() { $("banner").classList.remove("show"); }
+const OFFLINE_MSG = "The service is not responding. Check that uvicorn is running on port 8000, then try again.";
+
+async function checkHealth() {
+  try {
+    const r = await fetch("/health", {cache: "no-store"});
+    const d = await r.json();
+    if (d.status === "ok") { setStatus("ok", `Ready · ${d.model}`); hideBanner(); if (!modelInfo) loadModel(); }
+    else { setStatus("loading", "Model not loaded"); showBanner("The service is up, but the model could not be loaded. Check the server log, then try again."); }
+  } catch (e) {
+    setStatus("offline", "Service offline");
+    showBanner(OFFLINE_MSG);
+  }
 }
 
-function render(d){
-  $("result").style.display = "block";
-  $("verdict").className = "verdict " + d.action;
-  $("action").textContent = d.action;
-  $("why").innerHTML = WHY[d.action](d);
-  const c = d.confidence ?? 0, t = d.threshold ?? 0;
-  $("cval").style.width = (c*100) + "%";
-  $("ctau").style.left = `calc(${t*100}% - 1px)`;
-  $("clabel").innerHTML = `c = ${fmt(d.confidence)} · <span style="color:var(--abstain)">τ = ${fmt(d.threshold)}</span>`;
-  $("bars").innerHTML = d.probabilities ? Object.entries(d.probabilities).map(([k,v]) =>
-    `<div class="bar"><span>${k}</span><div class="track"><div class="fill ${k}" style="width:${v*100}%"></div></div><span style="font-family:var(--mono)">${v.toFixed(3)}</span></div>`).join("") : "";
-  if(first){ $("log").innerHTML = ""; first = false; }
-  const tr = document.createElement("tr");
-  const esc = s => s.replace(/[&<>]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[ch]));
-  tr.innerHTML = `<td class="t">${esc(d.text)}</td><td>${d.label ?? "—"}</td><td style="font-family:var(--mono)">${fmt(d.confidence)}</td>
-                  <td><span class="tag ${d.action}">${d.action}</span></td><td style="font-family:var(--mono)">${d.latency_ms ?? ""}</td>`;
-  $("log").prepend(tr);
+/* ---------- panel del modelo ---------- */
+async function loadModel() {
+  try {
+    const r = await fetch("/model", {cache: "no-store"});
+    if (!r.ok) throw new Error(r.status);
+    modelInfo = await r.json();
+    renderModel(modelInfo);
+  } catch (e) {
+    $("model-summary").textContent = "Couldn't load model details. They load again when the service is back.";
+  }
+}
+function renderModel(m) {
+  const mt = m.metrics_test || {};
+  $("model-summary").textContent = `${m.name} · T ${f2(m.temperature)} · τ ${f2(m.tau)}`;
+  const body = $("model-body");
+  body.replaceChildren(
+    el("div", {},
+      el("h3", {text: "Rule"}),
+      el("p", {class: "formula", text: "c(x) = max softmax(z(x) / T)"}),
+      el("p", {text: "If c(x) is below τ, the agent abstains and a person decides. Otherwise a negative review goes to the admin queue and the rest is accepted."}),
+      el("p", {text: "T and τ were fitted on validation data only."})
+    ),
+    el("div", {},
+      el("h3", {text: "Configuration"}),
+      kv([["Model", m.name], ["Backend", m.type], ["Temperature T", f3(m.temperature)],
+          ["Threshold τ", f3(m.tau)], ["Target risk", f2(m.target_risk_val)]])
+    ),
+    el("div", {},
+      el("h3", {text: "Test-set evaluation (Spanish tweets)"}),
+      kv([["Macro-F1", f3(mt.macro_f1)], ["Accuracy", f3(mt.accuracy)], ["Negative recall", f3(mt.recall_negative)],
+          ["ECE after calibration", f3(mt.ece_test_after)], ["AURC", f3(mt.aurc_test)]])
+    )
+  );
+}
+function kv(rows) {
+  const dl = el("dl", {class: "kv"});
+  for (const [k, v] of rows) dl.append(el("dt", {text: k}), el("dd", {class: "num", text: v ?? "–"}));
+  return dl;
 }
 
-$("go").onclick = classify;
-$("clear").onclick = () => { $("text").value = ""; $("result").style.display = "none"; };
-$("text").addEventListener("keydown", e => { if(e.key === "Enter" && (e.ctrlKey || e.metaKey)) classify(); });
-loadModel();
+/* ---------- panel de decisión ---------- */
+function renderEmpty() {
+  const legend = el("ul", {class: "legend"},
+    ...[["PASS", "Confident and not negative. Stored without review."],
+        ["QUEUE", "Confident complaint. Goes to the admin queue."],
+        ["ABSTAIN", "Confidence below τ. A person reads it."]]
+      .map(([a, t]) => el("li", {}, mark(a), el("span", {class: "code", text: a}), el("span", {text: t}))));
+  $("decision-body").replaceChildren(
+    el("div", {class: "empty"},
+      el("p", {text: "Classify a review to see what the agent decides."}),
+      el("p", {text: "The agent only answers when its calibrated confidence reaches the threshold τ. Below τ it abstains and hands the review to a person."}),
+      legend));
+}
+
+function whyText(d) {
+  if (d.error) return "The model did not respond. The review goes to a person and is never accepted as non-negative.";
+  const c = f2(d.confidence), t = f2(d.threshold);
+  if (d.action === "ABSTAIN") return `Confidence ${c} is below τ ${t}, so the agent does not decide. Its best guess was ${d.label}.`;
+  if (d.action === "QUEUE") return `Confident negative (${c} ≥ τ ${t}). Added to the administrator's queue.`;
+  return `Confident enough (${c} ≥ τ ${t}). Stored as ${d.label} without human review.`;
+}
+
+function renderDecision(d) {
+  const title = d.error ? "Service error" : COPY[d.action].title;
+  const verdict = el("div", {class: "verdict " + d.action},
+    mark(d.action),
+    el("div", {class: "head"}, el("span", {class: "code", text: d.action}), el("span", {class: "title", text: title})),
+    el("p", {class: "why", text: whyText(d)}));
+  const parts = [verdict, el("p", {class: "quote", text: d.text})];
+
+  if (!d.error && d.probabilities) {
+    const c = Math.max(0, Math.min(1, d.confidence)), t = Math.max(0, Math.min(1, d.threshold));
+    const zone = el("div", {class: "zone", style: "width:0%"}, el("span", {class: "zone-label", text: "abstention zone"}));
+    const needle = el("div", {class: "needle", style: "left:0%"});
+    const scale = el("div", {class: "scale", role: "img",
+      "aria-label": `Calibrated confidence ${f2(c)} on a scale from 0 to 1. Threshold τ is ${f2(t)}; values below it fall in the abstention zone.`},
+      zone, needle);
+    const ticks = el("div", {class: "ticks num", "aria-hidden": "true"},
+      el("span", {class: "t0", style: "left:0", text: "0"}),
+      el("span", {class: "t1", style: "left:100%", text: "1"}));
+    const tc = el("span", {class: "tc", text: `c ${f2(c)}`, style: `left:${c * 100}%`});
+    ticks.append(tc);
+    const tauRow = el("div", {class: "taurow num", "aria-hidden": "true"},
+      el("span", {class: "tt", text: `τ ${f2(t)}`, style: `left:${t * 100}%`}));
+
+    const probs = el("dl", {class: "probs"});
+    const best = d.label;
+    for (const [k, v] of Object.entries(d.probabilities)) {
+      const dt = el("dt", {class: k === best ? "best" : ""}, k);
+      if (k === best) dt.append(el("span", {class: "tag", text: "best guess"}));
+      probs.append(dt,
+        el("dd", {}, el("div", {class: "bar", "aria-hidden": "true"}, el("i", {class: k, style: "width:0%"}))),
+        el("dd", {class: "val num", text: f3(v)}));
+    }
+    parts.push(
+      el("div", {class: "block"}, el("p", {class: "eyebrow", text: "Calibrated confidence vs. threshold τ"}), tauRow, scale, ticks),
+      el("div", {class: "block"}, el("p", {class: "eyebrow", text: "Class probabilities"}), probs),
+      el("p", {class: "meta num", text: `${d.model} · ${d.latency_ms ?? "–"} ms`}));
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      zone.style.width = t * 100 + "%";
+      needle.style.left = c * 100 + "%";
+      probs.querySelectorAll(".bar i").forEach((b, i) => { b.style.width = Object.values(d.probabilities)[i] * 100 + "%"; });
+    }));
+  }
+  swapDecision(parts);
+}
+
+function renderBatchSummary(list) {
+  const n = {ABSTAIN: 0, QUEUE: 0, PASS: 0};
+  list.forEach(d => n[d.action]++);
+  const stats = el("div", {class: "summary"},
+    ...ACTIONS.map(a => el("div", {class: "stat " + a},
+      el("div", {class: "n", text: String(n[a])}),
+      el("div", {class: "l"}, mark(a), el("span", {text: COPY[a].lane})))));
+  swapDecision([
+    el("p", {text: `${fmtInt(list.length)} ${list.length === 1 ? "review" : "reviews"} classified. ${n.ABSTAIN} ${n.ABSTAIN === 1 ? "needs" : "need"} a person, ${n.QUEUE} went to the admin queue, and ${n.PASS} ${n.PASS === 1 ? "was" : "were"} accepted.`}),
+    stats,
+    el("p", {class: "meta", text: "Select any review in the lanes below to see its full decision."})]);
+}
+
+function swapDecision(nodes) {
+  const box = $("decision");
+  box.classList.add("swap");
+  setTimeout(() => { $("decision-body").replaceChildren(...nodes); box.classList.remove("swap"); }, 120);
+}
+
+/* ---------- carriles de triaje ---------- */
+function renderLanes() {
+  for (const a of ACTIONS) {
+    const items = session.map((d, i) => ({d, i})).filter(x => x.d.action === a).reverse();
+    $("count-" + a).textContent = items.length;
+    const ol = $("list-" + a);
+    if (!items.length) { ol.replaceChildren(el("li", {}, el("p", {class: "none", text: "None yet."}))); continue; }
+    ol.replaceChildren(...items.map(({d, i}) => el("li", {},
+      el("button", {type: "button", "aria-current": i === currentIndex ? "true" : "false",
+                    "aria-label": `${d.action}, confidence ${f2(d.confidence)}: ${d.text}`,
+                    onclick: () => { currentIndex = i; renderDecision(d); renderLanes(); }},
+        el("span", {class: "txt", text: d.text}),
+        el("span", {class: "conf num", text: d.error ? "error" : f2(d.confidence)})))));
+  }
+  const total = session.length;
+  $("triage-total").textContent = total
+    ? `${total} ${total === 1 ? "review" : "reviews"} in this session. Stored only in this browser tab.`
+    : "Classified reviews will be sorted here by decision.";
+}
+
+/* ---------- formulario ---------- */
+const mode = () => document.querySelector('input[name="mode"]:checked').value;
+function activeArea() { return mode() === "one" ? $("text") : $("batch"); }
+function batchLines() { return $("batch").value.split(/\r?\n/).map(s => s.trim()).filter(Boolean); }
+
+function updateCounter() {
+  const c = $("counter");
+  if (mode() === "one") {
+    const n = $("text").value.length;
+    c.textContent = `${fmtInt(n)} / 2,000`;
+    c.classList.toggle("over", n > MAX_CHARS);
+  } else {
+    const n = batchLines().length;
+    c.textContent = `${n} / ${MAX_BATCH} reviews`;
+    c.classList.toggle("over", n > MAX_BATCH);
+  }
+}
+function setFieldError(msg) {
+  $("text-error").textContent = msg || "";
+  activeArea().setAttribute("aria-invalid", msg ? "true" : "false");
+}
+function setBusy(on) {
+  busy = on;
+  const b = $("go");
+  b.setAttribute("aria-busy", on ? "true" : "false");
+  $("go-label").textContent = on ? "Classifying…" : (mode() === "one" ? "Classify review" : "Classify reviews");
+}
+
+function validate() {
+  if (mode() === "one") {
+    const t = $("text").value.trim();
+    if (!t) return "Write a review first.";
+    if (t.length > MAX_CHARS) return `The review has ${fmtInt(t.length)} characters. The limit is 2,000.`;
+  } else {
+    const lines = batchLines();
+    if (!lines.length) return "Write at least one review, one per line.";
+    if (lines.length > MAX_BATCH) return `There are ${lines.length} reviews. The limit is ${MAX_BATCH} per batch.`;
+    const long = lines.findIndex(l => l.length > MAX_CHARS);
+    if (long >= 0) return `Line ${long + 1} is longer than 2,000 characters.`;
+  }
+  return null;
+}
+
+async function postJSON(url, body) {
+  let r;
+  try {
+    r = await fetch(url, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)});
+  } catch (e) {
+    setStatus("offline", "Service offline");
+    showBanner(OFFLINE_MSG);
+    return null;
+  }
+  if (r.status === 422) { setFieldError("The service rejected this input. Check that no review is empty or longer than 2,000 characters."); return null; }
+  if (!r.ok) { showBanner(`The service answered with an error (${r.status}). Try again in a moment.`); return null; }
+  hideBanner();
+  return r.json();
+}
+
+async function submit(ev) {
+  if (ev) ev.preventDefault();
+  if (busy) return;
+  const err = validate();
+  setFieldError(err);
+  if (err) { activeArea().focus(); return; }
+  setBusy(true);
+  try {
+    if (mode() === "one") {
+      const d = await postJSON("/classify", {text: $("text").value.trim()});
+      if (!d) return;
+      session.push(d); currentIndex = session.length - 1;
+      renderDecision(d); renderLanes();
+      if (d.error) setStatus("loading", "Model error");
+    } else {
+      const list = await postJSON("/classify/batch", {texts: batchLines()});
+      if (!list) return;
+      session.push(...list); currentIndex = null;
+      renderBatchSummary(list); renderLanes();
+    }
+  } finally {
+    setBusy(false);
+  }
+}
+
+/* ---------- eventos ---------- */
+EXAMPLES.forEach((t, i) => $("example").append(el("option", {value: String(i), text: t.length > 90 ? t.slice(0, 88) + "…" : t})));
+$("example").addEventListener("change", e => {
+  if (e.target.value === "") return;
+  const t = EXAMPLES[Number(e.target.value)];
+  if (mode() === "one") $("text").value = t;
+  else $("batch").value = ($("batch").value.trim() ? $("batch").value.replace(/\s*$/, "\n") : "") + t;
+  setFieldError(null); updateCounter();
+  activeArea().focus();
+  e.target.value = "";
+});
+document.querySelectorAll('input[name="mode"]').forEach(r => r.addEventListener("change", () => {
+  const one = mode() === "one";
+  $("one-wrap").hidden = !one; $("batch-wrap").hidden = one;
+  setFieldError(null); setBusy(false); updateCounter();
+}));
+for (const id of ["text", "batch"]) {
+  $(id).addEventListener("input", () => { if ($("text-error").textContent) setFieldError(null); updateCounter(); });
+  $(id).addEventListener("keydown", e => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) submit(e); });
+}
+$("form").addEventListener("submit", submit);
+$("clear").addEventListener("click", () => { session = []; currentIndex = null; renderLanes(); renderEmpty(); });
+$("banner-retry").addEventListener("click", checkHealth);
+
+renderEmpty(); renderLanes(); updateCounter(); checkHealth();
+setInterval(checkHealth, 15000);
 </script>
 </body>
 </html>
