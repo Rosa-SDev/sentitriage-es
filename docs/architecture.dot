@@ -1,0 +1,28 @@
+digraph G {
+  rankdir=TB; nodesep=0.25; ranksep=0.28;
+  node [shape=box, style="rounded,filled", fillcolor="#ffffff", color="#2f4b7c", fontname="Helvetica", fontsize=10, penwidth=1.1];
+  edge [color="#555555", arrowsize=0.6, fontname="Helvetica", fontsize=8];
+
+  subgraph cluster_clients { label="Clients"; fontname="Helvetica-Bold"; fontsize=9; color="#bbbbbb"; style="dashed";
+    demo [label="Demo web page"];
+    kandela [label="Kandela gateway\n(future review module)", style="rounded,dashed,filled", fillcolor="#f4f4f4"];
+  }
+  subgraph cluster_service { label="SentiTriage-ES\nservice (FastAPI)"; labeljust="l"; fontname="Helvetica-Bold"; fontsize=9; color="#2f4b7c";
+    api [label="POST /classify", fillcolor="#e9eef7"];
+    norm [label="Perception\nnormalize text"];
+    clf [label="Classifier → logits z(x)\nTF-IDF+LR | BETO | XLM-R"];
+    cal [label="Calibration\nc(x) = max softmax(z / T)"];
+    pol [label="Policy: c(x) ≥ τ ?", fillcolor="#e9eef7"];
+  }
+  pass [label="PASS", fillcolor="#e8f3ee", color="#2e7d5b"];
+  queue [label="QUEUE", fillcolor="#f8e9e6", color="#b3402f"];
+  abst [label="ABSTAIN\n(human review)", fillcolor="#fbf1dc", color="#a86b00"];
+
+  subgraph cluster_off { label="Offline (Colab / local)"; fontname="Helvetica-Bold"; fontsize=9; color="#bbbbbb"; style="dashed";
+    train [label="Train on UMSAB-es\nfit T and τ on validation"];
+    art [label="Model folder\nweights + sentitriage.json"];
+  }
+  {demo kandela} -> api; api -> norm -> clf -> cal -> pol;
+  pol -> pass [xlabel="non-neg. "]; pol -> queue [label=" neg."]; pol -> abst [label="  c<τ"];
+  train -> art; art -> clf [style=dashed, label="loads"];
+}
