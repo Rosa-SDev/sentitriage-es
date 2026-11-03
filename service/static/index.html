@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SentiTriage-ES · Demo</title>
+<style>
+  :root{
+    --ink:#1d2330; --muted:#667085; --line:#e4e7ec; --bg:#f7f7f4; --card:#ffffff;
+    --accent:#2f4b7c;
+    --pass:#2e7d5b; --pass-bg:#e8f3ee;
+    --queue:#b3402f; --queue-bg:#f8e9e6;
+    --abstain:#a86b00; --abstain-bg:#fbf1dc;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:15px/1.5 "Segoe UI", system-ui, -apple-system, Roboto, sans-serif}
+  header{border-bottom:1px solid var(--line);background:var(--card)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  header .wrap{display:flex;align-items:baseline;gap:16px;padding-top:18px;padding-bottom:14px}
+  h1{font-size:20px;margin:0;letter-spacing:.2px}
+  h1 span{color:var(--accent)}
+  header p{margin:0;color:var(--muted);font-size:13px}
+  main{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;padding-top:22px;padding-bottom:40px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+  .card h2{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin:0 0 12px}
+  textarea{width:100%;min-height:110px;resize:vertical;border:1px solid var(--line);border-radius:8px;
+           padding:12px;font:inherit;color:var(--ink);background:#fcfcfb}
+  textarea:focus{outline:2px solid #c9d3e6;border-color:var(--accent)}
+  .row{display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap}
+  button{font:inherit;border-radius:8px;border:1px solid var(--accent);background:var(--accent);
+         color:#fff;padding:8px 16px;cursor:pointer}
+  button.ghost{background:transparent;color:var(--accent)}
+  button:disabled{opacity:.5;cursor:wait}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+  .chip{font-size:12.5px;border:1px solid var(--line);background:#fafafa;border-radius:999px;
+        padding:4px 10px;cursor:pointer;color:#344054}
+  .chip:hover{border-color:var(--accent)}
+  .hint{font-size:12px;color:var(--muted)}
+  #result{margin-top:18px;display:none}
+  .verdict{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:8px}
+  .verdict .action{font-weight:700;font-size:20px;letter-spacing:.5px;font-family:var(--mono)}
+  .verdict .why{font-size:13.5px}
+  .PASS{background:var(--pass-bg);color:var(--pass)}
+  .QUEUE{background:var(--queue-bg);color:var(--queue)}
+  .ABSTAIN{background:var(--abstain-bg);color:var(--abstain)}
+  .bars{margin-top:14px}
+  .bar{display:grid;grid-template-columns:72px 1fr 52px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+  .track{height:10px;background:#eef0f3;border-radius:6px;overflow:hidden}
+  .fill{height:100%;border-radius:6px;background:#98a2b3}
+  .fill.negative{background:var(--queue)} .fill.neutral{background:#7a8699} .fill.positive{background:var(--pass)}
+  .conf{margin-top:16px}
+  .conf .scale{position:relative;height:14px;background:linear-gradient(90deg,#f1f2f4,#f1f2f4);
+               border-radius:7px;border:1px solid var(--line)}
+  .conf .val{position:absolute;top:0;left:0;height:100%;border-radius:7px;background:var(--accent);opacity:.85}
+  .conf .tau{position:absolute;top:-5px;width:2px;height:22px;background:var(--abstain)}
+  .conf .labels{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:4px}
+  .kv{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:13.5px}
+  .kv div:nth-child(odd){color:var(--muted)}
+  .kv div:nth-child(even){font-family:var(--mono);text-align:right}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:11.5px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);font-weight:600}
+  td.t{max-width:340px}
+  .tag{font-family:var(--mono);font-size:11.5px;padding:2px 7px;border-radius:5px;font-weight:700}
+  .flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12.5px;color:#344054}
+  .flow b{font-weight:600;background:#f2f4f7;border:1px solid var(--line);border-radius:6px;padding:3px 8px}
+  .flow i{color:var(--muted);font-style:normal}
+  .full{grid-column:1 / -1}
+  @media (max-width:860px){main{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>Senti<span>Triage</span>-ES</h1>
+  <p>Spanish review triage with calibrated abstention · Intelligent Systems 2026B · Universidad de Ibagué</p>
+</div></header>
+
+<main class="wrap">
+  <section class="card">
+    <h2>Review</h2>
+    <textarea id="text" placeholder="Escribe o pega una reseña de restaurante en español…"></textarea>
+    <div class="row">
+      <button id="go">Classify</button>
+      <button class="ghost" id="clear">Clear</button>
+      <span class="hint">Ctrl + Enter to classify</span>
+    </div>
+    <div class="chips" id="chips"></div>
+    <p class="hint">Example reviews are illustrative inputs written for the demo; they are not evaluation data.</p>
+
+    <div id="result">
+      <div class="verdict" id="verdict">
+        <div class="action" id="action"></div>
+        <div class="why" id="why"></div>
+      </div>
+      <div class="conf">
+        <div class="hint" style="margin-bottom:6px">Calibrated confidence c(x) = max softmax(z / T) vs. threshold τ</div>
+        <div class="scale"><div class="val" id="cval"></div><div class="tau" id="ctau"></div></div>
+        <div class="labels"><span>0</span><span id="clabel"></span><span>1</span></div>
+      </div>
+      <div class="bars" id="bars"></div>
+    </div>
+  </section>
+
+  <aside class="card">
+    <h2>Agent</h2>
+    <div class="flow"><b>Review</b><i>→</i><b>Normalize</b><i>→</i><b>Classifier</b><i>→</i><b>÷ T</b><i>→</i><b>softmax</b><i>→</i><b>c(x) ≥ τ ?</b></div>
+    <p class="hint" style="margin:10px 0 14px">
+      <span class="tag QUEUE">QUEUE</span> confident negative → admin list ·
+      <span class="tag PASS">PASS</span> confident non-negative → stored ·
+      <span class="tag ABSTAIN">ABSTAIN</span> low confidence → a person decides
+    </p>
+    <div class="kv" id="model"></div>
+  </aside>
+
+  <section class="card full">
+    <h2>Session log</h2>
+    <table><thead><tr><th>Review</th><th>Label</th><th>Conf.</th><th>Action</th><th>ms</th></tr></thead>
+      <tbody id="log"><tr><td colspan="5" class="hint">No reviews classified yet.</td></tr></tbody></table>
+  </section>
+</main>
+
+<script>
+const EXAMPLES = [
+  "La bandeja paisa estaba deliciosa y la atención fue excelente, volveremos.",
+  "Pedimos a domicilio y llegó todo frío, una hora tarde. Pésimo servicio.",
+  "El lugar es bonito, pero la comida estaba muy salada y es muy caro.",
+  "Fuimos el sábado al mediodía, pedimos el menú del día.",
+  "Pues… no estuvo mal, aunque esperaba más por lo que cuesta.",
+  "¡Qué maravilla! Esperamos 50 minutos para que nos trajeran la sopa fría."
+];
+const $ = id => document.getElementById(id);
+const fmt = x => (x == null ? "—" : Number(x).toFixed(3));
+let first = true;
+
+EXAMPLES.forEach(t => {
+  const c = document.createElement("span"); c.className = "chip"; c.textContent = t;
+  c.onclick = () => { $("text").value = t; classify(); };
+  $("chips").appendChild(c);
+});
+
+async function loadModel(){
+  try{
+    const m = await (await fetch("/model")).json();
+    const mt = m.metrics_test || {};
+    const rows = [["Model", m.name], ["Backend", m.type], ["Temperature T", fmt(m.temperature)],
+      ["Threshold τ", fmt(m.tau)], ["Target risk (val)", fmt(m.target_risk_val)],
+      ["Test macro-F1", fmt(mt.macro_f1)], ["Test recall (neg.)", fmt(mt.recall_negative)],
+      ["Test ECE (calibrated)", fmt(mt.ece_test_after)], ["Test AURC", fmt(mt.aurc_test)]];
+    $("model").innerHTML = rows.map(([k,v]) => `<div>${k}</div><div>${v}</div>`).join("");
+  }catch(e){ $("model").innerHTML = `<div>Service</div><div>unavailable</div>`; }
+}
+
+const WHY = {
+  QUEUE: d => `Confident <b>negative</b> (${fmt(d.confidence)} ≥ τ ${fmt(d.threshold)}). Added to the administrator's review queue.`,
+  PASS: d => `Confident <b>${d.label}</b> (${fmt(d.confidence)} ≥ τ ${fmt(d.threshold)}). Stored without human review.`,
+  ABSTAIN: d => d.label ? `Best guess <b>${d.label}</b>, but confidence ${fmt(d.confidence)} < τ ${fmt(d.threshold)}. Sent to a person.`
+                       : `The model did not respond. Sent to a person (never accepted as non-negative).`
+};
+
+async function classify(){
+  const text = $("text").value.trim(); if(!text) return;
+  $("go").disabled = true;
+  try{
+    const r = await fetch("/classify", {method:"POST", headers:{"Content-Type":"application/json"},
+                                         body: JSON.stringify({text})});
+    const d = await r.json(); render(d);
+  }finally{ $("go").disabled = false; }
+}
+
+function render(d){
+  $("result").style.display = "block";
+  $("verdict").className = "verdict " + d.action;
+  $("action").textContent = d.action;
+  $("why").innerHTML = WHY[d.action](d);
+  const c = d.confidence ?? 0, t = d.threshold ?? 0;
+  $("cval").style.width = (c*100) + "%";
+  $("ctau").style.left = `calc(${t*100}% - 1px)`;
+  $("clabel").innerHTML = `c = ${fmt(d.confidence)} · <span style="color:var(--abstain)">τ = ${fmt(d.threshold)}</span>`;
+  $("bars").innerHTML = d.probabilities ? Object.entries(d.probabilities).map(([k,v]) =>
+    `<div class="bar"><span>${k}</span><div class="track"><div class="fill ${k}" style="width:${v*100}%"></div></div><span style="font-family:var(--mono)">${v.toFixed(3)}</span></div>`).join("") : "";
+  if(first){ $("log").innerHTML = ""; first = false; }
+  const tr = document.createElement("tr");
+  const esc = s => s.replace(/[&<>]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[ch]));
+  tr.innerHTML = `<td class="t">${esc(d.text)}</td><td>${d.label ?? "—"}</td><td style="font-family:var(--mono)">${fmt(d.confidence)}</td>
+                  <td><span class="tag ${d.action}">${d.action}</span></td><td style="font-family:var(--mono)">${d.latency_ms ?? ""}</td>`;
+  $("log").prepend(tr);
+}
+
+$("go").onclick = classify;
+$("clear").onclick = () => { $("text").value = ""; $("result").style.display = "none"; };
+$("text").addEventListener("keydown", e => { if(e.key === "Enter" && (e.ctrlKey || e.metaKey)) classify(); });
+loadModel();
+</script>
+</body>
+</html>
