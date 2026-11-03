@@ -53,3 +53,11 @@ def test_model_failure_never_passes(client, monkeypatch):
 
 def test_index(client):
     assert "SentiTriage" in client.get("/").text
+
+
+def test_demo_page_is_self_contained(client):
+    html = client.get("/").text
+    # accesibilidad básica y sin recursos externos
+    assert 'for="text"' in html and 'aria-live="polite"' in html
+    assert "https://" not in html.split("<script>")[0]
+    assert client.get("/static/fonts/IBMPlexSans-Regular.woff2").status_code == 200
