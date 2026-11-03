@@ -1,0 +1,7 @@
+# Solo para servir o entrenar modelos transformer (BETO, XLM-R).
+# El entrenamiento se hace en Google Colab (notebooks/02_finetune_transformers_colab.ipynb).
+-r requirements.txt
+torch>=2.2
+transformers>=4.40
+datasets>=2.18
+accelerate>=0.28

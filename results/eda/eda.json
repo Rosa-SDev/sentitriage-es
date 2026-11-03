@@ -1,0 +1,67 @@
+{
+  "train": {
+    "n": 1839,
+    "class_counts": {
+      "negative": 613,
+      "neutral": 613,
+      "positive": 613
+    },
+    "words_mean": 15.513322457857532,
+    "words_median": 16.0,
+    "words_max": 31,
+    "with_user_mention": 1020,
+    "with_url": 38,
+    "duplicates_within_split": 0
+  },
+  "val": {
+    "n": 324,
+    "class_counts": {
+      "negative": 108,
+      "neutral": 108,
+      "positive": 108
+    },
+    "words_mean": 15.61111111111111,
+    "words_median": 16.0,
+    "words_max": 33,
+    "with_user_mention": 181,
+    "with_url": 5,
+    "duplicates_within_split": 0
+  },
+  "test": {
+    "n": 870,
+    "class_counts": {
+      "negative": 290,
+      "neutral": 290,
+      "positive": 290
+    },
+    "words_mean": 15.779310344827586,
+    "words_median": 16.0,
+    "words_max": 33,
+    "with_user_mention": 500,
+    "with_url": 14,
+    "duplicates_within_split": 0
+  },
+  "overlap_train_test": 0,
+  "normalization_examples": [
+    {
+      "original": "@user Por?  Tenía pensado verla después de la segunda de Daredevil",
+      "normalized": "@usuario Por? Tenía pensado verla después de la segunda de Daredevil"
+    },
+    {
+      "original": "@user te recuerdo que soy una persona que tiene criterio, equivocado, pero lo tengo",
+      "normalized": "@usuario te recuerdo que soy una persona que tiene criterio, equivocado, pero lo tengo"
+    },
+    {
+      "original": "@user @user @user con una pequeña donación hará felices a miles de chicas que no tienen  #asociacionmariloli",
+      "normalized": "@usuario @usuario @usuario con una pequeña donación hará felices a miles de chicas que no tienen #asociacionmariloli"
+    },
+    {
+      "original": "@user Ojalá pudiera darte el abrazo en vivo o al menos acompañarte hoy. Siento mucho lo de tu primo",
+      "normalized": "@usuario Ojalá pudiera darte el abrazo en vivo o al menos acompañarte hoy. Siento mucho lo de tu primo"
+    },
+    {
+      "original": "@user aquí tienes a mi bae aka una egipcia preciosa que esta aprendiendo español. Os llevareis bien  @user",
+      "normalized": "@usuario aquí tienes a mi bae aka una egipcia preciosa que esta aprendiendo español. Os llevareis bien @usuario"
+    }
+  ]
+}
