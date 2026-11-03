@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "SentiTriage-ES: selective sentiment triage for Spanish restaurant reviews"
+authors:
+  - family-names: "Peña Yagüe"
+    given-names: "Rosa Isabel"
+  - family-names: "Guzmán Rodríguez"
+    given-names: "Daniel Esteban"
+license: MIT
+repository-code: "https://github.com/Rosa-SDev/sentitriage-es"
+date-released: 2026-11-03
+keywords:
+  - sentiment analysis
+  - Spanish NLP
+  - selective classification
+  - calibration
+  - BETO
