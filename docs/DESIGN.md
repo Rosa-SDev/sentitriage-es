@@ -4,6 +4,17 @@ The interface has one job: show what the agent decided and why, so a person can 
 take over. Its identity comes from the product's core idea: **the agent knows when not to
 decide**. The threshold τ is the signature element and owns the only accent color.
 
+## Brief
+
+| | |
+|---|---|
+| **Users** | Administrators of a business that receives written feedback in Spanish (first case: a Colombian restaurant), and developers who connect that business's system to the API. |
+| **Problem** | Reading every review is not possible, and an automatic label that is silently wrong makes the business miss complaints. The interface must show what the agent decided, how sure it was, and when a person must take over. |
+| **Style** | Calm, precise, trustworthy. Closer to a professional tool than to a marketing page. |
+| **Avoid** | Purple AI gradients, decorative badges above headings, random italics, identical cards for everything, all-caps eyebrows, monospace for ordinary labels, colors that mix sentiment with decisions. |
+| **Stack** | One HTML file with vanilla CSS and JavaScript, served by FastAPI. No build step, no external requests, fonts served locally. |
+| **Dials (1–10)** | Variance 3 (sober, one signature element). Motion 2 (only to confirm a result). Density 5 (tables and metrics, with room to read). |
+
 ## Principles
 
 1. **Decision first.** The verdict (action + plain-language title + reason) is the largest
@@ -38,7 +49,8 @@ buttons), 14 (sheets). Shadow: one soft shadow for sheets only.
 IBM Plex Sans (400, 500, 600), served locally, with tabular figures everywhere.
 IBM Plex Mono only for code, endpoints and JSON. Scale: 13, 14, 15, 17, 22, 26, 30 px.
 Sentence case for all labels; no all-caps eyebrows. Action codes (PASS, QUEUE, ABSTAIN)
-keep their API spelling because they are identifiers.
+keep their API spelling because they are identifiers; in the verdict the code sits on the
+same line as the title, as an outlined tag, not above it.
 
 ## Action marks
 
@@ -57,11 +69,38 @@ Four views (Hick's law): **Analyze** (one review), **Batch** (many reviews, tabl
 CSV export of the results), **Inbox** (this session's decisions by action) and **Integrate**
 (API contract, code samples, last real response, model card from `/model`).
 
+## Geometry
+
+Nested corners follow *inner radius = outer radius − padding* when the inner element touches
+the outer corner: the Copy button (4 px) inside the code header (10 px radius, 6 px padding);
+the language buttons (7 px) inside their 10 px group with 2 px padding and a 1 px border.
+Where padding is larger than the outer radius (sheets with 24 px padding), inner elements use
+the control radius (10 px) and do not touch the corner.
+
+## Language
+
+The interface is bilingual (EN and ES) with a selector in the app bar. The first visit follows
+the browser language; the choice is remembered in the browser.
+
+- Spanish is neutral Colombian Spanish with informal *tú*, the same verbs as the English
+  version ("Clasificar reseña" / "Classify review") and the same term for each concept
+  everywhere: *reseña*, *umbral τ*, *confianza calibrada*, *clase más probable*, *cola del
+  administrador*.
+- Sentiment classes agree with *reseña*: *negativa*, *neutral*, *positiva*.
+- Numbers on screen follow the language (0,56 and 2.000 in Spanish; 0.56 and 2,000 in
+  English). Code, JSON, the API and the exported CSV keep the API format.
+- Action codes (PASS, QUEUE, ABSTAIN), endpoints and JSON keys are never translated: they are
+  identifiers of the API.
+- Customer reviews are always shown as written, marked `lang="es"`.
+
 ## Interaction rules
 
-- Inline validation under the field, with the reason and how to fix it.
+- Inline validation under the field while typing (length limits); an empty field is reported
+  only when sending, so the user is not scolded before starting.
 - Skeleton loaders while the service answers; the confidence needle and bars animate once
   to show the change. `prefers-reduced-motion` disables all motion.
 - `Ctrl + Enter` submits; every control is reachable by keyboard with a visible focus ring.
 - Errors say what happened and what to do ("Check that uvicorn is running on port 8000").
-- Responsive down to 360 px: one column, scrollable tabs, full-width primary button.
+- Responsive down to 360 px: one column, scrollable tabs, full-width primary button; on one-
+  column layouts the page scrolls to the decision after classifying.
+- Headings use `text-wrap: balance` and paragraphs `text-wrap: pretty`.
