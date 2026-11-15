@@ -138,7 +138,7 @@ notebooks/         BETO and XLM-R fine-tuning on Colab
 service/           FastAPI microservice and web demo (vanilla HTML/CSS/JS)
 results/           metrics, predictions and figures produced by the experiments
 data/colombia/     annotation sheets and labels for the Colombian sample
-docs/              architecture decision record and figures
+docs/              architecture decision record, design system (DESIGN.md) and figures
 tests/             unit, service and fine-tuning smoke tests
 ```
 
