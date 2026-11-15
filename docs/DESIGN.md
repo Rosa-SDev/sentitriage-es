@@ -25,14 +25,17 @@ decide**. The threshold τ is the signature element and owns the only accent col
 3. **One accent.** Marigold marks the threshold τ and the abstention zone, and nothing else.
 4. **Real data only.** Every number on screen comes from the API (`/classify`,
    `/classify/batch`, `/model`). The sample texts are real comments (Correa, 2019, CC BY 4.0).
-5. **Group by space, not by boxes.** Sheets hold inputs and tables; the decision sits on the
-   page background and is structured by type size and rules.
+5. **Group by space, not by boxes.** Sheets hold inputs, tables and the decision; inside them,
+   content is structured by type size and rules, not by nested boxes. The decision panel is the
+   widest sheet (7 of 12 columns) and has the most padding (32 px), so it reads as the result.
 
 ## Tokens
 
 | Token | Value | Use |
 |---|---|---|
 | `--ink` | `#13213A` | Text, app bar, primary button, best-guess bar |
+| `--ink-2` | `#3B4657` | Secondary text: leads, help, reasons (8.4:1 on `--bg`) |
+| `--ink-3` | `#4F5A6B` | Tertiary text: sources, hints, notes (6.1:1 on `--bg`) |
 | `--bg` | `#EEF1F0` | Page background (cool mist) |
 | `--surface` | `#FFFFFF` | Sheets, lanes, dialog |
 | `--accent` | `#E9A21B` | Threshold τ, abstention zone, ABSTAIN mark |
@@ -41,16 +44,44 @@ decide**. The threshold τ is the signature element and owns the only accent col
 | `--pass` | `#1D6B52` | PASS mark and text |
 | `--sent-other` | `#A3ADBB` | Non-best sentiment bars |
 
-Spacing: 4, 8, 12, 16, 24, 32, 48, 64 px. Radius: 6 (controls inside sheets), 10 (inputs,
-buttons), 14 (sheets). Shadow: one soft shadow for sheets only.
+Spacing: 4, 8, 12, 16, 24, 32, 48, 64 px; the one exception is the 40 px gap between the input
+and the decision in Analyze. Radius: 6 (controls inside sheets), 10 (inputs, buttons), 14
+(sheets). Shadow: one soft shadow for sheets only.
 
 ## Type
 
 IBM Plex Sans (400, 500, 600), served locally, with tabular figures everywhere.
-IBM Plex Mono only for code, endpoints and JSON. Scale: 13, 14, 15, 17, 22, 26, 30 px.
+IBM Plex Mono only for code, endpoints and JSON.
+
+Five sizes, in rem, and no others:
+
+| Token | Size | Use |
+|---|---|---|
+| `--fs-decision` | 2.125rem (34 px) | The verdict title and the batch counts: the decision is the largest text |
+| `--fs-title` | 1.875rem (30 px) | View title (h1); verdict and counts on phones |
+| `--fs-sub` | 1.125rem (18 px) | Section subtitles, panel and lane titles, the quoted review, brand |
+| `--fs-body` | 1rem (16 px) | Body text, field labels, buttons, sentiment classes |
+| `--fs-small` | 0.875rem (14 px) | Labels, help, tables, chips, code, notes, footer |
+
+Paragraphs stay between 50 and 75 characters per line (`max-width` in `ch`).
 Sentence case for all labels; no all-caps eyebrows. Action codes (PASS, QUEUE, ABSTAIN)
 keep their API spelling because they are identifiers; in the verdict the code sits on the
 same line as the title, as an outlined tag, not above it.
+
+## Units and layout
+
+- **rem for text.** Every font size uses one of the five tokens above, so the interface follows
+  the text size the user sets in the browser.
+- **% and vw for layout.** The page (app bar, main and footer) uses side margins of
+  `clamp(24px, 4vw, 56px)`, about 92 % of the viewport, and the content stops growing at
+  1480 px. Grids use fractions (`minmax(0, 5fr) minmax(0, 7fr)`), never fixed widths.
+- **px for borders, shadows, radii and spacing**, which should not scale with the text.
+- **Touch targets of at least 44 × 44 px on phones** (≤ 760 px): navigation, the primary
+  button, the EN/ES selector and the sample chips. On desktop the EN/ES selector and the chips
+  can be compact (30 and 40 px), because they are used with a pointer.
+- **Above the fold at 1536 × 695** (a 1080p laptop at 125 % scaling with the browser bar): the
+  view header is compact (title and one-line lead), so the input, the primary button and the
+  verdict are visible without scrolling.
 
 ## Action marks
 
