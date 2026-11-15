@@ -222,9 +222,16 @@ td.num,th.num{text-align:right;white-space:nowrap}
 .tabs{display:flex;gap:var(--s1);margin:var(--s5) 0 0;border-bottom:1px solid var(--rule)}
 .tabs button{background:none;border:0;padding:var(--s2) var(--s3);font-weight:500;color:var(--ink-2);border-bottom:2px solid transparent;margin-bottom:-1px}
 .tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
-.code{position:relative;margin:var(--s3) 0 0;background:#0F1B30;color:#E4E9F0;border-radius:var(--r-md);padding:var(--s4);overflow:auto;font:400 13px/1.6 var(--mono);white-space:pre;max-height:380px}
+.code-wrap{margin-top:var(--s3);background:#0F1B30;border-radius:var(--r-md);overflow:hidden}
+.code-head{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);padding:var(--s2) var(--s2) var(--s2) var(--s4);
+  border-bottom:1px solid rgba(255,255,255,.08);font-size:12px;color:#9AA7BC}
+.code{margin:0;color:#E4E9F0;padding:var(--s4);overflow:auto;font:400 13px/1.6 var(--mono);white-space:pre;max-height:380px;
+  scrollbar-width:thin;scrollbar-color:#3A4A66 transparent}
+.code::-webkit-scrollbar{width:8px;height:8px}
+.code::-webkit-scrollbar-thumb{background:#3A4A66;border-radius:4px}
+.code::-webkit-scrollbar-track,.code::-webkit-scrollbar-corner{background:transparent}
 .code .k{color:#9CC3FF} .code .s{color:#F2D38A} .code .n{color:#A7E3C6} .code .c{color:#7F8BA0}
-.copy{position:absolute;top:var(--s2);right:var(--s2);background:rgba(255,255,255,.1);color:#fff;border:0;border-radius:var(--r-sm);padding:4px 10px;font-size:12px}
+.copy{flex:none;background:rgba(255,255,255,.1);color:#fff;border:0;border-radius:var(--r-sm);padding:4px 10px;font-size:12px}
 .copy:hover{background:rgba(255,255,255,.2)}
 .kv{display:grid;grid-template-columns:1fr auto;gap:var(--s2) var(--s4);margin:var(--s4) 0 0;font-size:14px}
 .kv dt{color:var(--ink-2)} .kv dd{margin:0;text-align:right;font-weight:500}
@@ -404,7 +411,7 @@ footer{max-width:1240px;margin:0 auto;padding:0 var(--s5) var(--s6);font-size:13
             <button role="tab" aria-selected="false" aria-controls="code-box" data-code="python">Python</button>
             <button role="tab" aria-selected="false" aria-controls="code-box" data-code="response">Last real response</button>
           </div>
-          <div style="position:relative"><pre class="code" id="code-box" role="tabpanel" tabindex="0"></pre><button class="copy" type="button" id="copy">Copy</button></div>
+          <div class="code-wrap"><div class="code-head"><span id="code-label">Request with curl</span><button class="copy" type="button" id="copy">Copy</button></div><pre class="code" id="code-box" role="tabpanel" tabindex="0" aria-labelledby="code-label"></pre></div>
         </section>
       </div>
       <div class="stack">
@@ -746,8 +753,8 @@ function hl(json) {
 }
 function codeText() {
   const req = {items: [{id: "order-1042", text: "El pedido llegó frío y una hora tarde.", metadata: {branch: "centro", channel: "app"}}]};
-  if (codeTab === "curl") return {text: `curl -X POST ${origin}/classify/batch \\\n  -H "Content-Type: application/json" \\\n  -d '${JSON.stringify(req)}'`, html: false};
-  if (codeTab === "python") return {text:
+  if (codeTab === "curl") return {label: "Request with curl", text: `curl -X POST ${origin}/classify/batch \\\n  -H "Content-Type: application/json" \\\n  -d '${JSON.stringify(req)}'`, html: false};
+  if (codeTab === "python") return {label: "Request with Python (standard library only)", text:
 `import json, urllib.request
 
 body = ${JSON.stringify(req, null, 4).replace(/\n/g, "\n")}
@@ -756,15 +763,16 @@ req = urllib.request.Request("${origin}/classify/batch",
                              headers={"Content-Type": "application/json"})
 for decision in json.load(urllib.request.urlopen(req)):
     print(decision["id"], decision["action"], decision["confidence"])`, html: false};
-  if (!lastResponse) return {text: "// Classify a review in Analyze or Batch to see the real response here.", html: false};
+  if (!lastResponse) return {label: "Last real response", text: "Classify a review in Analyze or Batch to see the real response here.", html: false};
   const shown = Array.isArray(lastResponse.data) ? lastResponse.data.slice(0, 2) : lastResponse.data;
-  const head = `// POST ${lastResponse.url}${Array.isArray(lastResponse.data) && lastResponse.data.length > 2 ? `  (first 2 of ${lastResponse.data.length})` : ""}\n`;
-  return {text: head + JSON.stringify(shown, null, 2), html: true};
+  const more = Array.isArray(lastResponse.data) && lastResponse.data.length > 2 ? `, first 2 of ${lastResponse.data.length}` : "";
+  return {label: `Response from POST ${lastResponse.url}${more}`, text: JSON.stringify(shown, null, 2), html: true};
 }
 function renderCode() {
-  const {text, html} = codeText();
+  const {label, text, html} = codeText();
   const box = $("code-box");
-  if (html) { const [first, ...rest] = text.split("\n"); box.innerHTML = `<span class="c">${first.replace(/</g, "&lt;")}</span>\n` + hl(rest.join("\n")); }
+  $("code-label").textContent = label;
+  if (html) box.innerHTML = hl(text);
   else box.textContent = text;
   document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.code === codeTab)));
 }
