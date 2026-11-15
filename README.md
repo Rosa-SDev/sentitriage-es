@@ -70,6 +70,18 @@ The models are trained and calibrated on tweets from Spain, then evaluated, with
 - **BETO on all 4,744 comments with rating labels:** macro-F1 57.7, mostly limited by label
   noise. Details in [`results/colombia/`](results/colombia/).
 
+### Calibration improves the confidence, not the selection
+
+Re-running the selective evaluation with the uncalibrated softmax (τ chosen on validation for
+each variant) gives practically the same area under the risk–coverage curve (tweets: 0.180
+vs. 0.180). Temperature scaling makes *c(x)* and τ interpretable on the source domain, but it
+does not change which reviews the agent abstains on, and it does not transfer to the
+human-labeled Colombian comments. An exploratory variant that queues confident neutral
+predictions with high negative probability gives mixed results, so the service keeps the
+original policy. Details in [`results/policy_ablation/`](results/policy_ablation/).
+
+![Calibration vs. selection](results/policy_ablation/calibration_vs_selection.png)
+
 ## Quick start
 
 Python 3.10 or newer.
@@ -96,7 +108,7 @@ curl -X POST localhost:8000/classify -H "Content-Type: application/json" \
 | Endpoint | Purpose |
 |---|---|
 | `POST /classify` | One review → label, calibrated confidence, probabilities, action |
-| `POST /classify/batch` | Up to 256 reviews |
+| `POST /classify/batch` | Up to 256 reviews (`items` with `id`/`metadata`, or plain `texts`) |
 | `GET /model` | Loaded model, *T*, τ and its test metrics |
 | `GET /health` | Service status |
 
@@ -132,10 +144,29 @@ tests/             unit, service and fine-tuning smoke tests
 
 ## Integration
 
-The agent runs as an independent HTTP service. It is designed to be called by
-[Kandela](https://github.com/Rosa-SDev/kandela), a restaurant management system built
-with microservices, so that the administrator sees the complaint queue and the abstained
-reviews. See [ADR 0001](docs/decisions/0001-arquitectura.md).
+The agent runs as an independent HTTP service with a generic contract, so any business
+system can call it. A request carries the text and, optionally, the client's own `id` and a
+`metadata` object (order, branch, channel...), which come back unchanged in the response:
+
+```json
+{"items": [{"id": "order-42", "text": "La comida llegó fría.", "metadata": {"branch": "centro"}}]}
+```
+
+Each decision contains `label`, `confidence`, `probabilities`, `threshold` and `action`
+(`PASS`, `QUEUE` or `ABSTAIN`). What to do with each action is up to the client. If the
+model fails, the action is `ABSTAIN` and an `error` field explains why.
+
+[`examples/integration_client.py`](examples/integration_client.py) is an independent client
+that uses only the Python standard library: it reads a CSV with `id` and `text`, sends it to
+the service and writes the decisions back.
+
+```bash
+python examples/integration_client.py examples/sample_reviews.csv --out decisions.csv
+```
+
+[Kandela](https://github.com/Rosa-SDev/kandela), a restaurant management system built with
+microservices, is one possible client; it was not modified for this project.
+See [ADR 0001](docs/decisions/0001-arquitectura.md).
 
 ## Data and licenses
 

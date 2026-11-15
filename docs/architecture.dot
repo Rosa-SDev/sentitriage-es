@@ -5,10 +5,11 @@ digraph G {
 
   subgraph cluster_clients { label="Clients"; fontname="Helvetica-Bold"; fontsize=9; color="#bbbbbb"; style="dashed";
     demo [label="Demo web page"];
-    kandela [label="Kandela gateway\n(future review module)", style="rounded,dashed,filled", fillcolor="#f4f4f4"];
+    client [label="Integration client\n(CSV in, decisions out)"];
+    other [label="Other business systems\n(e.g., Kandela gateway)", style="rounded,dashed,filled", fillcolor="#f4f4f4"];
   }
-  subgraph cluster_service { label="SentiTriage-ES\nservice (FastAPI)"; labeljust="l"; fontname="Helvetica-Bold"; fontsize=9; color="#2f4b7c";
-    api [label="POST /classify", fillcolor="#e9eef7"];
+  subgraph cluster_service { label=""; fontname="Helvetica-Bold"; fontsize=9; color="#2f4b7c";
+    api [label=<<b>SentiTriage-ES service (FastAPI)</b><br/>POST /classify, /classify/batch<br/>{text, id?, metadata?}>, fillcolor="#e9eef7"];
     norm [label="Perception\nnormalize text"];
     clf [label="Classifier → logits z(x)\nTF-IDF+LR | BETO | XLM-R"];
     cal [label="Calibration\nc(x) = max softmax(z / T)"];
@@ -22,7 +23,7 @@ digraph G {
     train [label="Train on UMSAB-es\nfit T and τ on validation"];
     art [label="Model folder\nweights + sentitriage.json"];
   }
-  {demo kandela} -> api; api -> norm -> clf -> cal -> pol;
+  demo -> api [headport=nw]; client -> api [label=" HTTP/JSON", headport=n]; other -> api [headport=ne]; api -> norm -> clf -> cal -> pol;
   pol -> pass [xlabel="non-neg. "]; pol -> queue [label=" neg."]; pol -> abst [label="  c<τ"];
   train -> art; art -> clf [style=dashed, label="loads"];
 }
