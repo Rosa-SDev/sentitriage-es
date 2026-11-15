@@ -31,6 +31,8 @@
 html{background:var(--bg)}
 body{margin:0;color:var(--ink);font:400 15px/1.55 var(--sans);-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
 h1,h2,h3,p{margin:0}
+h1,h2,h3{text-wrap:balance}
+p{text-wrap:pretty}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 button{font:inherit;color:inherit;cursor:pointer}
@@ -53,6 +55,10 @@ a{color:var(--focus)}
 .status[data-state="loading"] .dot{background:var(--accent)}
 .status[data-state="offline"] .dot{background:#F06A5F}
 .status b{color:#fff;font-weight:500}
+.lang{display:flex;flex:none;border:1px solid rgba(255,255,255,.28);border-radius:var(--r-md);padding:2px;gap:2px}
+.lang button{background:none;border:0;color:#C9D1DC;min-width:38px;min-height:30px;padding:0 var(--s2);font-size:13px;font-weight:600;border-radius:7px /* 10 − 2 − 1 */}
+.lang button:hover{color:#fff}
+.lang button[aria-pressed="true"]{background:#fff;color:var(--ink)}
 
 /* ===== Layout ===== */
 main{max-width:1240px;margin:0 auto;padding:var(--s6) var(--s5) var(--s8)}
@@ -114,13 +120,13 @@ kbd{font:500 11px var(--sans);border:1px solid var(--rule-2);border-bottom-width
 .mk.ABSTAIN{background:var(--accent);transform:rotate(45deg) scale(.82);border:1.5px solid var(--abstain)}
 
 /* ===== Decision ===== */
-.decision{min-height:420px}
+.decision{min-height:420px;scroll-margin-top:76px}
 .decision.swap > *{opacity:.3;transition:opacity var(--t1) var(--ease)}
-.verdict{display:grid;grid-template-columns:auto 1fr;gap:var(--s1) var(--s4);align-items:center;padding-bottom:var(--s5);border-bottom:1px solid var(--rule)}
+.verdict{display:grid;grid-template-columns:auto 1fr auto;gap:var(--s2) var(--s4);align-items:center;padding-bottom:var(--s5);border-bottom:1px solid var(--rule)}
 .verdict .mk{width:22px;height:22px}
-.verdict .act{font-size:15px;font-weight:600;letter-spacing:.02em}
-.verdict h2{grid-column:2;font-size:30px;line-height:1.15;font-weight:600;letter-spacing:-.02em}
-.verdict .why{grid-column:2;color:var(--ink-2);max-width:56ch;margin-top:var(--s1)}
+.verdict .act{font-size:12px;font-weight:600;letter-spacing:.04em;padding:3px 9px;border-radius:999px;border:1.5px solid currentColor;white-space:nowrap}
+.verdict h2{font-size:30px;line-height:1.15;font-weight:600;letter-spacing:-.02em}
+.verdict .why{grid-column:2/-1;color:var(--ink-2);max-width:56ch;margin-top:var(--s1)}
 .verdict.PASS .act{color:var(--pass)} .verdict.QUEUE .act{color:var(--queue)} .verdict.ABSTAIN .act{color:var(--abstain)}
 .quote{margin:var(--s5) 0 0;font-size:17px;line-height:1.5;padding-left:var(--s4);border-left:3px solid var(--rule-2);color:var(--ink)}
 .quote.PASS{border-color:var(--pass-line)} .quote.QUEUE{border-color:var(--queue-line)} .quote.ABSTAIN{border-color:var(--abstain-line)}
@@ -223,7 +229,7 @@ td.num,th.num{text-align:right;white-space:nowrap}
 .tabs button{background:none;border:0;padding:var(--s2) var(--s3);font-weight:500;color:var(--ink-2);border-bottom:2px solid transparent;margin-bottom:-1px}
 .tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
 .code-wrap{margin-top:var(--s3);background:#0F1B30;border-radius:var(--r-md);overflow:hidden}
-.code-head{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);padding:var(--s2) var(--s2) var(--s2) var(--s4);
+.code-head{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);padding:6px 6px 6px var(--s4);
   border-bottom:1px solid rgba(255,255,255,.08);font-size:12px;color:#9AA7BC}
 .code{margin:0;color:#E4E9F0;padding:var(--s4);overflow:auto;font:400 13px/1.6 var(--mono);white-space:pre;max-height:380px;
   scrollbar-width:thin;scrollbar-color:#3A4A66 transparent}
@@ -231,7 +237,7 @@ td.num,th.num{text-align:right;white-space:nowrap}
 .code::-webkit-scrollbar-thumb{background:#3A4A66;border-radius:4px}
 .code::-webkit-scrollbar-track,.code::-webkit-scrollbar-corner{background:transparent}
 .code .k{color:#9CC3FF} .code .s{color:#F2D38A} .code .n{color:#A7E3C6} .code .c{color:#7F8BA0}
-.copy{flex:none;background:rgba(255,255,255,.1);color:#fff;border:0;border-radius:var(--r-sm);padding:4px 10px;font-size:12px}
+.copy{flex:none;background:rgba(255,255,255,.1);color:#fff;border:0;border-radius:4px;/* radio del bloque (10) − padding (6) */padding:4px 10px;font-size:12px}
 .copy:hover{background:rgba(255,255,255,.2)}
 .kv{display:grid;grid-template-columns:1fr auto;gap:var(--s2) var(--s4);margin:var(--s4) 0 0;font-size:14px}
 .kv dt{color:var(--ink-2)} .kv dd{margin:0;text-align:right;font-weight:500}
@@ -265,6 +271,8 @@ footer{max-width:1240px;margin:0 auto;padding:0 var(--s5) var(--s6);font-size:13
   .nav{order:3;width:100%;overflow-x:auto;margin:0 calc(-1 * var(--s4));padding:0 var(--s2)}
   .nav a{min-height:44px;padding:0 var(--s3)}
   .status .lbl{display:none}
+  .status{margin-left:auto}
+  .lang{margin-left:var(--s3)}
   main{padding:var(--s5) var(--s4) var(--s7)}
   .view-head h1{font-size:22px}
   .verdict h2{font-size:24px}
@@ -291,34 +299,38 @@ footer{max-width:1240px;margin:0 auto;padding:0 var(--s5) var(--s6);font-size:13
       <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#fff" fill-opacity=".08"/><path d="M16 6.5 25.5 16 16 25.5 6.5 16Z" fill="#E9A21B"/><path d="M16 11 21 16 16 21 11 16Z" fill="#13213A"/></svg>
       SentiTriage-ES
     </div>
-    <nav class="nav" aria-label="Main">
-      <a href="#analyze" data-view="analyze">Analyze</a>
-      <a href="#batch" data-view="batch">Batch</a>
-      <a href="#inbox" data-view="inbox">Inbox <span class="badge" id="inbox-badge" aria-label="reviews in this session">0</span></a>
-      <a href="#integrate" data-view="integrate">Integrate</a>
+    <nav class="nav" data-i18n-attr="aria-label:nav.label" aria-label="Main">
+      <a href="#analyze" data-view="analyze" data-i18n="nav.analyze">Analyze</a>
+      <a href="#batch" data-view="batch" data-i18n="nav.batch">Batch</a>
+      <a href="#inbox" data-view="inbox"><span data-i18n="nav.inbox">Inbox</span> <span class="badge" id="inbox-badge" data-i18n-attr="aria-label:nav.badge" aria-label="reviews in this session">0</span></a>
+      <a href="#integrate" data-view="integrate" data-i18n="nav.integrate">Integrate</a>
     </nav>
     <p class="status" id="status" data-state="loading" role="status"><span class="dot" aria-hidden="true"></span><span class="lbl" id="status-text">Connecting to the service</span></p>
+    <div class="lang" role="group" data-i18n-attr="aria-label:lang.label" aria-label="Language">
+      <button type="button" data-lang="en" lang="en" aria-pressed="true" title="English">EN</button>
+      <button type="button" data-lang="es" lang="es" aria-pressed="false" title="Español">ES</button>
+    </div>
   </div>
 </header>
 
 <main id="main">
   <div class="banner" id="banner" role="alert">
     <p id="banner-text"></p>
-    <button class="btn btn-ghost" type="button" id="banner-retry">Retry</button>
+    <button class="btn btn-ghost" type="button" id="banner-retry" data-i18n="banner.retry">Retry</button>
   </div>
 
   <!-- ===== Analyze ===== -->
   <section class="view" id="view-analyze" aria-labelledby="h-analyze">
     <div class="view-head">
       <div>
-        <h1 id="h-analyze">Analyze a review</h1>
-        <p>Paste a customer review in Spanish. The agent answers only when it is confident enough; otherwise a person decides.</p>
+        <h1 id="h-analyze" data-i18n="analyze.title">Analyze a review</h1>
+        <p data-i18n="analyze.lead">Paste a customer review in Spanish. The agent answers only when it is confident enough; otherwise, a person decides.</p>
       </div>
     </div>
     <div class="split">
       <form class="sheet composer" id="form-one" novalidate>
-        <label class="field-label" for="text">Review in Spanish</label>
-        <p class="help" id="text-help">Up to 2,000 characters.</p>
+        <label class="field-label" for="text" data-i18n="analyze.field">Review in Spanish</label>
+        <p class="help" id="text-help" data-i18n="analyze.help">Up to 2,000 characters.</p>
         <textarea id="text" lang="es" spellcheck="false" aria-describedby="text-help text-error" placeholder="Pedimos a domicilio y llegó todo frío, una hora tarde."></textarea>
         <p class="field-error" id="text-error" role="alert"></p>
         <div class="bar-row">
@@ -327,14 +339,14 @@ footer{max-width:1240px;margin:0 auto;padding:0 var(--s5) var(--s6);font-size:13
           <button class="btn btn-primary" type="submit" id="go"><span class="spinner" aria-hidden="true"></span><span id="go-label">Classify review</span></button>
         </div>
         <div class="samples">
-          <h2>Try a real comment</h2>
-          <p class="src">From customers of a Colombian food delivery platform (Correa, 2019, CC BY 4.0).</p>
+          <h2 data-i18n="analyze.samples">Try a real comment</h2>
+          <p class="src" data-i18n="analyze.samplesSrc">From customers of a Colombian food delivery platform (Correa, 2019, CC BY 4.0).</p>
           <div class="chips" id="chips"></div>
         </div>
       </form>
 
       <section class="decision" id="decision" aria-labelledby="h-decision" aria-live="polite">
-        <h2 class="sr-only" id="h-decision">Decision</h2>
+        <h2 class="sr-only" id="h-decision" data-i18n="analyze.decision">Decision</h2>
         <div id="decision-body"></div>
       </section>
     </div>
@@ -344,30 +356,30 @@ footer{max-width:1240px;margin:0 auto;padding:0 var(--s5) var(--s6);font-size:13
   <section class="view" id="view-batch" aria-labelledby="h-batch" hidden>
     <div class="view-head">
       <div>
-        <h1 id="h-batch">Triage a batch</h1>
-        <p>Classify many reviews at once and see which ones need a person, which are complaints, and which can be stored.</p>
+        <h1 id="h-batch" data-i18n="batch.title">Triage a batch</h1>
+        <p data-i18n="batch.lead">Classify many reviews at once and see which ones need a person, which are complaints and which can be stored.</p>
       </div>
     </div>
     <div class="batch-grid">
       <form class="sheet composer" id="form-batch" novalidate>
-        <label class="field-label" for="batch">Reviews in Spanish, one per line</label>
-        <p class="help" id="batch-help">Up to 256 reviews. Empty lines are ignored.</p>
+        <label class="field-label" for="batch" data-i18n="batch.field">Reviews in Spanish, one per line</label>
+        <p class="help" id="batch-help" data-i18n="batch.help">Up to 256 reviews. Empty lines are ignored.</p>
         <textarea id="batch" lang="es" spellcheck="false" aria-describedby="batch-help batch-error" placeholder="La comida estaba deliciosa.&#10;El pedido llegó incompleto."></textarea>
         <p class="field-error" id="batch-error" role="alert"></p>
         <div class="bar-row">
-          <span class="counter" id="bcounter">0 / 256 reviews</span>
+          <span class="counter" id="bcounter">0 / 256</span>
           <button class="btn btn-primary" type="submit" id="bgo"><span class="spinner" aria-hidden="true"></span><span id="bgo-label">Classify reviews</span></button>
         </div>
         <div class="samples">
-          <h2>No data at hand?</h2>
-          <p class="src">Load 12 real comments from the human-labeled sample (Correa, 2019, CC BY 4.0).</p>
-          <button class="btn btn-ghost" type="button" id="load-sample">Load 12 sample comments</button>
+          <h2 data-i18n="batch.noData">No data at hand?</h2>
+          <p class="src" data-i18n="batch.noDataSrc">Load 12 real comments from the human-labeled sample (Correa, 2019, CC BY 4.0).</p>
+          <button class="btn btn-ghost" type="button" id="load-sample" data-i18n="batch.load">Load 12 sample comments</button>
         </div>
       </form>
 
       <section class="sheet results" id="results" aria-labelledby="h-results" aria-live="polite">
-        <h2 class="section-t" id="h-results" style="margin-top:0">Results</h2>
-        <div id="results-body"><p class="results-empty">Results appear here after you classify a batch.</p></div>
+        <h2 class="section-t" id="h-results" style="margin-top:0" data-i18n="batch.results">Results</h2>
+        <div id="results-body"></div>
       </section>
     </div>
   </section>
@@ -376,10 +388,10 @@ footer{max-width:1240px;margin:0 auto;padding:0 var(--s5) var(--s6);font-size:13
   <section class="view" id="view-inbox" aria-labelledby="h-inbox" hidden>
     <div class="view-head">
       <div>
-        <h1 id="h-inbox">Inbox</h1>
-        <p id="inbox-sub">Every review you classify in this session lands here, sorted by what the agent did with it.</p>
+        <h1 id="h-inbox" data-i18n="inbox.title">Inbox</h1>
+        <p id="inbox-sub"></p>
       </div>
-      <div class="actions"><button class="btn btn-ghost" type="button" id="clear">Clear session</button></div>
+      <div class="actions"><button class="btn btn-ghost" type="button" id="clear" data-i18n="inbox.clear">Clear session</button></div>
     </div>
     <div class="lanes" id="lanes"></div>
   </section>
@@ -388,62 +400,64 @@ footer{max-width:1240px;margin:0 auto;padding:0 var(--s5) var(--s6);font-size:13
   <section class="view" id="view-integrate" aria-labelledby="h-int" hidden>
     <div class="view-head">
       <div>
-        <h1 id="h-int">Integrate with your system</h1>
-        <p>Any system that can send JSON over HTTP can use the agent: a restaurant POS, an online store, a support desk.</p>
+        <h1 id="h-int" data-i18n="int.title">Integrate with your system</h1>
+        <p data-i18n="int.lead">Any system that can send JSON over HTTP can use the agent: a restaurant point of sale, an online store or a help desk.</p>
       </div>
-      <div class="actions"><a class="btn btn-ghost" href="/docs" target="_blank" rel="noopener">Open API reference</a></div>
+      <div class="actions"><a class="btn btn-ghost" href="/docs" target="_blank" rel="noopener" data-i18n="int.docs">Open API reference</a></div>
     </div>
     <div class="int-grid">
       <div class="stack">
         <section class="sheet panel" aria-labelledby="h-ep">
-          <h2 id="h-ep">Endpoints</h2>
-          <p>Send the text and, if you want, your own id and metadata. They come back unchanged, so you can match each decision to your record.</p>
+          <h2 id="h-ep" data-i18n="int.endpoints">Endpoints</h2>
+          <p data-i18n="int.endpointsLead">Send the text and, if you want, your own id and metadata. They come back unchanged, so you can match each decision to your own record.</p>
           <table class="endpoints">
             <tbody>
-              <tr><td><span class="method">POST</span><code>/classify</code></td><td>One review</td></tr>
-              <tr><td><span class="method">POST</span><code>/classify/batch</code></td><td>Up to 256 reviews</td></tr>
-              <tr><td><span class="method">GET</span><code>/model</code></td><td>Loaded model, temperature and threshold</td></tr>
-              <tr><td><span class="method">GET</span><code>/health</code></td><td>Service status</td></tr>
+              <tr><td><span class="method">POST</span><code>/classify</code></td><td data-i18n="int.ep.one">One review</td></tr>
+              <tr><td><span class="method">POST</span><code>/classify/batch</code></td><td data-i18n="int.ep.batch">Up to 256 reviews</td></tr>
+              <tr><td><span class="method">GET</span><code>/model</code></td><td data-i18n="int.ep.model">Loaded model, temperature and threshold</td></tr>
+              <tr><td><span class="method">GET</span><code>/health</code></td><td data-i18n="int.ep.health">Service status</td></tr>
             </tbody>
           </table>
-          <div class="tabs" role="tablist" aria-label="Code examples">
+          <div class="tabs" role="tablist" data-i18n-attr="aria-label:int.tabsLabel" aria-label="Code examples">
             <button role="tab" aria-selected="true" aria-controls="code-box" data-code="curl">curl</button>
             <button role="tab" aria-selected="false" aria-controls="code-box" data-code="python">Python</button>
-            <button role="tab" aria-selected="false" aria-controls="code-box" data-code="response">Last real response</button>
+            <button role="tab" aria-selected="false" aria-controls="code-box" data-code="response" data-i18n="int.tabResponse">Last real response</button>
           </div>
-          <div class="code-wrap"><div class="code-head"><span id="code-label">Request with curl</span><button class="copy" type="button" id="copy">Copy</button></div><pre class="code" id="code-box" role="tabpanel" tabindex="0" aria-labelledby="code-label"></pre></div>
+          <div class="code-wrap"><div class="code-head"><span id="code-label"></span><button class="copy" type="button" id="copy" data-i18n="int.copy">Copy</button></div><pre class="code" id="code-box" role="tabpanel" tabindex="0" aria-labelledby="code-label"></pre></div>
         </section>
       </div>
       <div class="stack">
         <section class="sheet panel" aria-labelledby="h-policy">
-          <h2 id="h-policy">How the agent decides</h2>
+          <h2 id="h-policy" data-i18n="int.policy">How the agent decides</h2>
           <p class="formula">c(x) = max softmax(z(x) / T)</p>
           <ul class="rules">
-            <li><span class="mk ABSTAIN" aria-hidden="true"></span><span><b>ABSTAIN</b> when c(x) is below τ. A person decides.</span></li>
-            <li><span class="mk QUEUE" aria-hidden="true"></span><span><b>QUEUE</b> when the agent is confident the review is negative.</span></li>
-            <li><span class="mk PASS" aria-hidden="true"></span><span><b>PASS</b> when it is confident the review is not negative.</span></li>
+            <li><span class="mk ABSTAIN" aria-hidden="true"></span><span data-i18n-html="int.rule.abstain"></span></li>
+            <li><span class="mk QUEUE" aria-hidden="true"></span><span data-i18n-html="int.rule.queue"></span></li>
+            <li><span class="mk PASS" aria-hidden="true"></span><span data-i18n-html="int.rule.pass"></span></li>
           </ul>
-          <p class="note" style="margin-top:var(--s4)">If the model fails, the answer is ABSTAIN: a review is never accepted without a prediction.</p>
+          <p class="note" style="margin-top:var(--s4)" data-i18n="int.fail">If the model fails, the answer is ABSTAIN: a review is never accepted without a prediction.</p>
         </section>
         <section class="sheet panel" aria-labelledby="h-model">
-          <h2 id="h-model">Model</h2>
-          <dl class="kv" id="model-kv"><dt>Status</dt><dd>Loading</dd></dl>
-          <p class="note" id="model-note">Test metrics come from the Spanish tweet benchmark (870 tweets). Temperature and threshold were fitted on validation data only.</p>
+          <h2 id="h-model" data-i18n="int.model">Model</h2>
+          <dl class="kv" id="model-kv"></dl>
+          <p class="note" data-i18n="int.modelNote">Test metrics come from the Spanish tweet benchmark (870 tweets). The temperature and the threshold were fitted on validation data only.</p>
         </section>
       </div>
     </div>
   </section>
 </main>
 
-<footer>SentiTriage-ES. Intelligent Systems 2026B, Universidad de Ibagué.</footer>
+<footer data-i18n="footer">SentiTriage-ES. Intelligent Systems 2026B, Universidad de Ibagué.</footer>
 
 <dialog id="detail" aria-labelledby="detail-title">
-  <div class="dhead"><h2 id="detail-title">Decision detail</h2><button class="x" type="button" id="detail-close" aria-label="Close">×</button></div>
+  <div class="dhead"><h2 id="detail-title" data-i18n="detail.title">Decision detail</h2><button class="x" type="button" id="detail-close" data-i18n-attr="aria-label:detail.close" aria-label="Close">×</button></div>
   <div class="dbody" id="detail-body"></div>
 </dialog>
 
 <script>
-/* ---------- content (real comments, Correa 2019, CC BY 4.0) ---------- */
+/* =====================================================================
+   Content: real comments (Correa, 2019, CC BY 4.0). They stay in Spanish.
+   ===================================================================== */
 const EXAMPLES = [
   "Pésimo servicio domicilios.com. Más de una hora esperando, nadie de soporte ayuda y la comida llega fría... :(",
   "Súper bien, muy amables, a tiempo, todo muy rico y completo, gracias",
@@ -468,21 +482,208 @@ const SAMPLE_BATCH = [
 ];
 const MAX_CHARS = 2000, MAX_BATCH = 256;
 const ACTIONS = ["ABSTAIN", "QUEUE", "PASS"];
-const COPY = {
-  ABSTAIN: {title: "A person decides", lane: "Needs a person", laneSub: "Confidence below the threshold τ."},
-  QUEUE:   {title: "Complaint for the admin queue", lane: "Complaints", laneSub: "Confidently negative."},
-  PASS:    {title: "Stored without review", lane: "Stored", laneSub: "Confidently not negative."}
+
+/* =====================================================================
+   Interface text in English and Spanish (Colombian, informal "tú").
+   Action codes (PASS, QUEUE, ABSTAIN), JSON and code are identifiers
+   of the API and are never translated.
+   ===================================================================== */
+const I18N = {
+  en: {
+    "nav.label": "Main", "nav.analyze": "Analyze", "nav.batch": "Batch", "nav.inbox": "Inbox", "nav.integrate": "Integrate",
+    "nav.badge": "reviews in this session", "lang.label": "Language",
+    "status.connecting": "Connecting to the service", "status.ready": "Model ready: ", "status.noModel": "Model not loaded",
+    "status.offline": "Service offline", "status.modelError": "Model error",
+    "banner.retry": "Retry",
+    "banner.offline": "The service is not responding. Check that uvicorn is running on port 8000, then retry.",
+    "banner.noModel": "The service is up, but it could not load the model. Check the server log, then retry.",
+    "banner.rejected": "The service rejected this input. Check that no review is empty or longer than 2,000 characters.",
+    "banner.http": s => `The service answered with an error (${s}). Try again in a moment.`,
+    "analyze.title": "Analyze a review",
+    "analyze.lead": "Paste a customer review in Spanish. The agent answers only when it is confident enough; otherwise, a person decides.",
+    "analyze.field": "Review in Spanish", "analyze.help": "Up to 2,000 characters.",
+    "analyze.button": "Classify review", "busy": "Classifying",
+    "analyze.samples": "Try a real comment",
+    "analyze.samplesSrc": "From customers of a Colombian food delivery platform (Correa, 2019, CC BY 4.0).",
+    "analyze.decision": "Decision",
+    "err.empty": "Write or pick a review first.",
+    "err.tooLong": n => `The review has ${n} characters. The limit is 2,000.`,
+    "empty.title": "The agent answers only when it is sure.",
+    "empty.lead": "Each review gets one of three decisions. The agent calibrates its confidence and compares it with a threshold τ chosen on validation data.",
+    "outcome.ABSTAIN": ["Needs a person", "Its confidence is below τ, so a person reads the review."],
+    "outcome.QUEUE": ["Complaint", "Confidently negative. It goes to the admin queue."],
+    "outcome.PASS": ["Stored", "Confidently not negative. It is stored without review."],
+    "verdict.ABSTAIN": "A person decides", "verdict.QUEUE": "Complaint for the admin queue", "verdict.PASS": "Stored without review",
+    "verdict.error": "Service error",
+    "why.error": "The model did not respond, so the review goes to a person. A review is never accepted without a prediction.",
+    "why.ABSTAIN": (c, t, l) => `Confidence ${c} is below the threshold τ = ${t}. The most likely class was ${l}, but the agent does not act on it.`,
+    "why.QUEUE": (c, t) => `The agent is confident (${c}; threshold ${t}) that this review is negative.`,
+    "why.PASS": (c, t, l) => `The agent is confident (${c}; threshold ${t}) that this review is ${l}.`,
+    "class.negative": "negative", "class.neutral": "neutral", "class.positive": "positive",
+    "sec.confidence": "Calibrated confidence", "sec.confidenceSub": "against the threshold τ",
+    "sec.sentiment": "Sentiment estimate", "sec.sentimentSub": "probability of each class",
+    "zone": "Abstention zone",
+    "track.aria": (c, t) => `Calibrated confidence ${c} on a scale from 0 to 1. The threshold τ is ${t}; below it, the agent abstains.`,
+    "answered": (m, ms) => ms != null ? `${m}, answered in ${ms} ms.` : `${m}, answered in a batch request.`,
+    "batch.title": "Triage a batch",
+    "batch.lead": "Classify many reviews at once and see which ones need a person, which are complaints and which can be stored.",
+    "batch.field": "Reviews in Spanish, one per line", "batch.help": "Up to 256 reviews. Empty lines are ignored.",
+    "batch.counter": n => `${n} / 256 ${n === 1 ? "review" : "reviews"}`,
+    "batch.button": "Classify reviews",
+    "batch.noData": "No data at hand?",
+    "batch.noDataSrc": "Load 12 real comments from the human-labeled sample (Correa, 2019, CC BY 4.0).",
+    "batch.load": "Load 12 sample comments", "batch.results": "Results",
+    "batch.emptyResults": "Results appear here after you classify a batch.",
+    "err.batchEmpty": "Write at least one review, one per line, or load the sample comments.",
+    "err.batchMany": n => `There are ${n} reviews. The limit is 256 per batch.`,
+    "err.lineLong": i => `Line ${i} is longer than 2,000 characters.`,
+    "lane.ABSTAIN": "Needs a person", "lane.QUEUE": "Complaints", "lane.PASS": "Stored",
+    "laneSub.ABSTAIN": "Confidence below the threshold τ.", "laneSub.QUEUE": "Confidently negative.", "laneSub.PASS": "Confidently not negative.",
+    "batch.summary": (n, m, a, q, p) =>
+      `${n} ${n === 1 ? "review" : "reviews"} classified with ${m}: ${a} ${a === 1 ? "needs" : "need"} a person, ` +
+      `${q} ${q === 1 ? "is a complaint" : "are complaints"} and ${p} can be stored.`,
+    "filter.label": "Filter by decision", "filter.all": n => `All ${n}`,
+    "th.review": "Review", "th.decision": "Decision", "th.best": "Most likely class", "th.conf": "Confidence",
+    "table.caption": "Batch results. Select a row to see the full decision.",
+    "export": "Export CSV",
+    "inbox.title": "Inbox", "inbox.clear": "Clear session",
+    "inbox.empty": "Every review you classify in this session lands here, sorted by what the agent did with it.",
+    "inbox.count": n => `${n} ${n === 1 ? "review" : "reviews"} in this session, sorted by decision. Nothing is stored on the server.`,
+    "inbox.none": "Nothing here yet.", "inbox.error": "error",
+    "inbox.item": (a, c, t) => `${a}, confidence ${c}: ${t}`,
+    "int.title": "Integrate with your system",
+    "int.lead": "Any system that can send JSON over HTTP can use the agent: a restaurant point of sale, an online store or a help desk.",
+    "int.docs": "Open API reference", "int.endpoints": "Endpoints",
+    "int.endpointsLead": "Send the text and, if you want, your own id and metadata. They come back unchanged, so you can match each decision to your own record.",
+    "int.ep.one": "One review", "int.ep.batch": "Up to 256 reviews", "int.ep.model": "Loaded model, temperature and threshold", "int.ep.health": "Service status",
+    "int.tabsLabel": "Code examples", "int.tabResponse": "Last real response",
+    "code.curl": "Request with curl", "code.python": "Request with Python (standard library only)",
+    "code.response": (u, more) => `Response from POST ${u}${more}`, "code.more": (k, n) => `, first ${k} of ${n}`,
+    "code.none": "Last real response",
+    "code.noneText": "Classify a review in Analyze or Batch to see the real response here.",
+    "int.copy": "Copy", "int.copied": "Copied", "int.copyFail": "Select and copy",
+    "int.policy": "How the agent decides",
+    "int.rule.abstain": "<b>ABSTAIN</b> when c(x) is below τ. A person decides.",
+    "int.rule.queue": "<b>QUEUE</b> when the agent is confident that the review is negative.",
+    "int.rule.pass": "<b>PASS</b> when the agent is confident that the review is not negative.",
+    "int.fail": "If the model fails, the answer is ABSTAIN: a review is never accepted without a prediction.",
+    "int.model": "Model",
+    "int.modelNote": "Test metrics come from the Spanish tweet benchmark (870 tweets). The temperature and the threshold were fitted on validation data only.",
+    "kv.status": "Status", "kv.loading": "Loading", "kv.unavailable": "Unavailable",
+    "kv.name": "Model", "kv.type": "Backend", "kv.T": "Temperature T", "kv.tau": "Threshold τ", "kv.risk": "Target risk on validation",
+    "kv.f1": "Test macro-F1", "kv.recall": "Test recall, negative class", "kv.ece": "Test ECE after calibration",
+    "footer": "SentiTriage-ES. Intelligent Systems 2026B, Universidad de Ibagué.",
+    "detail.title": "Decision detail", "detail.close": "Close"
+  },
+  es: {
+    "nav.label": "Principal", "nav.analyze": "Analizar", "nav.batch": "Lote", "nav.inbox": "Bandeja", "nav.integrate": "Integrar",
+    "nav.badge": "reseñas en esta sesión", "lang.label": "Idioma",
+    "status.connecting": "Conectando con el servicio", "status.ready": "Modelo listo: ", "status.noModel": "Modelo sin cargar",
+    "status.offline": "Servicio sin conexión", "status.modelError": "Error del modelo",
+    "banner.retry": "Reintentar",
+    "banner.offline": "El servicio no responde. Verifica que uvicorn esté en ejecución en el puerto 8000 y vuelve a intentarlo.",
+    "banner.noModel": "El servicio está activo, pero no pudo cargar el modelo. Revisa el registro del servidor y vuelve a intentarlo.",
+    "banner.rejected": "El servicio rechazó esta entrada. Verifica que ninguna reseña esté vacía ni supere los 2.000 caracteres.",
+    "banner.http": s => `El servicio respondió con un error (${s}). Vuelve a intentarlo en un momento.`,
+    "analyze.title": "Analizar una reseña",
+    "analyze.lead": "Pega la reseña de un cliente en español. El agente solo responde cuando tiene suficiente confianza; si no, decide una persona.",
+    "analyze.field": "Reseña en español", "analyze.help": "Hasta 2.000 caracteres.",
+    "analyze.button": "Clasificar reseña", "busy": "Clasificando",
+    "analyze.samples": "Prueba con un comentario real",
+    "analyze.samplesSrc": "Comentarios de clientes de una plataforma colombiana de domicilios (Correa, 2019, CC BY 4.0).",
+    "analyze.decision": "Decisión",
+    "err.empty": "Primero escribe o elige una reseña.",
+    "err.tooLong": n => `La reseña tiene ${n} caracteres. El límite es 2.000.`,
+    "empty.title": "El agente solo responde cuando está seguro.",
+    "empty.lead": "Cada reseña recibe una de tres decisiones. El agente calibra su confianza y la compara con un umbral τ elegido con datos de validación.",
+    "outcome.ABSTAIN": ["Requiere una persona", "Su confianza está por debajo de τ, así que una persona lee la reseña."],
+    "outcome.QUEUE": ["Queja", "Negativa con suficiente confianza. Pasa a la cola del administrador."],
+    "outcome.PASS": ["Almacenada", "No negativa con suficiente confianza. Se almacena sin revisión."],
+    "verdict.ABSTAIN": "Decide una persona", "verdict.QUEUE": "Queja para la cola del administrador", "verdict.PASS": "Se almacena sin revisión",
+    "verdict.error": "Error del servicio",
+    "why.error": "El modelo no respondió, así que la reseña pasa a una persona. Nunca se acepta una reseña sin una predicción.",
+    "why.ABSTAIN": (c, t, l) => `La confianza (${c}) está por debajo del umbral τ = ${t}. La clase más probable era ${l}, pero el agente no actúa con esa estimación.`,
+    "why.QUEUE": (c, t) => `El agente tiene suficiente confianza (${c}; umbral ${t}) en que esta reseña es negativa.`,
+    "why.PASS": (c, t, l) => `El agente tiene suficiente confianza (${c}; umbral ${t}) en que esta reseña es ${l}.`,
+    "class.negative": "negativa", "class.neutral": "neutral", "class.positive": "positiva",
+    "sec.confidence": "Confianza calibrada", "sec.confidenceSub": "frente al umbral τ",
+    "sec.sentiment": "Estimación de sentimiento", "sec.sentimentSub": "probabilidad de cada clase",
+    "zone": "Zona de abstención",
+    "track.aria": (c, t) => `Confianza calibrada de ${c} en una escala de 0 a 1. El umbral τ es ${t}; por debajo de él, el agente se abstiene.`,
+    "answered": (m, ms) => ms != null ? `${m}, respondió en ${ms} ms.` : `${m}, respondió en una solicitud por lotes.`,
+    "batch.title": "Clasificar un lote",
+    "batch.lead": "Clasifica muchas reseñas a la vez y mira cuáles necesitan una persona, cuáles son quejas y cuáles se pueden almacenar.",
+    "batch.field": "Reseñas en español, una por línea", "batch.help": "Hasta 256 reseñas. Las líneas vacías se ignoran.",
+    "batch.counter": n => `${n} / 256 ${n === 1 ? "reseña" : "reseñas"}`,
+    "batch.button": "Clasificar reseñas",
+    "batch.noData": "¿No tienes datos a mano?",
+    "batch.noDataSrc": "Carga 12 comentarios reales de la muestra etiquetada por personas (Correa, 2019, CC BY 4.0).",
+    "batch.load": "Cargar 12 comentarios de muestra", "batch.results": "Resultados",
+    "batch.emptyResults": "Los resultados aparecen aquí cuando clasificas un lote.",
+    "err.batchEmpty": "Escribe al menos una reseña, una por línea, o carga los comentarios de muestra.",
+    "err.batchMany": n => `Hay ${n} reseñas. El límite es 256 por lote.`,
+    "err.lineLong": i => `La línea ${i} supera los 2.000 caracteres.`,
+    "lane.ABSTAIN": "Requieren una persona", "lane.QUEUE": "Quejas", "lane.PASS": "Almacenadas",
+    "laneSub.ABSTAIN": "Confianza por debajo del umbral τ.", "laneSub.QUEUE": "Negativas con suficiente confianza.", "laneSub.PASS": "No negativas con suficiente confianza.",
+    "batch.summary": (n, m, a, q, p) =>
+      `${n} ${n === 1 ? "reseña clasificada" : "reseñas clasificadas"} con ${m}: ${a} ${a === 1 ? "requiere" : "requieren"} una persona, ` +
+      `${q} ${q === 1 ? "es una queja" : "son quejas"} y ${p} ${p === 1 ? "se puede" : "se pueden"} almacenar.`,
+    "filter.label": "Filtrar por decisión", "filter.all": n => `Todas ${n}`,
+    "th.review": "Reseña", "th.decision": "Decisión", "th.best": "Clase más probable", "th.conf": "Confianza",
+    "table.caption": "Resultados del lote. Selecciona una fila para ver la decisión completa.",
+    "export": "Exportar CSV",
+    "inbox.title": "Bandeja", "inbox.clear": "Vaciar sesión",
+    "inbox.empty": "Cada reseña que clasificas en esta sesión llega aquí, ordenada según lo que hizo el agente con ella.",
+    "inbox.count": n => `${n} ${n === 1 ? "reseña" : "reseñas"} en esta sesión, ordenadas por decisión. Nada se guarda en el servidor.`,
+    "inbox.none": "Todavía no hay nada aquí.", "inbox.error": "error",
+    "inbox.item": (a, c, t) => `${a}, confianza ${c}: ${t}`,
+    "int.title": "Integración con tu sistema",
+    "int.lead": "Cualquier sistema que pueda enviar JSON por HTTP puede usar el agente: el punto de venta de un restaurante, una tienda en línea o una mesa de ayuda.",
+    "int.docs": "Abrir referencia de la API", "int.endpoints": "Endpoints",
+    "int.endpointsLead": "Envía el texto y, si quieres, tu propio id y metadatos. Se devuelven sin cambios para que puedas relacionar cada decisión con tu propio registro.",
+    "int.ep.one": "Una reseña", "int.ep.batch": "Hasta 256 reseñas", "int.ep.model": "Modelo cargado, temperatura y umbral", "int.ep.health": "Estado del servicio",
+    "int.tabsLabel": "Ejemplos de código", "int.tabResponse": "Última respuesta real",
+    "code.curl": "Solicitud con curl", "code.python": "Solicitud con Python (solo biblioteca estándar)",
+    "code.response": (u, more) => `Respuesta de POST ${u}${more}`, "code.more": (k, n) => `, primeras ${k} de ${n}`,
+    "code.none": "Última respuesta real",
+    "code.noneText": "Clasifica una reseña en Analizar o Lote para ver aquí la respuesta real.",
+    "int.copy": "Copiar", "int.copied": "Copiado", "int.copyFail": "Selecciona y copia",
+    "int.policy": "Cómo decide el agente",
+    "int.rule.abstain": "<b>ABSTAIN</b> cuando c(x) está por debajo de τ. Decide una persona.",
+    "int.rule.queue": "<b>QUEUE</b> cuando el agente tiene suficiente confianza en que la reseña es negativa.",
+    "int.rule.pass": "<b>PASS</b> cuando el agente tiene suficiente confianza en que la reseña no es negativa.",
+    "int.fail": "Si el modelo falla, la respuesta es ABSTAIN: nunca se acepta una reseña sin una predicción.",
+    "int.model": "Modelo",
+    "int.modelNote": "Las métricas de prueba vienen del benchmark de tuits en español (870 tuits). La temperatura y el umbral se ajustaron solo con datos de validación.",
+    "kv.status": "Estado", "kv.loading": "Cargando", "kv.unavailable": "No disponible",
+    "kv.name": "Modelo", "kv.type": "Tipo de modelo", "kv.T": "Temperatura T", "kv.tau": "Umbral τ", "kv.risk": "Riesgo objetivo en validación",
+    "kv.f1": "Macro-F1 en prueba", "kv.recall": "Recall de la clase negativa en prueba", "kv.ece": "ECE en prueba tras calibrar",
+    "footer": "SentiTriage-ES. Sistemas Inteligentes 2026B, Universidad de Ibagué.",
+    "detail.title": "Detalle de la decisión", "detail.close": "Cerrar"
+  }
 };
+
+let lang = "en";
+function t(key, ...args) {
+  const v = I18N[lang][key] ?? I18N.en[key];
+  return typeof v === "function" ? v(...args) : v;
+}
+const loc = () => (lang === "es" ? "es-CO" : "en-US");
+const num = (x, d) => (x == null ? "–" : Number(x).toLocaleString(loc(), {minimumFractionDigits: d, maximumFractionDigits: d}));
+const f2 = x => num(x, 2), f3 = x => num(x, 3);
+const int = n => n.toLocaleString(loc());
+const cls = l => (l ? t("class." + l) : "–");
+
 const $ = id => document.getElementById(id);
-const f2 = x => (x == null ? "–" : Number(x).toFixed(2));
-const f3 = x => (x == null ? "–" : Number(x).toFixed(3));
-const fmtInt = n => n.toLocaleString("en-US");
 let session = [];            // decisions of this browser tab only
 let lastBatch = [];
 let batchFilter = "ALL";
 let modelInfo = null;
 let lastResponse = null;
 let codeTab = "curl";
+let current = null;          // decision shown in Analyze
+let dialogDecision = null;
+let health = {state: "loading"};
 
 function el(tag, attrs = {}, ...children) {
   const n = document.createElement(tag);
@@ -497,112 +698,158 @@ function el(tag, attrs = {}, ...children) {
 }
 const mk = a => el("span", {class: "mk " + a, "aria-hidden": "true"});
 
+/* ---------- language ---------- */
+function applyStatic() {
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-i18n]").forEach(n => { n.textContent = t(n.dataset.i18n); });
+  document.querySelectorAll("[data-i18n-html]").forEach(n => { n.innerHTML = t(n.dataset.i18nHtml); });
+  document.querySelectorAll("[data-i18n-attr]").forEach(n => {
+    const [attr, key] = n.dataset.i18nAttr.split(":"); n.setAttribute(attr, t(key));
+  });
+  document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+  $("go-label").textContent = busyOne ? t("busy") : t("analyze.button");
+  $("bgo-label").textContent = busyBatch ? t("busy") : t("batch.button");
+}
+function setLang(l) {
+  lang = l;
+  try { localStorage.setItem("sentitriage.lang", l); } catch (e) { /* storage unavailable */ }
+  applyStatic(); renderStatus(); oneCounter(); batchCounter(); validateOne(false); validateBatch(false);
+  if (current) $("decision-body").replaceChildren(...decisionNodes(current, false)); else renderEmpty();
+  renderResults(); renderLanes(); renderCode(); renderModel();
+  if ($("detail").open && dialogDecision) $("detail-body").replaceChildren(...decisionNodes(dialogDecision, false));
+}
+function initialLang() {
+  try { const s = localStorage.getItem("sentitriage.lang"); if (s === "en" || s === "es") return s; } catch (e) { /* ignore */ }
+  return (navigator.language || "en").toLowerCase().startsWith("es") ? "es" : "en";
+}
+document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
+
 /* ---------- routing ---------- */
 const VIEWS = ["analyze", "batch", "inbox", "integrate"];
 function route() {
   const v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "analyze";
   for (const name of VIEWS) $("view-" + name).hidden = name !== v;
-  document.querySelectorAll(".nav a").forEach(a => { if (a.dataset.view === v) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+  document.querySelectorAll(".nav a").forEach(a => {
+    if (a.dataset.view === v) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+  });
   if (v === "inbox") renderLanes();
   if (v === "integrate") renderCode();
 }
 window.addEventListener("hashchange", route);
 
 /* ---------- service status ---------- */
-function setStatus(state, html) { $("status").dataset.state = state; $("status-text").replaceChildren(...html); }
-function showBanner(t) { $("banner-text").textContent = t; $("banner").classList.add("show"); }
-function hideBanner() { $("banner").classList.remove("show"); }
-const OFFLINE = "The service is not responding. Check that uvicorn is running on port 8000, then retry.";
+function renderStatus() {
+  const s = $("status"); s.dataset.state = health.state;
+  const parts = health.state === "ok" ? [t("status.ready"), el("b", {text: health.model})]
+    : health.state === "offline" ? [t("status.offline")]
+    : health.state === "noModel" ? [t("status.noModel")]
+    : health.state === "modelError" ? [t("status.modelError")] : [t("status.connecting")];
+  $("status-text").replaceChildren(...parts);
+  if (health.banner) { $("banner-text").textContent = health.banner(); $("banner").classList.add("show"); }
+  else $("banner").classList.remove("show");
+}
+function setHealth(state, extra = {}) { health = {state, ...extra}; renderStatus(); }
+const OFFLINE = () => t("banner.offline");
 async function checkHealth() {
   try {
     const r = await fetch("/health", {cache: "no-store"});
     const d = await r.json();
-    if (d.status === "ok") { setStatus("ok", ["Model ready: ", el("b", {text: d.model})]); hideBanner(); if (!modelInfo) loadModel(); }
-    else { setStatus("loading", ["Model not loaded"]); showBanner("The service is up, but the model could not be loaded. Check the server log, then retry."); }
-  } catch (e) { setStatus("offline", ["Service offline"]); showBanner(OFFLINE); }
+    if (d.status === "ok") { setHealth("ok", {model: d.model}); if (!modelInfo) loadModel(); }
+    else setHealth("noModel", {banner: () => t("banner.noModel")});
+  } catch (e) { setHealth("offline", {banner: OFFLINE}); }
 }
 async function loadModel() {
   try {
     const r = await fetch("/model", {cache: "no-store"});
     if (!r.ok) throw new Error(r.status);
     modelInfo = await r.json();
-    const mt = modelInfo.metrics_test || {};
-    const rows = [["Model", modelInfo.name], ["Backend", modelInfo.type], ["Temperature T", f3(modelInfo.temperature)],
-      ["Threshold τ", f3(modelInfo.tau)], ["Target risk on validation", f2(modelInfo.target_risk_val)],
-      ["Test macro-F1", mt.macro_f1 != null ? (mt.macro_f1 * 100).toFixed(1) : "–"],
-      ["Test recall, negative", f3(mt.recall_negative)], ["Test ECE after calibration", f3(mt.ece_test_after)]];
-    $("model-kv").replaceChildren(...rows.flatMap(([k, v]) => [el("dt", {text: k}), el("dd", {text: v ?? "–"})]));
-  } catch (e) {
-    $("model-kv").replaceChildren(el("dt", {text: "Status"}), el("dd", {text: "Unavailable"}));
-  }
+  } catch (e) { modelInfo = {error: true}; }
+  renderModel();
+}
+function renderModel() {
+  if (!modelInfo) { $("model-kv").replaceChildren(el("dt", {text: t("kv.status")}), el("dd", {text: t("kv.loading")})); return; }
+  if (modelInfo.error) { $("model-kv").replaceChildren(el("dt", {text: t("kv.status")}), el("dd", {text: t("kv.unavailable")})); return; }
+  const mt = modelInfo.metrics_test || {};
+  const rows = [["kv.name", modelInfo.name], ["kv.type", modelInfo.type], ["kv.T", f3(modelInfo.temperature)],
+    ["kv.tau", f3(modelInfo.tau)], ["kv.risk", f2(modelInfo.target_risk_val)],
+    ["kv.f1", mt.macro_f1 != null ? num(mt.macro_f1 * 100, 1) : "–"],
+    ["kv.recall", f3(mt.recall_negative)], ["kv.ece", f3(mt.ece_test_after)]];
+  $("model-kv").replaceChildren(...rows.flatMap(([k, v]) => [el("dt", {text: t(k)}), el("dd", {text: v ?? "–"})]));
 }
 
 /* ---------- decision rendering ---------- */
 function whyText(d) {
-  if (d.error) return "The model did not respond, so the review goes to a person. It is never accepted without a prediction.";
-  const c = f2(d.confidence), t = f2(d.threshold);
-  if (d.action === "ABSTAIN") return `Confidence ${c} is below the threshold τ = ${t}. The agent's best guess was ${d.label}, but it does not act on it.`;
-  if (d.action === "QUEUE") return `The agent is confident (${c}, threshold ${t}) that this review is negative.`;
-  return `The agent is confident (${c}, threshold ${t}) that this review is ${d.label}.`;
+  if (d.error) return t("why.error");
+  return t("why." + d.action, f2(d.confidence), f2(d.threshold), cls(d.label));
 }
-function decisionNodes(d) {
-  const title = d.error ? "Service error" : COPY[d.action].title;
+function decisionNodes(d, animate = true) {
+  const title = d.error ? t("verdict.error") : t("verdict." + d.action);
   const nodes = [
     el("div", {class: "verdict " + d.action}, mk(d.action),
-      el("span", {class: "act", text: d.action}),
       el("h2", {text: title}),
+      el("span", {class: "act", text: d.action}),
       el("p", {class: "why", text: whyText(d)})),
-    el("blockquote", {class: "quote " + d.action, text: d.text})
+    el("blockquote", {class: "quote " + d.action, lang: "es", text: d.text})
   ];
   if (!d.error && d.probabilities) {
-    const c = Math.max(0, Math.min(1, d.confidence)), t = Math.max(0, Math.min(1, d.threshold));
-    const zone = el("div", {class: "zone"}, el("em", {text: t > .25 ? "Abstention zone" : ""}));
-    const tau = el("div", {class: "tau", style: "left:0%"}, el("b", {text: `τ ${f2(t)}`}));
+    const c = Math.max(0, Math.min(1, d.confidence)), th = Math.max(0, Math.min(1, d.threshold));
+    const zone = el("div", {class: "zone"}, el("em", {text: th > .25 ? t("zone") : ""}));
+    const tau = el("div", {class: "tau", style: "left:0%"}, el("b", {text: `τ ${f2(th)}`}));
     const needle = el("div", {class: "needle", style: "left:0%"}, el("b", {text: f2(c)}));
     const track = el("div", {class: "track-wrap"},
-      el("div", {class: "track", role: "img", "aria-label": `Calibrated confidence ${f2(c)} on a scale from 0 to 1. The threshold τ is ${f2(t)}; below it the agent abstains.`},
-        zone, tau, needle),
+      el("div", {class: "track", role: "img", "aria-label": t("track.aria", f2(c), f2(th))}, zone, tau, needle),
       el("div", {class: "axis", "aria-hidden": "true"}, el("span", {text: "0"}), el("span", {text: "1"})));
     const probs = el("dl", {class: "probs"});
     const bars = [];
     for (const [k, v] of Object.entries(d.probabilities)) {
       const best = k === d.label;
       const i = el("i", {class: best ? "best" : ""}); bars.push([i, v]);
-      probs.append(el("dt", {class: best ? "best" : "", text: k}),
+      probs.append(el("dt", {class: best ? "best" : "", text: cls(k)}),
         el("dd", {}, el("div", {class: "pbar", "aria-hidden": "true"}, i)),
         el("dd", {class: "v", text: f3(v)}));
     }
     nodes.push(
-      el("h3", {class: "section-t"}, "Calibrated confidence ", el("span", {text: "against the threshold τ"})), track,
-      el("h3", {class: "section-t"}, "Sentiment estimate ", el("span", {text: "probability of each class"})), probs,
-      el("p", {class: "note", text: `${d.model}, answered in ${d.latency_ms != null ? d.latency_ms + " ms" : "a batch request"}.`}));
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      zone.style.width = t * 100 + "%"; tau.style.left = t * 100 + "%"; needle.style.left = c * 100 + "%";
+      el("h3", {class: "section-t"}, t("sec.confidence") + " ", el("span", {text: t("sec.confidenceSub")})), track,
+      el("h3", {class: "section-t"}, t("sec.sentiment") + " ", el("span", {text: t("sec.sentimentSub")})), probs,
+      el("p", {class: "note", text: t("answered", d.model, d.latency_ms != null ? num(d.latency_ms, 1) : null)}));
+    const set = () => {
+      zone.style.width = th * 100 + "%"; tau.style.left = th * 100 + "%"; needle.style.left = c * 100 + "%";
       bars.forEach(([i, v]) => { i.style.width = v * 100 + "%"; });
-    }));
+    };
+    if (animate) requestAnimationFrame(() => requestAnimationFrame(set));
+    else { [zone, tau, needle, ...bars.map(b => b[0])].forEach(n => { n.style.transition = "none"; }); set(); }
   }
   return nodes;
 }
 function renderEmpty() {
   $("decision-body").replaceChildren(el("div", {class: "empty"},
-    el("h2", {text: "The agent answers only when it is sure."}),
-    el("p", {text: "Each review gets one of three decisions. The agent calibrates its confidence and compares it with a threshold τ chosen on validation data."}),
+    el("h2", {text: t("empty.title")}),
+    el("p", {text: t("empty.lead")}),
     el("ul", {class: "outcomes"},
-      ...[["ABSTAIN", "Needs a person", "The confidence is below τ, so a person reads the review."],
-          ["QUEUE", "Complaint", "Confidently negative. It goes to the admin queue."],
-          ["PASS", "Stored", "Confidently not negative. Stored without review."]]
-        .map(([a, h, t]) => el("li", {}, mk(a), el("div", {}, el("b", {text: `${a}: ${h}`}), el("span", {text: t})))))));
+      ...ACTIONS.map(a => {
+        const [h, d] = t("outcome." + a);
+        return el("li", {}, mk(a), el("div", {}, el("b", {text: `${a}: ${h}`}), el("span", {text: d})));
+      }))));
 }
 function renderSkeleton() {
   const bar = (w, h, mt) => el("div", {class: "sk", style: `width:${w};height:${h}px;margin-top:${mt}px`});
   $("decision-body").replaceChildren(el("div", {"aria-hidden": "true"},
-    bar("40%", 18, 0), bar("70%", 34, 10), bar("90%", 16, 12), bar("100%", 60, 28), bar("100%", 44, 48), bar("100%", 70, 32)));
+    bar("70%", 34, 0), bar("90%", 16, 12), bar("100%", 30, 24), bar("100%", 60, 28), bar("100%", 44, 48), bar("100%", 70, 32)));
 }
 function showDecision(d) {
+  current = d;
   const box = $("decision"); box.classList.add("swap");
-  setTimeout(() => { $("decision-body").replaceChildren(...decisionNodes(d)); box.classList.remove("swap"); }, 90);
+  setTimeout(() => {
+    $("decision-body").replaceChildren(...decisionNodes(d)); box.classList.remove("swap");
+    // On one-column layouts the decision sits below the form: bring it into view.
+    if (matchMedia("(max-width:1080px)").matches) {
+      const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      box.scrollIntoView({behavior: still ? "auto" : "smooth", block: "start"});
+    }
+  }, 90);
 }
 function openDetail(d) {
+  dialogDecision = d;
   $("detail-body").replaceChildren(...decisionNodes(d));
   $("detail").showModal();
 }
@@ -611,108 +858,124 @@ function openDetail(d) {
 async function postJSON(url, body, errEl) {
   let r;
   try { r = await fetch(url, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)}); }
-  catch (e) { setStatus("offline", ["Service offline"]); showBanner(OFFLINE); return null; }
-  if (r.status === 422) { errEl.textContent = "The service rejected this input. Check that no review is empty or longer than 2,000 characters."; return null; }
-  if (!r.ok) { showBanner(`The service answered with an error (${r.status}). Try again in a moment.`); return null; }
-  hideBanner();
+  catch (e) { setHealth("offline", {banner: OFFLINE}); return null; }
+  if (r.status === 422) { errEl.textContent = t("banner.rejected"); return null; }
+  if (!r.ok) { const s = r.status; setHealth(health.state, {...health, banner: () => t("banner.http", s)}); return null; }
+  if (health.banner) checkHealth();
   const data = await r.json();
   lastResponse = {url, body, data};
   return data;
 }
-function setBusy(btn, label, on, idle) {
+function setBusy(btn, label, on, idleKey) {
   btn.setAttribute("aria-busy", on ? "true" : "false");
-  label.textContent = on ? "Classifying" : idle;
+  label.textContent = on ? t("busy") : t(idleKey);
 }
 function updateBadge() { $("inbox-badge").textContent = session.length; }
 
 /* ---------- Analyze ---------- */
 function oneCounter() {
   const n = $("text").value.length;
-  $("counter").textContent = `${fmtInt(n)} / 2,000`;
+  $("counter").textContent = `${int(n)} / ${int(MAX_CHARS)}`;
   $("counter").classList.toggle("over", n > MAX_CHARS);
+}
+// Inline validation: limits are checked while typing; "empty" is reported only when sending.
+function validateOne(onSubmit) {
+  const v = $("text").value.trim();
+  let err = "";
+  if (v.length > MAX_CHARS) err = t("err.tooLong", int(v.length));
+  else if (onSubmit && !v) err = t("err.empty");
+  else if (!onSubmit && $("text-error").dataset.kind === "empty" && !v) err = t("err.empty");
+  $("text-error").textContent = err;
+  $("text-error").dataset.kind = !err ? "" : v ? "long" : "empty";
+  $("text").setAttribute("aria-invalid", err ? "true" : "false");
+  return !err;
 }
 let busyOne = false;
 async function submitOne(ev) {
   ev && ev.preventDefault();
   if (busyOne) return;
-  const t = $("text").value.trim();
-  const err = !t ? "Write or pick a review first." : t.length > MAX_CHARS ? `The review has ${fmtInt(t.length)} characters. The limit is 2,000.` : "";
-  $("text-error").textContent = err; $("text").setAttribute("aria-invalid", err ? "true" : "false");
-  if (err) { $("text").focus(); return; }
-  busyOne = true; setBusy($("go"), $("go-label"), true, "Classify review"); renderSkeleton();
+  if (!validateOne(true)) { $("text").focus(); return; }
+  const text = $("text").value.trim();
+  busyOne = true; setBusy($("go"), $("go-label"), true, "analyze.button"); renderSkeleton();
   try {
-    const d = await postJSON("/classify", {text: t}, $("text-error"));
-    if (!d) { renderEmpty(); return; }
+    const d = await postJSON("/classify", {text}, $("text-error"));
+    if (!d) { current ? $("decision-body").replaceChildren(...decisionNodes(current, false)) : renderEmpty(); return; }
     session.push(d); updateBadge(); showDecision(d);
-    if (d.error) setStatus("loading", ["Model error"]);
-  } finally { busyOne = false; setBusy($("go"), $("go-label"), false, "Classify review"); }
+    if (d.error) setHealth("modelError", {model: health.model});
+  } finally { busyOne = false; setBusy($("go"), $("go-label"), false, "analyze.button"); }
 }
-EXAMPLES.forEach(t => $("chips").append(el("button", {type: "button", class: "chip", title: t, text: t,
-  onclick: () => { $("text").value = t; $("text-error").textContent = ""; oneCounter(); submitOne(); }})));
+EXAMPLES.forEach(x => $("chips").append(el("button", {type: "button", class: "chip", lang: "es", title: x, text: x,
+  onclick: () => { $("text").value = x; $("text-error").textContent = ""; $("text-error").dataset.kind = ""; oneCounter(); submitOne(); }})));
 $("form-one").addEventListener("submit", submitOne);
-$("text").addEventListener("input", () => { $("text-error").textContent = ""; $("text").setAttribute("aria-invalid", "false"); oneCounter(); });
+$("text").addEventListener("input", () => { oneCounter(); validateOne(false); });
 $("text").addEventListener("keydown", e => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) submitOne(e); });
 
 /* ---------- Batch ---------- */
 const lines = () => $("batch").value.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
 function batchCounter() {
   const n = lines().length;
-  $("bcounter").textContent = `${n} / ${MAX_BATCH} reviews`;
+  $("bcounter").textContent = t("batch.counter", n);
   $("bcounter").classList.toggle("over", n > MAX_BATCH);
+}
+function validateBatch(onSubmit) {
+  const ls = lines();
+  let err = "";
+  if (ls.length > MAX_BATCH) err = t("err.batchMany", ls.length);
+  else { const i = ls.findIndex(l => l.length > MAX_CHARS); if (i >= 0) err = t("err.lineLong", i + 1); }
+  if (!err && !ls.length && (onSubmit || $("batch-error").dataset.kind === "empty")) err = t("err.batchEmpty");
+  $("batch-error").textContent = err;
+  $("batch-error").dataset.kind = !err ? "" : ls.length ? "limit" : "empty";
+  $("batch").setAttribute("aria-invalid", err ? "true" : "false");
+  return !err;
 }
 let busyBatch = false;
 async function submitBatch(ev) {
   ev && ev.preventDefault();
   if (busyBatch) return;
+  if (!validateBatch(true)) { $("batch").focus(); return; }
   const ls = lines();
-  let err = "";
-  if (!ls.length) err = "Write at least one review, one per line, or load the sample comments.";
-  else if (ls.length > MAX_BATCH) err = `There are ${ls.length} reviews. The limit is ${MAX_BATCH} per batch.`;
-  else { const i = ls.findIndex(l => l.length > MAX_CHARS); if (i >= 0) err = `Line ${i + 1} is longer than 2,000 characters.`; }
-  $("batch-error").textContent = err; $("batch").setAttribute("aria-invalid", err ? "true" : "false");
-  if (err) { $("batch").focus(); return; }
-  busyBatch = true; setBusy($("bgo"), $("bgo-label"), true, "Classify reviews");
+  busyBatch = true; setBusy($("bgo"), $("bgo-label"), true, "batch.button");
   $("results-body").replaceChildren(el("div", {"aria-hidden": "true"},
     ...[14, 54, 40, 40, 40, 40].map((h, i) => el("div", {class: "sk", style: `height:${h}px;margin-top:${i ? 12 : 0}px`}))));
   try {
     const items = ls.map((text, i) => ({id: String(i + 1), text}));
     const list = await postJSON("/classify/batch", {items}, $("batch-error"));
-    if (!list) { renderResults(); return; }
-    lastBatch = list; batchFilter = "ALL";
-    session.push(...list); updateBadge(); renderResults();
-  } finally { busyBatch = false; setBusy($("bgo"), $("bgo-label"), false, "Classify reviews"); }
+    if (list) { lastBatch = list; batchFilter = "ALL"; session.push(...list); updateBadge(); }
+    renderResults();
+  } finally { busyBatch = false; setBusy($("bgo"), $("bgo-label"), false, "batch.button"); }
 }
 function renderResults() {
   const list = lastBatch;
-  if (!list.length) { $("results-body").replaceChildren(el("p", {class: "results-empty", text: "Results appear here after you classify a batch."})); return; }
+  if (!list.length) { $("results-body").replaceChildren(el("p", {class: "results-empty", text: t("batch.emptyResults")})); return; }
   const n = {ABSTAIN: 0, QUEUE: 0, PASS: 0}; list.forEach(d => n[d.action]++);
   const pct = a => (100 * n[a] / list.length);
-  const mix = el("div", {class: "mix", role: "img", "aria-label": ACTIONS.map(a => `${COPY[a].lane} ${n[a]}`).join(", ")},
+  const mix = el("div", {class: "mix", role: "img", "aria-label": ACTIONS.map(a => `${t("lane." + a)}: ${n[a]}`).join(", ")},
     ...ACTIONS.map(a => el("i", {class: a, style: `width:${pct(a)}%`})));
   const counts = el("div", {class: "counts"}, ...ACTIONS.map(a => el("div", {class: "count " + a},
-    el("div", {class: "n", text: String(n[a])}), el("div", {class: "l"}, mk(a), el("span", {text: COPY[a].lane})))));
-  const filters = el("div", {class: "filters", role: "group", "aria-label": "Filter by decision"},
+    el("div", {class: "n", text: String(n[a])}), el("div", {class: "l"}, mk(a), el("span", {text: t("lane." + a)})))));
+  const filters = el("div", {class: "filters", role: "group", "aria-label": t("filter.label")},
     ...["ALL", ...ACTIONS].map(f => el("button", {type: "button", class: "filter", "aria-pressed": String(batchFilter === f),
       onclick: () => { batchFilter = f; renderResults(); }},
-      f === "ALL" ? null : mk(f), f === "ALL" ? `All ${list.length}` : `${COPY[f].lane} ${n[f]}`)));
+      f === "ALL" ? null : mk(f), f === "ALL" ? t("filter.all", list.length) : `${t("lane." + f)} ${n[f]}`)));
   const rows = list.filter(d => batchFilter === "ALL" || d.action === batchFilter);
   const tbody = el("tbody", {}, ...rows.map(d => el("tr", {tabindex: "0", onclick: () => openDetail(d),
       onkeydown: e => { if (e.key === "Enter") openDetail(d); }},
     el("td", {class: "num muted", text: d.id}),
-    el("td", {class: "t", text: d.text}),
+    el("td", {class: "t", lang: "es", text: d.text}),
     el("td", {}, el("span", {class: "pill " + d.action}, mk(d.action), d.action)),
-    el("td", {text: d.label ?? "–"}),
+    el("td", {text: cls(d.label)}),
     el("td", {class: "num", text: f2(d.confidence)}))));
   const table = el("div", {class: "table-wrap"}, el("table", {},
-    el("caption", {class: "sr-only", text: "Batch results. Select a row to see the full decision."}),
-    el("thead", {}, el("tr", {}, el("th", {class: "num", text: "#"}), el("th", {text: "Review"}), el("th", {text: "Decision"}),
-      el("th", {text: "Best guess"}), el("th", {class: "num", text: "Confidence"}))), tbody));
-  const exportBtn = el("button", {type: "button", class: "btn btn-ghost", onclick: exportCSV}, "Export CSV");
+    el("caption", {class: "sr-only", text: t("table.caption")}),
+    el("thead", {}, el("tr", {}, el("th", {class: "num", text: "#"}), el("th", {text: t("th.review")}), el("th", {text: t("th.decision")}),
+      el("th", {text: t("th.best")}), el("th", {class: "num", text: t("th.conf")}))), tbody));
+  const exportBtn = el("button", {type: "button", class: "btn btn-ghost", onclick: exportCSV}, t("export"));
   $("results-body").replaceChildren(
-    el("p", {text: `${list.length} ${list.length === 1 ? "review" : "reviews"} classified with ${list[0].model || "the model"}. ${n.ABSTAIN} need a person, ${n.QUEUE} are complaints, ${n.PASS} can be stored.`}),
+    el("p", {text: t("batch.summary", list.length, list[0].model || "–", n.ABSTAIN, n.QUEUE, n.PASS)}),
     mix, counts, el("div", {style: "display:flex;align-items:center;gap:8px;flex-wrap:wrap"}, filters, el("span", {style: "margin-left:auto"}, exportBtn)), table);
 }
 function exportCSV() {
+  // The CSV keeps the API values (English class names, dot decimals) so other systems can read it.
   const q = s => `"${String(s ?? "").replace(/"/g, '""')}"`;
   const rows = [["id", "text", "action", "label", "confidence", "threshold", "p_negative", "p_neutral", "p_positive"]]
     .concat(lastBatch.map(d => [d.id, d.text, d.action, d.label, d.confidence, d.threshold,
@@ -722,65 +985,67 @@ function exportCSV() {
   document.body.append(a); a.click(); a.remove();
 }
 $("form-batch").addEventListener("submit", submitBatch);
-$("batch").addEventListener("input", () => { $("batch-error").textContent = ""; batchCounter(); });
+$("batch").addEventListener("input", () => { batchCounter(); validateBatch(false); });
 $("batch").addEventListener("keydown", e => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) submitBatch(e); });
-$("load-sample").addEventListener("click", () => { $("batch").value = SAMPLE_BATCH.join("\n"); $("batch-error").textContent = ""; batchCounter(); $("batch").focus(); });
+$("load-sample").addEventListener("click", () => {
+  $("batch").value = SAMPLE_BATCH.join("\n"); $("batch-error").dataset.kind = ""; batchCounter(); validateBatch(false); $("batch").focus();
+});
 
 /* ---------- Inbox ---------- */
 function renderLanes() {
-  $("inbox-sub").textContent = session.length
-    ? `${session.length} ${session.length === 1 ? "review" : "reviews"} in this session, sorted by decision. Nothing is stored on the server.`
-    : "Every review you classify in this session lands here, sorted by what the agent did with it.";
+  $("inbox-sub").textContent = session.length ? t("inbox.count", session.length) : t("inbox.empty");
   $("lanes").replaceChildren(...ACTIONS.map(a => {
     const items = session.filter(d => d.action === a).slice().reverse();
     const ol = el("ol", {}, ...items.map(d => el("li", {}, el("button", {type: "button",
-      "aria-label": `${a}, confidence ${f2(d.confidence)}: ${d.text}`, onclick: () => openDetail(d)},
-      el("span", {class: "tx", text: d.text}), el("span", {class: "cf", text: d.error ? "error" : f2(d.confidence)})))));
-    return el("section", {class: "lane " + a, "aria-label": COPY[a].lane},
-      el("header", {}, mk(a), el("h2", {text: COPY[a].lane}), el("span", {class: "c", text: String(items.length)}),
-        el("p", {text: `${a}. ${COPY[a].laneSub}`})),
-      items.length ? ol : el("p", {class: "none", text: "Nothing here yet."}));
+      "aria-label": t("inbox.item", a, f2(d.confidence), d.text), onclick: () => openDetail(d)},
+      el("span", {class: "tx", lang: "es", text: d.text}), el("span", {class: "cf", text: d.error ? t("inbox.error") : f2(d.confidence)})))));
+    return el("section", {class: "lane " + a, "aria-label": t("lane." + a)},
+      el("header", {}, mk(a), el("h2", {text: t("lane." + a)}), el("span", {class: "c", text: String(items.length)}),
+        el("p", {text: `${a}. ${t("laneSub." + a)}`})),
+      items.length ? ol : el("p", {class: "none", text: t("inbox.none")}));
   }));
 }
-$("clear").addEventListener("click", () => { session = []; lastBatch = []; updateBadge(); renderLanes(); renderResults(); renderEmpty(); });
+$("clear").addEventListener("click", () => {
+  session = []; lastBatch = []; current = null; updateBadge(); renderLanes(); renderResults(); renderEmpty();
+});
 
 /* ---------- Integrate ---------- */
 const origin = location.origin;
 function hl(json) {
   return json.replace(/[&<>]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;"}[c]))
     .replace(/("(?:\\.|[^"\\])*")(\s*:)?|\b(-?\d+(?:\.\d+)?)\b|\b(true|false|null)\b/g,
-      (m, s, colon, num, lit) => s ? (colon ? `<span class="k">${s}</span>${colon}` : `<span class="s">${s}</span>`) : num ? `<span class="n">${num}</span>` : `<span class="n">${lit}</span>`);
+      (m, s, colon, n, lit) => s ? (colon ? `<span class="k">${s}</span>${colon}` : `<span class="s">${s}</span>`) : `<span class="n">${n ?? lit}</span>`);
 }
 function codeText() {
   const req = {items: [{id: "order-1042", text: "El pedido llegó frío y una hora tarde.", metadata: {branch: "centro", channel: "app"}}]};
-  if (codeTab === "curl") return {label: "Request with curl", text: `curl -X POST ${origin}/classify/batch \\\n  -H "Content-Type: application/json" \\\n  -d '${JSON.stringify(req)}'`, html: false};
-  if (codeTab === "python") return {label: "Request with Python (standard library only)", text:
+  if (codeTab === "curl") return {label: t("code.curl"), html: false,
+    text: `curl -X POST ${origin}/classify/batch \\\n  -H "Content-Type: application/json" \\\n  -d '${JSON.stringify(req)}'`};
+  if (codeTab === "python") return {label: t("code.python"), html: false, text:
 `import json, urllib.request
 
-body = ${JSON.stringify(req, null, 4).replace(/\n/g, "\n")}
+body = ${JSON.stringify(req, null, 4)}
 req = urllib.request.Request("${origin}/classify/batch",
                              data=json.dumps(body).encode("utf-8"),
                              headers={"Content-Type": "application/json"})
 for decision in json.load(urllib.request.urlopen(req)):
-    print(decision["id"], decision["action"], decision["confidence"])`, html: false};
-  if (!lastResponse) return {label: "Last real response", text: "Classify a review in Analyze or Batch to see the real response here.", html: false};
-  const shown = Array.isArray(lastResponse.data) ? lastResponse.data.slice(0, 2) : lastResponse.data;
-  const more = Array.isArray(lastResponse.data) && lastResponse.data.length > 2 ? `, first 2 of ${lastResponse.data.length}` : "";
-  return {label: `Response from POST ${lastResponse.url}${more}`, text: JSON.stringify(shown, null, 2), html: true};
+    print(decision["id"], decision["action"], decision["confidence"])`};
+  if (!lastResponse) return {label: t("code.none"), text: t("code.noneText"), html: false};
+  const data = lastResponse.data, many = Array.isArray(data) && data.length > 2;
+  const shown = Array.isArray(data) ? data.slice(0, 2) : data;
+  return {label: t("code.response", lastResponse.url, many ? t("code.more", 2, data.length) : ""),
+    text: JSON.stringify(shown, null, 2), html: true};
 }
 function renderCode() {
   const {label, text, html} = codeText();
-  const box = $("code-box");
   $("code-label").textContent = label;
-  if (html) box.innerHTML = hl(text);
-  else box.textContent = text;
+  if (html) $("code-box").innerHTML = hl(text); else $("code-box").textContent = text;
   document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.code === codeTab)));
 }
 document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => { codeTab = b.dataset.code; renderCode(); }));
 $("copy").addEventListener("click", async () => {
-  try { await navigator.clipboard.writeText(codeText().text); $("copy").textContent = "Copied"; }
-  catch (e) { $("copy").textContent = "Select and copy"; }
-  setTimeout(() => { $("copy").textContent = "Copy"; }, 1600);
+  try { await navigator.clipboard.writeText(codeText().text); $("copy").textContent = t("int.copied"); }
+  catch (e) { $("copy").textContent = t("int.copyFail"); }
+  setTimeout(() => { $("copy").textContent = t("int.copy"); }, 1600);
 });
 
 /* ---------- dialog ---------- */
@@ -788,7 +1053,8 @@ $("detail-close").addEventListener("click", () => $("detail").close());
 $("detail").addEventListener("click", e => { if (e.target === $("detail")) $("detail").close(); });
 $("banner-retry").addEventListener("click", checkHealth);
 
-renderEmpty(); oneCounter(); batchCounter(); updateBadge(); route(); checkHealth();
+lang = initialLang();
+applyStatic(); renderStatus(); renderEmpty(); oneCounter(); batchCounter(); updateBadge(); renderResults(); renderModel(); route(); checkHealth();
 setInterval(checkHealth, 15000);
 </script>
 </body>

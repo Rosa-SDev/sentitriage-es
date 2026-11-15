@@ -123,3 +123,9 @@ def test_demo_has_the_four_views(client):
 
 def test_demo_page_is_not_cached(client):
     assert client.get("/").headers.get("cache-control") == "no-cache"
+
+
+def test_demo_is_bilingual(client):
+    html = client.get("/").text
+    assert 'data-lang="en"' in html and 'data-lang="es"' in html
+    assert "Analizar una reseña" in html and "Analyze a review" in html
