@@ -1,0 +1,396 @@
+{
+  "model": "beto-sentitriage",
+  "temperature": 1.9204180511364557,
+  "target_risk_val": 0.25,
+  "confidence": {
+    "uncalibrated": {
+      "temperature": 1.0,
+      "tau": 0.7537310531307645,
+      "sets": {
+        "tweets_test": {
+          "tau": 0.7537310531307645,
+          "coverage": 0.7505747126436781,
+          "selective_risk": 0.25421133231240434,
+          "n_accepted": 653,
+          "n_abstained": 217,
+          "aurc": 0.1803743972099225
+        },
+        "colombia_gold": {
+          "tau": 0.7537310531307645,
+          "coverage": 0.8444444444444444,
+          "selective_risk": 0.1578947368421053,
+          "n_accepted": 76,
+          "n_abstained": 14,
+          "aurc": 0.07859312982476226
+        },
+        "colombia_weak": {
+          "tau": 0.7537310531307645,
+          "coverage": 0.8273608768971332,
+          "selective_risk": 0.28942675159235665,
+          "n_accepted": 3925,
+          "n_abstained": 819,
+          "aurc": 0.18859461218157508
+        }
+      }
+    },
+    "calibrated": {
+      "temperature": 1.9204180511364557,
+      "tau": 0.5932562384806388,
+      "sets": {
+        "tweets_test": {
+          "tau": 0.5932562384806388,
+          "coverage": 0.7551724137931034,
+          "selective_risk": 0.25418569254185697,
+          "n_accepted": 657,
+          "n_abstained": 213,
+          "aurc": 0.18001839975355788
+        },
+        "colombia_gold": {
+          "tau": 0.5932562384806388,
+          "coverage": 0.8555555555555555,
+          "selective_risk": 0.1558441558441559,
+          "n_accepted": 77,
+          "n_abstained": 13,
+          "aurc": 0.07189077996664685
+        },
+        "colombia_weak": {
+          "tau": 0.5932562384806388,
+          "coverage": 0.8345278246205734,
+          "selective_risk": 0.2894670371305885,
+          "n_accepted": 3959,
+          "n_abstained": 785,
+          "aurc": 0.1884503589435288
+        }
+      }
+    }
+  },
+  "neutral_escalation": {
+    "delta_chosen_on_val": 0.25,
+    "sweep": {
+      "tweets_val": {
+        "base": {
+          "missed_complaints": 17,
+          "n_negative": 108,
+          "queue_size": 92,
+          "escalated": 0,
+          "escalated_truly_negative": 0
+        },
+        "chosen_delta": {
+          "missed_complaints": 13,
+          "n_negative": 108,
+          "queue_size": 99,
+          "escalated": 7,
+          "escalated_truly_negative": 4
+        },
+        "grid": {
+          "0.1": {
+            "missed_complaints": 7,
+            "n_negative": 108,
+            "queue_size": 128,
+            "escalated": 36,
+            "escalated_truly_negative": 10
+          },
+          "0.15": {
+            "missed_complaints": 10,
+            "n_negative": 108,
+            "queue_size": 116,
+            "escalated": 24,
+            "escalated_truly_negative": 7
+          },
+          "0.2": {
+            "missed_complaints": 11,
+            "n_negative": 108,
+            "queue_size": 107,
+            "escalated": 15,
+            "escalated_truly_negative": 6
+          },
+          "0.25": {
+            "missed_complaints": 13,
+            "n_negative": 108,
+            "queue_size": 99,
+            "escalated": 7,
+            "escalated_truly_negative": 4
+          },
+          "0.3": {
+            "missed_complaints": 14,
+            "n_negative": 108,
+            "queue_size": 96,
+            "escalated": 4,
+            "escalated_truly_negative": 3
+          },
+          "0.35": {
+            "missed_complaints": 17,
+            "n_negative": 108,
+            "queue_size": 92,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.4": {
+            "missed_complaints": 17,
+            "n_negative": 108,
+            "queue_size": 92,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.45": {
+            "missed_complaints": 17,
+            "n_negative": 108,
+            "queue_size": 92,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.5": {
+            "missed_complaints": 17,
+            "n_negative": 108,
+            "queue_size": 92,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          }
+        }
+      },
+      "tweets_test": {
+        "base": {
+          "missed_complaints": 48,
+          "n_negative": 290,
+          "queue_size": 228,
+          "escalated": 0,
+          "escalated_truly_negative": 0
+        },
+        "chosen_delta": {
+          "missed_complaints": 40,
+          "n_negative": 290,
+          "queue_size": 252,
+          "escalated": 24,
+          "escalated_truly_negative": 8
+        },
+        "grid": {
+          "0.1": {
+            "missed_complaints": 26,
+            "n_negative": 290,
+            "queue_size": 344,
+            "escalated": 116,
+            "escalated_truly_negative": 22
+          },
+          "0.15": {
+            "missed_complaints": 33,
+            "n_negative": 290,
+            "queue_size": 291,
+            "escalated": 63,
+            "escalated_truly_negative": 15
+          },
+          "0.2": {
+            "missed_complaints": 35,
+            "n_negative": 290,
+            "queue_size": 267,
+            "escalated": 39,
+            "escalated_truly_negative": 13
+          },
+          "0.25": {
+            "missed_complaints": 40,
+            "n_negative": 290,
+            "queue_size": 252,
+            "escalated": 24,
+            "escalated_truly_negative": 8
+          },
+          "0.3": {
+            "missed_complaints": 46,
+            "n_negative": 290,
+            "queue_size": 236,
+            "escalated": 8,
+            "escalated_truly_negative": 2
+          },
+          "0.35": {
+            "missed_complaints": 48,
+            "n_negative": 290,
+            "queue_size": 228,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.4": {
+            "missed_complaints": 48,
+            "n_negative": 290,
+            "queue_size": 228,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.45": {
+            "missed_complaints": 48,
+            "n_negative": 290,
+            "queue_size": 228,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.5": {
+            "missed_complaints": 48,
+            "n_negative": 290,
+            "queue_size": 228,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          }
+        }
+      },
+      "colombia_gold": {
+        "base": {
+          "missed_complaints": 7,
+          "n_negative": 56,
+          "queue_size": 43,
+          "escalated": 0,
+          "escalated_truly_negative": 0
+        },
+        "chosen_delta": {
+          "missed_complaints": 6,
+          "n_negative": 56,
+          "queue_size": 45,
+          "escalated": 2,
+          "escalated_truly_negative": 1
+        },
+        "grid": {
+          "0.1": {
+            "missed_complaints": 2,
+            "n_negative": 56,
+            "queue_size": 51,
+            "escalated": 8,
+            "escalated_truly_negative": 5
+          },
+          "0.15": {
+            "missed_complaints": 4,
+            "n_negative": 56,
+            "queue_size": 47,
+            "escalated": 4,
+            "escalated_truly_negative": 3
+          },
+          "0.2": {
+            "missed_complaints": 6,
+            "n_negative": 56,
+            "queue_size": 45,
+            "escalated": 2,
+            "escalated_truly_negative": 1
+          },
+          "0.25": {
+            "missed_complaints": 6,
+            "n_negative": 56,
+            "queue_size": 45,
+            "escalated": 2,
+            "escalated_truly_negative": 1
+          },
+          "0.3": {
+            "missed_complaints": 7,
+            "n_negative": 56,
+            "queue_size": 43,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.35": {
+            "missed_complaints": 7,
+            "n_negative": 56,
+            "queue_size": 43,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.4": {
+            "missed_complaints": 7,
+            "n_negative": 56,
+            "queue_size": 43,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.45": {
+            "missed_complaints": 7,
+            "n_negative": 56,
+            "queue_size": 43,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.5": {
+            "missed_complaints": 7,
+            "n_negative": 56,
+            "queue_size": 43,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          }
+        }
+      },
+      "colombia_weak": {
+        "base": {
+          "missed_complaints": 237,
+          "n_negative": 1918,
+          "queue_size": 1976,
+          "escalated": 0,
+          "escalated_truly_negative": 0
+        },
+        "chosen_delta": {
+          "missed_complaints": 174,
+          "n_negative": 1918,
+          "queue_size": 2085,
+          "escalated": 109,
+          "escalated_truly_negative": 63
+        },
+        "grid": {
+          "0.1": {
+            "missed_complaints": 60,
+            "n_negative": 1918,
+            "queue_size": 2413,
+            "escalated": 437,
+            "escalated_truly_negative": 177
+          },
+          "0.15": {
+            "missed_complaints": 103,
+            "n_negative": 1918,
+            "queue_size": 2262,
+            "escalated": 286,
+            "escalated_truly_negative": 134
+          },
+          "0.2": {
+            "missed_complaints": 141,
+            "n_negative": 1918,
+            "queue_size": 2158,
+            "escalated": 182,
+            "escalated_truly_negative": 96
+          },
+          "0.25": {
+            "missed_complaints": 174,
+            "n_negative": 1918,
+            "queue_size": 2085,
+            "escalated": 109,
+            "escalated_truly_negative": 63
+          },
+          "0.3": {
+            "missed_complaints": 213,
+            "n_negative": 1918,
+            "queue_size": 2012,
+            "escalated": 36,
+            "escalated_truly_negative": 24
+          },
+          "0.35": {
+            "missed_complaints": 236,
+            "n_negative": 1918,
+            "queue_size": 1977,
+            "escalated": 1,
+            "escalated_truly_negative": 1
+          },
+          "0.4": {
+            "missed_complaints": 237,
+            "n_negative": 1918,
+            "queue_size": 1976,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.45": {
+            "missed_complaints": 237,
+            "n_negative": 1918,
+            "queue_size": 1976,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.5": {
+            "missed_complaints": 237,
+            "n_negative": 1918,
+            "queue_size": 1976,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          }
+        }
+      }
+    }
+  }
+}
