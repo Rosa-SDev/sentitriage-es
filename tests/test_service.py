@@ -113,3 +113,13 @@ def test_model_failure_keeps_client_id(client, monkeypatch):
     assert d["action"] == "ABSTAIN" and d["id"] == "p1" and d["error"]
     out = client.post("/classify/batch", json={"items": [{"text": "Todo bien", "id": "q"}]}).json()
     assert out[0]["action"] == "ABSTAIN" and out[0]["id"] == "q"
+
+
+def test_demo_has_the_four_views(client):
+    html = client.get("/").text
+    for view in ("view-analyze", "view-batch", "view-inbox", "view-integrate"):
+        assert f'id="{view}"' in html
+
+
+def test_demo_page_is_not_cached(client):
+    assert client.get("/").headers.get("cache-control") == "no-cache"

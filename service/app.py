@@ -158,4 +158,5 @@ app.mount("/static", StaticFiles(directory=STATIC), name="static")
 
 @app.get("/", include_in_schema=False)
 def index():
-    return FileResponse(STATIC / "index.html")
+    # no-cache: el navegador valida la página en cada visita y nunca muestra una versión vieja de la demo
+    return FileResponse(STATIC / "index.html", headers={"Cache-Control": "no-cache"})
