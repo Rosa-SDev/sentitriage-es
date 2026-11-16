@@ -1,0 +1,368 @@
+{
+  "model": "baseline-tfidf-lr",
+  "temperature": 0.4877440376178619,
+  "target_risk_val": 0.25,
+  "confidence": {
+    "uncalibrated": {
+      "temperature": 1.0,
+      "tau": 0.4695171549002944,
+      "sets": {
+        "tweets_test": {
+          "tau": 0.4695171549002944,
+          "coverage": 0.3103448275862069,
+          "selective_risk": 0.2777777777777778,
+          "n_accepted": 270,
+          "n_abstained": 600,
+          "aurc": 0.3199937972670244
+        },
+        "colombia_gold": {
+          "tau": 0.4695171549002944,
+          "coverage": 0.26666666666666666,
+          "selective_risk": 0.125,
+          "n_accepted": 24,
+          "n_abstained": 66,
+          "aurc": 0.1829247525246091
+        },
+        "colombia_weak": {
+          "tau": 0.4695171549002944,
+          "coverage": 0.3182967959527825,
+          "selective_risk": 0.21390728476821197,
+          "n_accepted": 1510,
+          "n_abstained": 3234,
+          "aurc": 0.2555234059564938
+        }
+      }
+    },
+    "calibrated": {
+      "temperature": 0.4877440376178619,
+      "tau": 0.5752883643773637,
+      "sets": {
+        "tweets_test": {
+          "tau": 0.5752883643773637,
+          "coverage": 0.3793103448275862,
+          "selective_risk": 0.31212121212121213,
+          "n_accepted": 330,
+          "n_abstained": 540,
+          "aurc": 0.3180590959168283
+        },
+        "colombia_gold": {
+          "tau": 0.5752883643773637,
+          "coverage": 0.35555555555555557,
+          "selective_risk": 0.15625,
+          "n_accepted": 32,
+          "n_abstained": 58,
+          "aurc": 0.1809470232118112
+        },
+        "colombia_weak": {
+          "tau": 0.5752883643773637,
+          "coverage": 0.3836424957841484,
+          "selective_risk": 0.23296703296703292,
+          "n_accepted": 1820,
+          "n_abstained": 2924,
+          "aurc": 0.2524883083820017
+        }
+      }
+    }
+  },
+  "neutral_escalation": {
+    "delta_chosen_on_val": null,
+    "sweep": {
+      "tweets_val": {
+        "base": {
+          "missed_complaints": 6,
+          "n_negative": 108,
+          "queue_size": 40,
+          "escalated": 0,
+          "escalated_truly_negative": 0
+        },
+        "grid": {
+          "0.1": {
+            "missed_complaints": 2,
+            "n_negative": 108,
+            "queue_size": 59,
+            "escalated": 19,
+            "escalated_truly_negative": 4
+          },
+          "0.15": {
+            "missed_complaints": 3,
+            "n_negative": 108,
+            "queue_size": 55,
+            "escalated": 15,
+            "escalated_truly_negative": 3
+          },
+          "0.2": {
+            "missed_complaints": 3,
+            "n_negative": 108,
+            "queue_size": 53,
+            "escalated": 13,
+            "escalated_truly_negative": 3
+          },
+          "0.25": {
+            "missed_complaints": 4,
+            "n_negative": 108,
+            "queue_size": 47,
+            "escalated": 7,
+            "escalated_truly_negative": 2
+          },
+          "0.3": {
+            "missed_complaints": 6,
+            "n_negative": 108,
+            "queue_size": 40,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.35": {
+            "missed_complaints": 6,
+            "n_negative": 108,
+            "queue_size": 40,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.4": {
+            "missed_complaints": 6,
+            "n_negative": 108,
+            "queue_size": 40,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.45": {
+            "missed_complaints": 6,
+            "n_negative": 108,
+            "queue_size": 40,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.5": {
+            "missed_complaints": 6,
+            "n_negative": 108,
+            "queue_size": 40,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          }
+        }
+      },
+      "tweets_test": {
+        "base": {
+          "missed_complaints": 29,
+          "n_negative": 290,
+          "queue_size": 131,
+          "escalated": 0,
+          "escalated_truly_negative": 0
+        },
+        "grid": {
+          "0.1": {
+            "missed_complaints": 13,
+            "n_negative": 290,
+            "queue_size": 183,
+            "escalated": 52,
+            "escalated_truly_negative": 16
+          },
+          "0.15": {
+            "missed_complaints": 15,
+            "n_negative": 290,
+            "queue_size": 171,
+            "escalated": 40,
+            "escalated_truly_negative": 14
+          },
+          "0.2": {
+            "missed_complaints": 17,
+            "n_negative": 290,
+            "queue_size": 164,
+            "escalated": 33,
+            "escalated_truly_negative": 12
+          },
+          "0.25": {
+            "missed_complaints": 22,
+            "n_negative": 290,
+            "queue_size": 151,
+            "escalated": 20,
+            "escalated_truly_negative": 7
+          },
+          "0.3": {
+            "missed_complaints": 25,
+            "n_negative": 290,
+            "queue_size": 140,
+            "escalated": 9,
+            "escalated_truly_negative": 4
+          },
+          "0.35": {
+            "missed_complaints": 27,
+            "n_negative": 290,
+            "queue_size": 134,
+            "escalated": 3,
+            "escalated_truly_negative": 2
+          },
+          "0.4": {
+            "missed_complaints": 29,
+            "n_negative": 290,
+            "queue_size": 131,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.45": {
+            "missed_complaints": 29,
+            "n_negative": 290,
+            "queue_size": 131,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.5": {
+            "missed_complaints": 29,
+            "n_negative": 290,
+            "queue_size": 131,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          }
+        }
+      },
+      "colombia_gold": {
+        "base": {
+          "missed_complaints": 2,
+          "n_negative": 56,
+          "queue_size": 17,
+          "escalated": 0,
+          "escalated_truly_negative": 0
+        },
+        "grid": {
+          "0.1": {
+            "missed_complaints": 1,
+            "n_negative": 56,
+            "queue_size": 18,
+            "escalated": 1,
+            "escalated_truly_negative": 1
+          },
+          "0.15": {
+            "missed_complaints": 1,
+            "n_negative": 56,
+            "queue_size": 18,
+            "escalated": 1,
+            "escalated_truly_negative": 1
+          },
+          "0.2": {
+            "missed_complaints": 1,
+            "n_negative": 56,
+            "queue_size": 18,
+            "escalated": 1,
+            "escalated_truly_negative": 1
+          },
+          "0.25": {
+            "missed_complaints": 1,
+            "n_negative": 56,
+            "queue_size": 18,
+            "escalated": 1,
+            "escalated_truly_negative": 1
+          },
+          "0.3": {
+            "missed_complaints": 2,
+            "n_negative": 56,
+            "queue_size": 17,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.35": {
+            "missed_complaints": 2,
+            "n_negative": 56,
+            "queue_size": 17,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.4": {
+            "missed_complaints": 2,
+            "n_negative": 56,
+            "queue_size": 17,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.45": {
+            "missed_complaints": 2,
+            "n_negative": 56,
+            "queue_size": 17,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.5": {
+            "missed_complaints": 2,
+            "n_negative": 56,
+            "queue_size": 17,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          }
+        }
+      },
+      "colombia_weak": {
+        "base": {
+          "missed_complaints": 77,
+          "n_negative": 1918,
+          "queue_size": 937,
+          "escalated": 0,
+          "escalated_truly_negative": 0
+        },
+        "grid": {
+          "0.1": {
+            "missed_complaints": 25,
+            "n_negative": 1918,
+            "queue_size": 1038,
+            "escalated": 101,
+            "escalated_truly_negative": 52
+          },
+          "0.15": {
+            "missed_complaints": 25,
+            "n_negative": 1918,
+            "queue_size": 1037,
+            "escalated": 100,
+            "escalated_truly_negative": 52
+          },
+          "0.2": {
+            "missed_complaints": 30,
+            "n_negative": 1918,
+            "queue_size": 1025,
+            "escalated": 88,
+            "escalated_truly_negative": 47
+          },
+          "0.25": {
+            "missed_complaints": 39,
+            "n_negative": 1918,
+            "queue_size": 998,
+            "escalated": 61,
+            "escalated_truly_negative": 38
+          },
+          "0.3": {
+            "missed_complaints": 60,
+            "n_negative": 1918,
+            "queue_size": 960,
+            "escalated": 23,
+            "escalated_truly_negative": 17
+          },
+          "0.35": {
+            "missed_complaints": 73,
+            "n_negative": 1918,
+            "queue_size": 945,
+            "escalated": 8,
+            "escalated_truly_negative": 4
+          },
+          "0.4": {
+            "missed_complaints": 77,
+            "n_negative": 1918,
+            "queue_size": 937,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.45": {
+            "missed_complaints": 77,
+            "n_negative": 1918,
+            "queue_size": 937,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          },
+          "0.5": {
+            "missed_complaints": 77,
+            "n_negative": 1918,
+            "queue_size": 937,
+            "escalated": 0,
+            "escalated_truly_negative": 0
+          }
+        }
+      }
+    }
+  }
+}

@@ -16,8 +16,13 @@ c(x) = max softmax(z(x) / T). T y τ se ajustan en validación.
 
 Proyecto de investigación de **Sistemas Inteligentes 2026B (Grupo 02), Universidad de
 Ibagué**. Autores: Rosa Isabel Peña Yagüe y Daniel Esteban Guzmán Rodríguez.
-Docente: Alexandra La Cruz Puente. El objeto de estudio es el agente y su evaluación;
-[Kandela](https://github.com/Rosa-SDev/kandela) es el entorno de integración previsto.
+Docente: Alexandra La Cruz Puente. El objeto de estudio es el agente y su evaluación.
+El servicio tiene un contrato genérico (texto, `id` y `metadata` opcionales) para que cualquier
+sistema lo consuma. [Kandela](https://github.com/Rosa-SDev/kandela), un sistema de gestión de
+restaurantes, es el primer cliente real: el cliente del restaurante deja su comentario desde el QR
+de su mesa, `clientes-service` de Kandela llama a `POST /classify` con la mesa y el pedido como
+`metadata`, y la administradora revisa las quejas (QUEUE) y las abstenciones (ABSTAIN) en Kandela
+Admin. El código de la integración vive en el repositorio de Kandela.
 
 ## Estructura
 
@@ -86,7 +91,7 @@ $env:SENTITRIAGE_MODEL_DIR="models/beto-sentitriage"; uvicorn service.app:app --
   calificación (20–40 negativo, 50–70 neutral, 80–100 positivo) y una muestra de 90 para
   etiquetado humano por los dos autores (kappa de Cohen).
 
-## Estado (Fase II, 4 de noviembre de 2026)
+## Estado (entrega final, noviembre de 2026)
 
 | Componente | Estado |
 |---|---|
@@ -96,8 +101,10 @@ $env:SENTITRIAGE_MODEL_DIR="models/beto-sentitriage"; uvicorn service.app:app --
 | Cambio de dominio, etiqueta por calificación (4.744) | Hecho — `results/colombia/weak/` |
 | Cambio de dominio, etiqueta humana (90, κ = 0,77) | Hecho — `results/colombia/gold/` |
 | Microservicio + demo web | Hecho |
-| Integración con Kandela | Diseñada (ADR 0001), no implementada |
-| Acción ALERT (ventana de negativos) | Fuera de alcance de esta fase |
+| Contrato genérico de integración + cliente de ejemplo | Hecho — `examples/integration_client.py` |
+| Calibración frente a selección y escalamiento de neutrales | Hecho — `results/policy_ablation/` |
+| Integración con Kandela | Hecho en el repositorio de Kandela: reseñas desde el QR, clasificadas por `/classify` |
+| Acción ALERT (ventana de negativos) | No implementada (trabajo futuro) |
 
 Resultados: `results/comparison.md` (tuits), `results/colombia/gold/summary.md`
 (90 comentarios con etiqueta humana) y `results/colombia/weak/summary.md` (4.744 con
