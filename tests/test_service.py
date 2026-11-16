@@ -129,3 +129,14 @@ def test_demo_is_bilingual(client):
     html = client.get("/").text
     assert 'data-lang="en"' in html and 'data-lang="es"' in html
     assert "Analizar una reseña" in html and "Analyze a review" in html
+
+
+def test_demo_fields_can_be_cleared_with_undo(client):
+    html = client.get("/").text
+    # Analyze y Batch: botón para borrar el campo, desactivado al inicio, y aviso para deshacer
+    for field, button, notice in (("text", "clear-one", "undo-one"), ("batch", "clear-batch", "undo-batch")):
+        assert f'id="{button}" aria-controls="{field}" data-i18n="clear" disabled' in html
+        assert f'id="{notice}" role="status" hidden' in html
+    # textos en los dos idiomas
+    assert '"clear": "Clear text"' in html and '"undo": "Undo"' in html
+    assert '"clear": "Borrar texto"' in html and '"undo": "Deshacer"' in html

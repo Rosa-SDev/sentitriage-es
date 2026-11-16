@@ -85,6 +85,14 @@ main{max-width:var(--page-max);margin:0 auto;padding:var(--s4) var(--page-pad) v
 .composer{padding:var(--s5);min-width:0}
 .field-label{display:block;font-weight:600;font-size:var(--fs-body)}
 .help{color:var(--ink-2);font-size:var(--fs-small);margin:2px 0 var(--s3)}
+/* field header: label and help on the left, "Clear text" on the right, away from the primary button */
+.field-head{display:flex;align-items:flex-end;gap:var(--s3);margin-bottom:var(--s3)}
+.field-head > div{min-width:0}
+.field-head .help{margin-bottom:0}
+.btn-clear{margin-left:auto;min-height:32px;padding:0 var(--s3);font-size:var(--fs-small)}
+.undo{display:flex;align-items:center;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s2);font-size:var(--fs-small);color:var(--ink-2)}
+.undo[hidden]{display:none}
+.link{background:none;border:0;padding:0 var(--s1);min-height:24px;color:var(--focus);font-weight:600;text-decoration:underline;text-underline-offset:2px}
 textarea{display:block;width:100%;min-height:168px;resize:vertical;font:400 var(--fs-body)/1.55 var(--sans);color:var(--ink);
   background:var(--sunken);border:1px solid var(--rule);border-radius:var(--r-md);padding:var(--s4)}
 #batch{min-height:260px}
@@ -281,7 +289,7 @@ footer{max-width:var(--page-max);margin:0 auto;padding:0 var(--page-pad) var(--s
   .status{margin-left:auto}
   .lang{margin-left:var(--s3)}
   .lang button{min-width:44px;min-height:44px}   /* touch target ≥ 44 px */
-  .chip{min-height:44px}
+  .chip,.btn-clear,.link{min-height:44px}
   main{padding:var(--s5) var(--page-pad) var(--s7)}
   .verdict h2,.counts .n{font-size:var(--fs-title)}
   .probs{grid-template-columns:78px minmax(0,1fr) 46px}
@@ -336,10 +344,16 @@ footer{max-width:var(--page-max);margin:0 auto;padding:0 var(--page-pad) var(--s
     </div>
     <div class="split">
       <form class="sheet composer" id="form-one" novalidate>
-        <label class="field-label" for="text" data-i18n="analyze.field">Review in Spanish</label>
-        <p class="help" id="text-help" data-i18n="analyze.help">Up to 2,000 characters.</p>
+        <div class="field-head">
+          <div>
+            <label class="field-label" for="text" data-i18n="analyze.field">Review in Spanish</label>
+            <p class="help" id="text-help" data-i18n="analyze.help">Up to 2,000 characters.</p>
+          </div>
+          <button class="btn btn-ghost btn-clear" type="button" id="clear-one" aria-controls="text" data-i18n="clear" disabled>Clear text</button>
+        </div>
         <textarea id="text" lang="es" spellcheck="false" aria-describedby="text-help text-error" placeholder="Pedimos a domicilio y llegó todo frío, una hora tarde."></textarea>
         <p class="field-error" id="text-error" role="alert"></p>
+        <p class="undo" id="undo-one" role="status" hidden><span data-i18n="cleared">Text cleared.</span><button type="button" class="link" data-i18n="undo">Undo</button></p>
         <div class="bar-row">
           <span class="counter" id="counter">0 / 2,000</span>
           <span class="hint"><kbd>Ctrl</kbd> + <kbd>Enter</kbd></span>
@@ -369,10 +383,16 @@ footer{max-width:var(--page-max);margin:0 auto;padding:0 var(--page-pad) var(--s
     </div>
     <div class="batch-grid">
       <form class="sheet composer" id="form-batch" novalidate>
-        <label class="field-label" for="batch" data-i18n="batch.field">Reviews in Spanish, one per line</label>
-        <p class="help" id="batch-help" data-i18n="batch.help">Up to 256 reviews. Empty lines are ignored.</p>
+        <div class="field-head">
+          <div>
+            <label class="field-label" for="batch" data-i18n="batch.field">Reviews in Spanish, one per line</label>
+            <p class="help" id="batch-help" data-i18n="batch.help">Up to 256 reviews. Empty lines are ignored.</p>
+          </div>
+          <button class="btn btn-ghost btn-clear" type="button" id="clear-batch" aria-controls="batch" data-i18n="clear" disabled>Clear text</button>
+        </div>
         <textarea id="batch" lang="es" spellcheck="false" aria-describedby="batch-help batch-error" placeholder="La comida estaba deliciosa.&#10;El pedido llegó incompleto."></textarea>
         <p class="field-error" id="batch-error" role="alert"></p>
+        <p class="undo" id="undo-batch" role="status" hidden><span data-i18n="cleared">Text cleared.</span><button type="button" class="link" data-i18n="undo">Undo</button></p>
         <div class="bar-row">
           <span class="counter" id="bcounter">0 / 256</span>
           <button class="btn btn-primary" type="submit" id="bgo"><span class="spinner" aria-hidden="true"></span><span id="bgo-label">Classify reviews</span></button>
@@ -539,7 +559,8 @@ const I18N = {
     "batch.button": "Classify reviews",
     "batch.noData": "No data at hand?",
     "batch.noDataSrc": "Load 12 real comments from the human-labeled sample (Correa, 2019, CC BY 4.0).",
-    "batch.load": "Load 12 sample comments", "batch.results": "Results",
+    "batch.load": "Load 12 sample comments", "clear": "Clear text", "cleared": "Text cleared.", "undo": "Undo",
+    "batch.results": "Results",
     "batch.emptyResults": "Results appear here after you classify a batch.",
     "err.batchEmpty": "Write at least one review, one per line, or load the sample comments.",
     "err.batchMany": n => `There are ${n} reviews. The limit is 256 per batch.`,
@@ -625,7 +646,8 @@ const I18N = {
     "batch.button": "Clasificar reseñas",
     "batch.noData": "¿No tienes datos a mano?",
     "batch.noDataSrc": "Carga 12 comentarios reales de la muestra etiquetada por personas (Correa, 2019, CC BY 4.0).",
-    "batch.load": "Cargar 12 comentarios de muestra", "batch.results": "Resultados",
+    "batch.load": "Cargar 12 comentarios de muestra", "clear": "Borrar texto", "cleared": "Texto borrado.", "undo": "Deshacer",
+    "batch.results": "Resultados",
     "batch.emptyResults": "Los resultados aparecen aquí cuando clasificas un lote.",
     "err.batchEmpty": "Escribe al menos una reseña, una por línea, o carga los comentarios de muestra.",
     "err.batchMany": n => `Hay ${n} reseñas. El límite es 256 por lote.`,
@@ -912,10 +934,32 @@ async function submitOne(ev) {
   } finally { busyOne = false; setBusy($("go"), $("go-label"), false, "analyze.button"); }
 }
 EXAMPLES.forEach(x => $("chips").append(el("button", {type: "button", class: "chip", lang: "es", title: x, text: x,
-  onclick: () => { $("text").value = x; $("text-error").textContent = ""; $("text-error").dataset.kind = ""; oneCounter(); submitOne(); }})));
+  onclick: () => { $("text").value = x; $("text-error").textContent = ""; $("text-error").dataset.kind = ""; oneCounter(); updateClearOne(); submitOne(); }})));
 $("form-one").addEventListener("submit", submitOne);
 $("text").addEventListener("input", () => { oneCounter(); validateOne(false); });
 $("text").addEventListener("keydown", e => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) submitOne(e); });
+
+/* ---------- Clear text, with undo ----------
+   Setting .value from script empties the browser's own undo stack (Ctrl + Z), so the cleared
+   text is kept here until the user types again or the notice times out. Results are not touched. */
+function setupClear(field, btn, notice, refresh) {
+  let saved = "", timer = 0;
+  const hide = () => { clearTimeout(timer); notice.hidden = true; saved = ""; };
+  const update = () => { btn.disabled = !field.value; if (field.value) hide(); };
+  btn.addEventListener("click", () => {
+    saved = field.value; field.value = ""; refresh(); btn.disabled = true;
+    notice.hidden = false; clearTimeout(timer); timer = setTimeout(hide, 8000);
+    field.focus();
+  });
+  notice.querySelector("button").addEventListener("click", () => {
+    const text = saved; hide(); field.value = text; refresh(); update(); field.focus();
+  });
+  field.addEventListener("input", update);
+  update();
+  return update;
+}
+const updateClearOne = setupClear($("text"), $("clear-one"), $("undo-one"),
+  () => { $("text-error").dataset.kind = ""; oneCounter(); validateOne(false); });
 
 /* ---------- Batch ---------- */
 const lines = () => $("batch").value.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
@@ -994,8 +1038,10 @@ function exportCSV() {
 $("form-batch").addEventListener("submit", submitBatch);
 $("batch").addEventListener("input", () => { batchCounter(); validateBatch(false); });
 $("batch").addEventListener("keydown", e => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) submitBatch(e); });
+const updateClearBatch = setupClear($("batch"), $("clear-batch"), $("undo-batch"),
+  () => { $("batch-error").dataset.kind = ""; batchCounter(); validateBatch(false); });
 $("load-sample").addEventListener("click", () => {
-  $("batch").value = SAMPLE_BATCH.join("\n"); $("batch-error").dataset.kind = ""; batchCounter(); validateBatch(false); $("batch").focus();
+  $("batch").value = SAMPLE_BATCH.join("\n"); $("batch-error").dataset.kind = ""; batchCounter(); validateBatch(false); updateClearBatch(); $("batch").focus();
 });
 
 /* ---------- Inbox ---------- */
