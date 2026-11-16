@@ -165,7 +165,11 @@ python examples/integration_client.py examples/sample_reviews.csv --out decision
 ```
 
 [Kandela](https://github.com/Rosa-SDev/kandela), a restaurant management system built with
-microservices, is one possible client; it was not modified for this project.
+microservices, is the first real client: customers leave a comment from a QR code at their
+table, Kandela's `clientes-service` calls `POST /classify` with the table and order as
+`metadata`, and the administrator reviews complaints (QUEUE) and abstentions (ABSTAIN) in
+Kandela Admin. The integration code lives in the Kandela repository; this project is still
+evaluated on the agent alone.
 See [ADR 0001](docs/decisions/0001-arquitectura.md).
 
 ## Data and licenses

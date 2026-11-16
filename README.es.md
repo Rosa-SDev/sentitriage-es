@@ -18,7 +18,11 @@ Proyecto de investigación de **Sistemas Inteligentes 2026B (Grupo 02), Universi
 Ibagué**. Autores: Rosa Isabel Peña Yagüe y Daniel Esteban Guzmán Rodríguez.
 Docente: Alexandra La Cruz Puente. El objeto de estudio es el agente y su evaluación.
 El servicio tiene un contrato genérico (texto, `id` y `metadata` opcionales) para que cualquier
-sistema lo consuma; [Kandela](https://github.com/Rosa-SDev/kandela) es un posible cliente.
+sistema lo consuma. [Kandela](https://github.com/Rosa-SDev/kandela), un sistema de gestión de
+restaurantes, es el primer cliente real: el cliente del restaurante deja su comentario desde el QR
+de su mesa, `clientes-service` de Kandela llama a `POST /classify` con la mesa y el pedido como
+`metadata`, y la administradora revisa las quejas (QUEUE) y las abstenciones (ABSTAIN) en Kandela
+Admin. El código de la integración vive en el repositorio de Kandela.
 
 ## Estructura
 
@@ -99,7 +103,7 @@ $env:SENTITRIAGE_MODEL_DIR="models/beto-sentitriage"; uvicorn service.app:app --
 | Microservicio + demo web | Hecho |
 | Contrato genérico de integración + cliente de ejemplo | Hecho — `examples/integration_client.py` |
 | Calibración frente a selección y escalamiento de neutrales | Hecho — `results/policy_ablation/` |
-| Integración con Kandela | No implementada (Kandela es un cliente posible) |
+| Integración con Kandela | Hecho en el repositorio de Kandela: reseñas desde el QR, clasificadas por `/classify` |
 | Acción ALERT (ventana de negativos) | No implementada (trabajo futuro) |
 
 Resultados: `results/comparison.md` (tuits), `results/colombia/gold/summary.md`
